@@ -34,12 +34,12 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         speak_output = "Hello! Welcome to Safra App. What is your CPF?"
-        # reprompt_text = "I was born Nov. 6th, 2015. When are you born?"
+        reprompt_text = "What is your CPF?"
 
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                # .ask(reprompt_text)
+                .ask(reprompt_text)
                 .response
         )
 
