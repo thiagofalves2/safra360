@@ -59,27 +59,18 @@ class HasCPFLaunchRequestHandler(AbstractRequestHandler):
         attr = handler_input.attributes_manager.persistent_attributes
         persisted_cpf = attr['cpf']
         
-        speak_output = 'Welcome back, your CPF is {persisted_cpf}.'.format(persisted_cpf=persisted_cpf)
-        handler_input.response_builder.speak(speak_output)
+        speak_output = 'Welcome back, your CPF is {persisted_cpf}. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf)
+        reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
         
-        speak_output2 = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
-        handler_input.response_builder.speak(speak_output2)
-        
-        reprompt_text = 'I\'m sorry, that option is invalid. Which service do you want? Safra Pay or Banking?'
-        response = handler_input.response_builder.speak(speak_output2).ask(reprompt_text).response
-        
-        if (response == "Banking") :
-            return BankingIntentHandler.handle(response)
-        else :
-            return (
+        return (
             handler_input.response_builder
-                .speak("Option invalid. Exiting. Have a good day!")
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .speak(speak_output)
+                .ask(reprompt_text)
                 .response
-            )
+        )
 
 class BankingIntentHandler(AbstractRequestHandler):
-    """Handler for Document Intent."""
+    """Handler for Banking Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("BankingIntent")(handler_input)
