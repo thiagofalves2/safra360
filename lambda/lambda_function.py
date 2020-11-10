@@ -46,6 +46,9 @@ class LaunchRequestHandler(AbstractRequestHandler):
 class CaptureDocumentIntentHandler(AbstractRequestHandler):
     """Handler for Document Intent."""
 
+    def spellDigitOutput(number):
+        return "<say-as interpret-as=\"digits\">" + number + "</say-as>"
+
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("CaptureDocumentIntentHandler")(handler_input)
@@ -64,10 +67,10 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
         cpf_nine = slots["cpf_nine"].value
         cpf_ten = slots["cpf_ten"].value
         cpf_eleven = slots["cpf_eleven"].value
-        # cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
-        #       str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
-        #       str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
-        #       str(cpf_ten) + str(cpf_eleven)
+        cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
+            str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
+            str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
+            str(cpf_ten) + str(cpf_eleven)
 
         # attributes_manager = handler_input.attributes_manager
         #
@@ -80,7 +83,7 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
         # attributes_manager.persistent_attributes = birthday_attributes
         # attributes_manager.save_persistent_attributes()
 
-        speak_output = 'Thanks, your CPF is {cpf_one}'.format(cpf_one=cpf_one)
+        speak_output = 'Thanks, your CPF is {cpf}'.format(cpf=spellDigitOutput(cpf))
         return (
             handler_input.response_builder
                 .speak(speak_output)
