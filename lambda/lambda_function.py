@@ -56,6 +56,28 @@ class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
         month = attr['month'] # month is a string, and we need to convert it to a month index later
         day = attr['day']
 
+        # get device id
+        sys_object = handler_input.request_envelope.context.system
+        device_id = sys_object.device.device_id
+
+        # get Alexa Settings API information
+        api_endpoint = sys_object.api_endpoint
+        api_access_token = sys_object.api_access_token
+        
+        # construct systems api timezone url
+        url = '{api_endpoint}/v2/devices/{device_id}/settings/System.timeZone'.format(api_endpoint=api_endpoint, device_id=device_id)
+        headers = {'Authorization': 'Bearer ' + api_access_token}
+
+        userTimeZone = ""
+        try:
+            r = requests.get(url, headers=headers)
+            res = r.json()
+            logger.info("Device API result: {}".format(str(res)))
+            userTimeZone = res
+        except Exception:
+            handler_input.response_builder.speak("There was a problem connecting to the service")
+            return handler_input.response_builder.response
+        
         # TODO:: Use the settings API to get current date and then compute how many days until user’s bday
         # TODO:: Say happy birthday on the user’s birthday
 
