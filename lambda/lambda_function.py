@@ -223,8 +223,8 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 # defined are included below. The order matters - they're processed top to bottom.
 
 # Builder to use storage
-# sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
-sb = SkillBuilder()
+sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
+#sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(CaptureDocumentIntentHandler())
