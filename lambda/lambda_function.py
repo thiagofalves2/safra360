@@ -53,6 +53,17 @@ class CaptureBirthdayIntentHandler(AbstractRequestHandler):
         year = slots["year"].value
         month = slots["month"].value
         day = slots["day"].value
+        
+        attributes_manager = handler_input.attributes_manager
+        
+        birthday_attributes = {
+            "year": year,
+            "month": month,
+            "day": day
+        }
+        
+        attributes_manager.persistent_attributes = birthday_attributes
+        attributes_manager.save_persistent_attributes()
 
         speak_output = 'Thanks, I will remember that you were born {month} {day} {year}.'.format(month=month, day=day, year=year)
 
