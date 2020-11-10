@@ -52,37 +52,47 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        slots = handler_input.request_envelope.request.intent.slots
-        cpf_one = slots["cpf_one"].value
-        cpf_two = slots["cpf_two"].value
-        cpf_three = slots["cpf_three"].value
-        cpf_four = slots["cpf_four"].value
-        cpf_five = slots["cpf_five"].value
-        cpf_six = slots["cpf_six"].value
-        cpf_seven = slots["cpf_seven"].value
-        cpf_eight = slots["cpf_eight"].value
-        cpf_nine = slots["cpf_nine"].value
-        cpf_ten = slots["cpf_ten"].value
-        cpf_eleven = slots["cpf_eleven"].value
-        cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
-            str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
-            str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
-            str(cpf_ten) + str(cpf_eleven)
-        #cpf_digits = spellDigitOutput(cpf)
+        # Extract persistent attributes and check if they are all present
+        attr = handler_input.attributes_manager.persistent_attributes
+        
+        # Check if attributes exists in the storage
+        attributes_are_present = ("cpf" in attr)
 
-        # attributes_manager = handler_input.attributes_manager
-        #
-        # birthday_attributes = {
-        #     "year": year,
-        #     "month": month,
-        #     "day": day
-        # }
-
-        # attributes_manager.persistent_attributes = birthday_attributes
-        # attributes_manager.save_persistent_attributes()
-
-        speak_output = 'Thanks, your CPF is {cpf}.'.format(cpf=cpf)
-        #.format(cpf=cpf_digits)
+        if attributes_are_present :
+            persisted_cpf = attr['cpf']
+            speak_output = 'Welcome back, your CPF is {persisted_cpf}.'.format(persisted_cpf=persisted_cpf)
+        else :
+            slots = handler_input.request_envelope.request.intent.slots
+            cpf_one = slots["cpf_one"].value
+            cpf_two = slots["cpf_two"].value
+            cpf_three = slots["cpf_three"].value
+            cpf_four = slots["cpf_four"].value
+            cpf_five = slots["cpf_five"].value
+            cpf_six = slots["cpf_six"].value
+            cpf_seven = slots["cpf_seven"].value
+            cpf_eight = slots["cpf_eight"].value
+            cpf_nine = slots["cpf_nine"].value
+            cpf_ten = slots["cpf_ten"].value
+            cpf_eleven = slots["cpf_eleven"].value
+            cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
+                str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
+                str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
+                str(cpf_ten) + str(cpf_eleven)
+            
+            speak_output = 'Thanks, your CPF is {cpf}.'.format(cpf=cpf)
+            
+            attributes_manager = handler_input.attributes_manager
+            
+            # Add cpf variable to persisted attributes
+            persisted_attributes = {
+                "cpf": cpf
+            }
+            
+            attributes_manager.persistent_attributes = persisted_attributes
+            
+            # Save persisted attributes
+            attributes_manager.save_persistent_attributes()
+            
         return (
             handler_input.response_builder
                 .speak(speak_output)
