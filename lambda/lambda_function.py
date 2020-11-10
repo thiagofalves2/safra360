@@ -22,7 +22,7 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
