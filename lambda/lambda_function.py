@@ -92,9 +92,27 @@ class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
         month_as_index = list(calendar.month_abbr).index(month[:3].title())
         next_birthday = datetime(current_year, month_as_index, day)
 
-        # TODO:: Say happy birthday on the user’s birthday
-
-        speak_output = "Welcome back it looks like there are X more days until your y-th birthday."
+        # check if we need to adjust bday by one year
+        if now_date > next_birthday:
+            next_birthday = datetime(
+                current_year + 1,
+                month_as_index,
+                day
+            )
+            current_year += 1
+        # setting the default speak_output to Happy xth Birthday!!
+        # Alexa will automatically correct the ordinal for you.
+        # no need to worry about when to use st, th, rd
+        speak_output = "Happy {}th birthday!".format(str(current_year - year))
+        if now_date != next_birthday:
+            diff_days = abs((now_date - next_birthday).days)
+            speak_output = "Welcome back. It looks like there are \
+                            {days} days until your {birthday_num}th\
+                            birthday".format(
+                                days=diff_days,
+                                birthday_num=(current_year-year)
+                            )
+                            
         handler_input.response_builder.speak(speak_output)
 
         return handler_input.response_builder.response
