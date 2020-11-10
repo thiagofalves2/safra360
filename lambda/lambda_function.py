@@ -6,13 +6,13 @@
 # This sample is built using the handler classes approach in skill builder.
 import logging
 import ask_sdk_core.utils as ask_utils
-#import os
-#import requests
-#import calendar
-#from datetime import datetime
-#from pytz import timezone
-#from ask_sdk_s3.adapter import S3Adapter
-#s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
+import os
+import requests
+import calendar
+from datetime import datetime
+from pytz import timezone
+from ask_sdk_s3.adapter import S3Adapter
+s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
 
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
