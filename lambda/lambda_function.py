@@ -83,6 +83,11 @@ class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
         
         # getting the current date with the time
         now_time = datetime.now(timezone(userTimeZone))
+        
+        # Removing the time from the date because it affects our difference calculation
+        now_date = datetime(now_time.year, now_time.month, now_time.day)
+        current_year = now_time.year
+        
         # TODO:: Say happy birthday on the user’s birthday
 
         speak_output = "Welcome back it looks like there are X more days until your y-th birthday."
