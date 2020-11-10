@@ -61,12 +61,9 @@ class HasCPFLaunchRequestHandler(AbstractRequestHandler):
         
         speak_output = 'Welcome back, your CPF is {persisted_cpf}.'.format(persisted_cpf=persisted_cpf)
         
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
+        handler_input.response_builder.speak(speak_output)
+        
+        return handler_input.response_builder.response
 
 class CaptureDocumentIntentHandler(AbstractRequestHandler):
     """Handler for Document Intent."""
@@ -93,8 +90,6 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
             str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
             str(cpf_ten) + str(cpf_eleven)
         
-        speak_output = 'Thanks, I will remeber that your CPF is {cpf}.'.format(cpf=cpf)
-        
         attributes_manager = handler_input.attributes_manager
         
         # Add cpf variable to persisted attributes
@@ -106,7 +101,9 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
         
         # Save persisted attributes
         attributes_manager.save_persistent_attributes()
-            
+        
+        speak_output = 'Thanks, I will remember that your CPF is {cpf}.'.format(cpf=cpf)
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
@@ -217,8 +214,8 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 #sb = SkillBuilder()
 
-sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(HasCPFLaunchRequestHandler())
+sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(CaptureDocumentIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
