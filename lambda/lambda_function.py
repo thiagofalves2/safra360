@@ -298,6 +298,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 
 sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
+sb.add_request_handler(CaptureDocumentIntentHandler())
 sb.add_request_handler(HasBirthdayLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(CaptureBirthdayIntentHandler())
