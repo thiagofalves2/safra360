@@ -40,6 +40,29 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .response
         )
 
+class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
+    """Handler for launch after they have set their birthday"""
+
+    def can_handle(self, handler_input):
+        # extract persistent attributes and check if they are all present
+        attr = handler_input.attributes_manager.persistent_attributes
+        attributes_are_present = ("year" in attr and "month" in attr and "day" in attr)
+
+        return attributes_are_present and ask_utils.is_request_type("LaunchRequest")(handler_input)
+
+    def handle(self, handler_input):
+        attr = handler_input.attributes_manager.persistent_attributes
+        year = attr['year']
+        month = attr['month'] # month is a string, and we need to convert it to a month index later
+        day = attr['day']
+
+        # TODO:: Use the settings API to get current date and then compute how many days until user’s bday
+        # TODO:: Say happy birthday on the user’s birthday
+
+        speak_output = "Welcome back it looks like there are X more days until your y-th birthday."
+        handler_input.response_builder.speak(speak_output)
+
+        return handler_input.response_builder.response
 
 class CaptureBirthdayIntentHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
@@ -177,6 +200,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 
 sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
+sb.add_request_handler(HasBirthdayLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(CaptureBirthdayIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
