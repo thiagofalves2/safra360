@@ -140,11 +140,11 @@ class AccountDataIntentHandler(AbstractRequestHandler):
                 .response
         )
 
-class CaptureDocumentIntentHandler(AbstractRequestHandler):
+class CaptureClientInfoIntentHandler(AbstractRequestHandler):
     """Handler for Document Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("CaptureDocumentIntent")(handler_input)
+        return ask_utils.is_intent_name("CaptureClientInfoIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -293,7 +293,7 @@ sb.add_request_handler(HasCPFLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(BankingIntentHandler())
 sb.add_request_handler(AccountIntentHandler())
-sb.add_request_handler(CaptureDocumentIntentHandler())
+sb.add_request_handler(CaptureClientInfoIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
