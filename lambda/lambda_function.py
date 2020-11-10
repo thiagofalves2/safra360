@@ -7,6 +7,10 @@
 import logging
 import ask_sdk_core.utils as ask_utils
 import os
+import requests
+import calendar
+from datetime import datetime
+from pytz import timezone
 from ask_sdk_s3.adapter import S3Adapter
 s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
 
@@ -19,7 +23,6 @@ from ask_sdk_model import Response
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
 
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
@@ -78,7 +81,8 @@ class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
             handler_input.response_builder.speak("There was a problem connecting to the service")
             return handler_input.response_builder.response
         
-        # TODO:: Use the settings API to get current date and then compute how many days until user’s bday
+        # getting the current date with the time
+        now_time = datetime.now(timezone(userTimeZone))
         # TODO:: Say happy birthday on the user’s birthday
 
         speak_output = "Welcome back it looks like there are X more days until your y-th birthday."
