@@ -90,40 +90,6 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
                 .response
         )
 
-class CaptureBirthdayIntentHandler(AbstractRequestHandler):
-    """Handler for Hello World Intent."""
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("CaptureBirthdayIntent")(handler_input)
-
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        slots = handler_input.request_envelope.request.intent.slots
-        year = slots["year"].value
-        month = slots["month"].value
-        day = slots["day"].value
-        
-        attributes_manager = handler_input.attributes_manager
-        
-        birthday_attributes = {
-            "year": year,
-            "month": month,
-            "day": day
-        }
-        
-        attributes_manager.persistent_attributes = birthday_attributes
-        attributes_manager.save_persistent_attributes()
-
-        speak_output = 'Thanks, I will remember that you were born {month} {day} {year}.'.format(month=month, day=day, year=year)
-
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
-
-
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
     def can_handle(self, handler_input):
