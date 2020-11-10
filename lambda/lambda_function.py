@@ -64,10 +64,10 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
         cpf_nine = slots["cpf_nine"].value
         cpf_ten = slots["cpf_ten"].value
         cpf_eleven = slots["cpf_eleven"].value
-        #cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
-        #    str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
-        #    str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
-        #    str(cpf_ten) + str(cpf_eleven)
+        cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
+            str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
+            str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
+            str(cpf_ten) + str(cpf_eleven)
         #cpf_digits = spellDigitOutput(cpf)
 
         # attributes_manager = handler_input.attributes_manager
@@ -81,7 +81,7 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
         # attributes_manager.persistent_attributes = birthday_attributes
         # attributes_manager.save_persistent_attributes()
 
-        speak_output = 'Thanks, your CPF is saved.'
+        speak_output = 'Thanks, your CPF is {cpf}.'.format(cpf=cpf)
         #.format(cpf=cpf_digits)
         return (
             handler_input.response_builder
