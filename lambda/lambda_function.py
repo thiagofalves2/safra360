@@ -55,9 +55,9 @@ class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         attr = handler_input.attributes_manager.persistent_attributes
-        year = attr['year']
+        year = int(attr['year'])
         month = attr['month'] # month is a string, and we need to convert it to a month index later
-        day = attr['day']
+        day = int(attr['day'])
 
         # get device id
         sys_object = handler_input.request_envelope.context.system
@@ -88,6 +88,10 @@ class HasBirthdayLaunchRequestHandler(AbstractRequestHandler):
         now_date = datetime(now_time.year, now_time.month, now_time.day)
         current_year = now_time.year
         
+        # getting the next birthday
+        month_as_index = list(calendar.month_abbr).index(month[:3].title())
+        next_birthday = datetime(current_year, month_as_index, day)
+
         # TODO:: Say happy birthday on the user’s birthday
 
         speak_output = "Welcome back it looks like there are X more days until your y-th birthday."
