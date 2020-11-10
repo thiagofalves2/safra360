@@ -218,6 +218,7 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 #sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
+sb.add_request_handler(HasCPFLaunchRequestHandler())
 sb.add_request_handler(CaptureDocumentIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
