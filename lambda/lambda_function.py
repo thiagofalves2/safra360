@@ -80,13 +80,7 @@ class CaptureDocumentIntentHandler(AbstractRequestHandler):
         # attributes_manager.persistent_attributes = birthday_attributes
         # attributes_manager.save_persistent_attributes()
 
-        speak_output = 'Thanks, your CPF is {cpf_one}{cpf_two}{cpf_three}.' \
-                       '{cpf_four}{cpf_five}{cpf_six}.' \
-                       '{cpf_seven}{cpf_eight}{cpf_nine}-' \
-                       '{cpf_ten}{cpf_eleven}'.format(cpf_one=cpf_one,cpf_two=cpf_two,cpf_three=cpf_three,
-                                                      cpf_four=cpf_four,cpf_five=cpf_five,cpf_six=cpf_six,
-                                                      cpf_seven=cpf_seven,cpf_eight=cpf_eight,cpf_nine=cpf_nine,
-                                                      cpf_ten=cpf_ten,cpf_eleven=cpf_eleven)
+        speak_output = 'Thanks, your CPF is {cpf_one}'.format(cpf_one=cpf_one)
         return (
             handler_input.response_builder
                 .speak(speak_output)
