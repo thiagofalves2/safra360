@@ -129,9 +129,10 @@ class AccountIntentHandler(AbstractRequestHandler):
             token = res_token['access_token']
             
             try:
-                logger.info("Account: {}".format(persisted_account_number))
-                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(persisted_account_number=persisted_account_number)
                 logger.info("Token: {}".format(token))
+                logger.info("Account: {}".format(persisted_account_number))
+                
+                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(persisted_account_number=persisted_account_number)
                 safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
                 
                 # Request to get token
