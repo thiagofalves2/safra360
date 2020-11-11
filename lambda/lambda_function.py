@@ -152,7 +152,9 @@ class AccountIntentHandler(AbstractRequestHandler):
             handler_input.response_builder.speak("There was a problem connecting to the token service")
             return handler_input.response_builder.response
         
-        speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname)
+        speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
+            Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
+            account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
         
         # It will exit for now.
         return (
