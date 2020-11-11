@@ -102,7 +102,10 @@ class AccountIntentHandler(AbstractRequestHandler):
         slots = handler_input.request_envelope.request.intent.slots
         service = slots["service"].value
         
-        # Set Safra API endpoint settings
+        attr = handler_input.attributes_manager.persistent_attributes
+        persisted_account_number = attr['account_number']
+        
+        # Set Safra API endpoints settings
         token_host = "https://idcs-902a944ff6854c5fbe94750e48d66be5.identity.oraclecloud.com"
         safra_host = "https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox"
         token_key = "OThiMmEwZDY0MWQ0NDFmZDhmMWQyOTdlNDg3NjFmMzk6ZDczMjU5YWYtYzJhZC00MTMzLWI0NjEtNDYyN2IwN2VlMDZj"
@@ -118,10 +121,33 @@ class AccountIntentHandler(AbstractRequestHandler):
         token = ""
         
         try:
-            r = requests.post(token_url, headers=token_headers, data=token_body)
-            res = r.json()
-            logger.info("Token API result: {}".format(str(res)))
-            token = res['access_token']
+            # Request to get token
+            r_token = requests.post(token_url, headers=token_headers, data=token_body)
+            res_token = r_token.json()
+            logger.info("Token API result: {}".format(str(res_token)))
+            token = res_token['access_token']
+            
+            safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(persisted_account_number=persisted_account_number)
+            safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+            
+            # Request to get token
+            r_safra = requests.get(safra_url, headers=safra_headers)
+            res_safra = r_safra.json()
+            logger.info("Safra API result: {}".format(str(res_safra)))
+            
+            # Account data
+            account_data = res_safra['Data']
+            account = account_data['Account']
+            account_id = account['AccountId']
+            account_currency = account['Currency']
+            account_nickname = account['Nickname']
+            account_info = account['Account']
+            account_identification = account_info['Identification']
+            account_name = account_info['Name']
+            account_sec_id = account_info['SecondaryIdentification']
+            account_link = res_safra['Links']
+            account_self = account_link['Self']
+            
         except Exception:
             handler_input.response_builder.speak("There was a problem connecting to the token service")
             return handler_input.response_builder.response
