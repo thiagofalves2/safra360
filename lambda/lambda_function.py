@@ -243,16 +243,16 @@ class AccountIntentHandler(AbstractRequestHandler):
                 return handler_input.response_builder.response
             
             speak_output = 'Your account balance is:\n \
-                Account ID: {account_id}\n \
-                Balance Amount: {amount}\n \
-                Balance Currency: {currency}\n \
-                Credit/Debit: {credit_debit}\n \
-                Balance Type: {balance_type}\n \
-                Balance Date: {balance_date}\n \
-                Credit Line Included? {credit_line_included}\n \
-                Credit Line Amount: {credit_amount}\n \
-                Credit Line Currency: {credit_currency}\n \
-                Credit Line Type: {credit_line_type}\n \
+                Account ID: {account_id}\r\n \
+                Balance Amount: {amount}\r\n \
+                Balance Currency: {currency}\r\n \
+                Credit/Debit: {credit_debit}\r\n \
+                Balance Type: {balance_type}\r\n \
+                Balance Date: {balance_date}\r\n \
+                Credit Line Included? {credit_line_included}\r\n \
+                Credit Line Amount: {credit_amount}\r\n \
+                Credit Line Currency: {credit_currency}\r\n \
+                Credit Line Type: {credit_line_type}\r\n \
                 Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
                 credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                 credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
