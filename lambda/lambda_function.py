@@ -44,7 +44,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .response
         )
 
-class HasCPFLaunchRequestHandler(AbstractRequestHandler):
+class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
     """Handler for launch after we save user's CPF"""
     
     def can_handle(self, handler_input):
