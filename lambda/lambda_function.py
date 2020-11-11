@@ -169,9 +169,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                 account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
                 
         elif (service == "balance") :
-            speak_output = 'You chose Account {service}.'.format(service=service)
+            speak_output = 'You chose Account {}.'.format(service)
         else :
-            speak_output = 'You chose Account {service}.'.format(service=service)
+            speak_output = 'You chose Account {}.'.format(service)
         
         # It will exit for now.
         return (
