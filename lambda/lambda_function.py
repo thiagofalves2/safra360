@@ -102,7 +102,31 @@ class AccountIntentHandler(AbstractRequestHandler):
         slots = handler_input.request_envelope.request.intent.slots
         service = slots["service"].value
         
-        speak_output = 'Welcome to your Account. You chose the service: Account {service}'.format(service=service)
+        # Set Safra API endpoint settings
+        token_host = "https://idcs-902a944ff6854c5fbe94750e48d66be5.identity.oraclecloud.com"
+        safra_host = "https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox"
+        token_key = "OThiMmEwZDY0MWQ0NDFmZDhmMWQyOTdlNDg3NjFmMzk6ZDczMjU5YWYtYzJhZC00MTMzLWI0NjEtNDYyN2IwN2VlMDZj"
+        token_body = "grant_type=client_credentials&scope=urn:opc:resource:consumer::all"
+        
+        # Fill in with token returned by token endpoint
+        # api_access_token = 
+
+        # Construct endpoints url
+        token_url = '{token_host}/oauth2/v1/token'.format(token_host=token_host)
+        token_headers = {'Authorization': 'Basic ' + token_key, 'Content-Type': 'application/x-www-form-urlencoded'}
+        
+        token = ""
+        
+        try:
+            r = requests.post(token_url, headers=token_headers, data=token_body)
+            res = r.json()
+            logger.info("Token API result: {}".format(str(res)))
+            token = res['access_token']
+        except Exception:
+            handler_input.response_builder.speak("There was a problem connecting to the token service")
+            return handler_input.response_builder.response
+        
+        speak_output = 'Your token is: {token}'.format(token=token)
         
         # It will exit for now.
         return (
