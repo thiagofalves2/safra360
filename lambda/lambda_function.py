@@ -207,15 +207,11 @@ class CaptureCelphoneIntentHandler(AbstractRequestHandler):
         
         attributes_manager = handler_input.attributes_manager
         
-        # Add celphone variable to persisted attributes
-        persisted_attributes = {
-            "celphone": celphone
-        }
+        # Get any existing attributes from the incoming request
+        session_attr = attributes_manager.session_attributes
         
-        attributes_manager.persistent_attributes = persisted_attributes
-        
-        # Save persisted attributes
-        attributes_manager.save_persistent_attributes()
+        # Add celphone variable to session attributes
+        session_attr["celphone"] = celphone
         
         speak_output = 'Thanks, I will remember that your celphone is {celphone}. What\'s your account number?'.format(celphone=celphone)
         reprompt_text = 'What\'s your account number?'
