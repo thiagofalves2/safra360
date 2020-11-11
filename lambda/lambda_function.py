@@ -332,7 +332,7 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
                 .ask(reprompt_text)
                 .response
         )
-        
+
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
     def can_handle(self, handler_input):
