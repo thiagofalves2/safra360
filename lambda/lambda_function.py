@@ -110,35 +110,33 @@ class AccountIntentHandler(AbstractRequestHandler):
         )
 
 # Asks user for account info
-class AccountServicesIntentHandler(AbstractRequestHandler):
-    """Handler for Account Intent."""
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("AccountDataIntent")(handler_input)
-        
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
+#class AccountServicesIntentHandler(AbstractRequestHandler):
+#    """Handler for Account Intent."""
+#    def can_handle(self, handler_input):
+#        # type: (HandlerInput) -> bool
+#        return ask_utils.is_intent_name("AccountDataIntent")(handler_input)
+#        
+#    def handle(self, handler_input):
+#        # type: (HandlerInput) -> Response
 
-class AccountDataIntentHandler(AbstractRequestHandler):
-    """Handler for Account Intent."""
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("AccountDataIntent")(handler_input)
-        
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        
-        
-        
-        speak_output = 'Welcome to your Account. You chose the service: Account {service}'.format(service=service)
-        
-        # It will exit for now.
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
+#class AccountDataIntentHandler(AbstractRequestHandler):
+#    """Handler for Account Intent."""
+#    def can_handle(self, handler_input):
+#        # type: (HandlerInput) -> bool
+#        return ask_utils.is_intent_name("AccountDataIntent")(handler_input)
+#        
+#    def handle(self, handler_input):
+#        # type: (HandlerInput) -> Response
+#        
+#        speak_output = 'Welcome to your Account. You chose the service: Account {service}'.format(service=service)
+#        
+#        # It will exit for now.
+#        return (
+#            handler_input.response_builder
+#                .speak(speak_output)
+#                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+#                .response
+#        )
 
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
