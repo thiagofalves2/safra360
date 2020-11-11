@@ -50,7 +50,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # extract persistent attributes and check if they are all present
         attr = handler_input.attributes_manager.persistent_attributes
-        attributes_are_present = ("cpf" in attr)
+        attributes_are_present = ("cpf" in attr and "celphone" in attr and "account_number" in attr)
         
         return attributes_are_present and ask_utils.is_request_type("LaunchRequest")(handler_input)
         
