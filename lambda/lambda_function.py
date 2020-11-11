@@ -162,18 +162,14 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
             str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
             str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
             str(cpf_ten) + str(cpf_eleven)
-        
+
         attributes_manager = handler_input.attributes_manager
         
-        # Add cpf variable to persisted attributes
-        persisted_attributes = {
-            "cpf": cpf
-        }
+        # Get any existing attributes from the incoming request
+        session_attr = attributes_manager.session_attributes
         
-        attributes_manager.persistent_attributes = persisted_attributes
-        
-        # Save persisted attributes
-        attributes_manager.save_persistent_attributes()
+        # Add cpf variable to session attributes
+        session_attr["cpf"] = cpf
         
         speak_output = 'Thanks, I will remember that your CPF is {cpf}. What\'s your celphone number?'.format(cpf=cpf)
         reprompt_text = 'What\'s your celphone number?'
@@ -195,7 +191,7 @@ class CaptureCelphoneIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         slots = handler_input.request_envelope.request.intent.slots
         celphone_area_one = slots["celphone_area_one"].value
-        celphone_area_two = slots["celphone_area_one"].value
+        celphone_area_two = slots["celphone_area_two"].value
         celphone_digit = slots["celphone_digit"].value
         celphone_number_one = slots["celphone_number_one"].value
         celphone_number_two = slots["celphone_number_two"].value
