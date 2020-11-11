@@ -139,7 +139,7 @@ class AccountIntentHandler(AbstractRequestHandler):
             r_safra = requests.get(safra_url, headers=safra_headers)
             r_safra_status_code = r_safra.status_code
             res_safra = r_safra.json()
-            logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code)
+            logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
             logger.info("Safra API result: {}".format(str(res_safra)))
             
             # Account data
