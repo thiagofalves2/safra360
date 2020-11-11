@@ -148,12 +148,13 @@ class AccountIntentHandler(AbstractRequestHandler):
             logger.info("Account Data: {}".format(account_data))
             account = account_data['Account']
             logger.info("Account: {}".format(account))
-            account_id = account['AccountId']
+            account_record = account[0]
+            account_id = account_record['AccountId']
             logger.info("Account Id: {}".format(account_id))
-            account_currency = account['Currency']
+            account_currency = account_record['Currency']
             logger.info("Account Currency: {}".format(account_currency))
-            account_nickname = account['Nickname']
-            account_info = account['Account']
+            account_nickname = account_record['Nickname']
+            account_info = account_record['Account']
             account_identification = account_info['Identification']
             account_name = account_info['Name']
             account_sec_id = account_info['SecondaryIdentification']
