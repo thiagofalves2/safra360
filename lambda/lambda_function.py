@@ -45,10 +45,10 @@ class LaunchRequestHandler(AbstractRequestHandler):
         )
 
 class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
-    """Handler for launch after we save user's CPF"""
+    """Handler for launch after we save user's info"""
     
     def can_handle(self, handler_input):
-        # extract persistent attributes and check if they are all present
+        # Retrive persisted attributes and check if they are all present
         attr = handler_input.attributes_manager.persistent_attributes
         attributes_are_present = ("cpf" in attr and "celphone" in attr and "account_number" in attr)
         
@@ -236,9 +236,17 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
         
         attributes_manager = handler_input.attributes_manager
         
-        # Add account_number variable to persisted attributes
+        # Get any existing attributes from the incoming request
+        session_attr = attributes_manager.session_attributes
+        
+        # Add account_number variable to session attributes
+        session_attr["account_number"] = account_number
+        
+        # Adding session variables variables to persisted attributes
         persisted_attributes = {
-            "account_number": account_number
+            "cpf": session_attr["cpf"],
+            "celphone": session_attr["celphone"],
+            "account_number": session_attr["account_number"]
         }
         
         attributes_manager.persistent_attributes = persisted_attributes
