@@ -145,9 +145,13 @@ class AccountIntentHandler(AbstractRequestHandler):
             
             # Account data
             account_data = res_safra['Data']
+            logger.info("Account Data: {}".format(account_data))
             account = account_data['Account']
+            logger.info("Account: {}".format(account))
             account_id = account['AccountId']
+            logger.info("Account Id: {}".format(account_id))
             account_currency = account['Currency']
+            logger.info("Account Currency: {}".format(account_currency))
             account_nickname = account['Nickname']
             account_info = account['Account']
             account_identification = account_info['Identification']
