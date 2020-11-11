@@ -177,12 +177,13 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
         # Save persisted attributes
         attributes_manager.save_persistent_attributes()
         
-        speak_output = 'Thanks, I will remember that your CPF is {cpf}.'.format(cpf=cpf)
+        speak_output = 'Thanks, I will remember that your CPF is {cpf}. What\'s your celphone number?'.format(cpf=cpf)
+        reprompt_text = 'What\'s your celphone number?'
         
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                .ask(reprompt_text)
                 .response
         )
 
