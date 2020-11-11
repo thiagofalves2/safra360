@@ -58,8 +58,10 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         # Extract persistent attributes and check if they are all present
         attr = handler_input.attributes_manager.persistent_attributes
         persisted_cpf = attr['cpf']
+        persisted_celphone = attr['celphone']
+        persisted_account_number = attr['account_number']
         
-        speak_output = 'Welcome back, your CPF is {persisted_cpf}. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf)
+        speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf)
         reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
         
         return (
