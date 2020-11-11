@@ -368,7 +368,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 #sb = SkillBuilder()
 
-sb.add_request_handler(HasCPFLaunchRequestHandler())
+sb.add_request_handler(HasClientInfoLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(BankingIntentHandler())
 sb.add_request_handler(AccountIntentHandler())
