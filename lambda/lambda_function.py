@@ -127,6 +127,11 @@ class AccountIntentHandler(AbstractRequestHandler):
             logger.info("Token API result: {}".format(str(res_token)))
             token = res_token['access_token']
             
+        except Exception:
+            handler_input.response_builder.speak("There was a problem connecting to the token service")
+            return handler_input.response_builder.response
+        
+        try:    
             safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(persisted_account_number=persisted_account_number)
             safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
             
@@ -149,7 +154,7 @@ class AccountIntentHandler(AbstractRequestHandler):
             account_self = account_link['Self']
             
         except Exception:
-            handler_input.response_builder.speak("There was a problem connecting to the token service")
+            handler_input.response_builder.speak("There was a problem connecting to Safra service")
             return handler_input.response_builder.response
         
         speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
