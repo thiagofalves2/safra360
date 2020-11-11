@@ -133,6 +133,7 @@ class AccountIntentHandler(AbstractRequestHandler):
         
         try:    
             safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(persisted_account_number=persisted_account_number)
+            logger.info("Token: {}".format(token)
             safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
             
             # Request to get token
