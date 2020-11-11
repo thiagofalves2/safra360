@@ -169,7 +169,93 @@ class AccountIntentHandler(AbstractRequestHandler):
                 account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
                 
         elif (service == "balance") :
-            speak_output = 'You chose Account {}.'.format(service)
+            try:
+                # Request to get token
+                r_token = requests.post(token_url, headers=token_headers, data=token_body)
+                res_token = r_token.json()
+                logger.info("Token API result: {}".format(str(res_token)))
+                token = res_token['access_token']
+                
+                logger.info("Token: {}".format(token))
+                logger.info("Account: {}".format(persisted_account_number))
+                
+                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}/balances'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
+                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+                
+                # Request to get token
+                session = Session()
+                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
+                r_safra = session.send(prepped)
+                r_safra_status_code = r_safra.status_code
+                res_safra = r_safra.json()
+                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
+                logger.info("Safra API result: {}".format(str(res_safra)))
+                
+                # Account data
+                account_data = res_safra['Data']
+                logger.info("Account Data: {}".format(account_data))
+                
+                balance = account_data['Balance']
+                balance_record = balance[0]
+                
+                account_id = balance_record['AccountId']
+                logger.info("Account Id: {}".format(account_id))
+                
+                amount_record = balance_record['Amount']
+                
+                amount = amount_record['Amount']
+                logger.info("Balance Amount: {}".format(amount))
+                
+                currency = amount_record['Currency']
+                logger.info("Balance Currency: {}".format(currency))
+                
+                credit_debit = balance_record['CreditDebitIndicator']
+                logger.info("Credit/Debit: {}".format(credit_debit))
+                
+                balance_type = balance_record['Type']
+                logger.info("Balance Type: {}".format(balance_type))
+                
+                balance_date = balance_record['DateTime']
+                logger.info("Balance Date: {}".format(balance_date))
+                
+                balance_credit_line = balance_record['CreditLine']
+                credit_line_record = balance_credit_line[0]
+                
+                credit_line_included = credit_line_record['Included']
+                logger.info("Credit line included? {}".format(credit_line_included))
+                
+                credit_line_amount = credit_line_record['Amount']
+    
+                credit_amount = credit_line_amount['Amount']
+                logger.info("Credit Line Amount: {}".format(credit_amount))
+                
+                credit_currency = credit_line_amount['Currency']
+                logger.info("Credit Line Currency: {}".format(credit_currency))
+                
+                credit_line_type = credit_line_record['Type']
+                logger.info("Credit Line Type: {}".format(credit_line_type))
+                
+                account_link = res_safra['Links']
+                account_self = account_link['Self']
+                
+            except Exception:
+                handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
+                return handler_input.response_builder.response
+            
+            speak_output = 'Your account balance is:\n \
+                Account ID: {account_id}\n \
+                Balance Amount: {amount}\n \
+                Balance Currency: {currency}\n \
+                Credit/Debit: {credit_debit}\n \
+                Balance Type: {balance_type}\n \
+                Balance Date: {balance_date}\n \
+                Credit Line Included? {credit_line_included}\n \
+                Credit Line Amount: {credit_amount}\n \
+                Credit Line Currency: {credit_currency}\n \
+                Credit Line Type: {credit_line_type}\n \
+                Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
+                credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
+                credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
         else :
             speak_output = 'You chose Account {}.'.format(service)
         
