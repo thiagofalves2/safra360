@@ -8,6 +8,7 @@ import logging
 import ask_sdk_core.utils as ask_utils
 import os
 import requests
+from requests import Request, Session
 import calendar
 from datetime import datetime
 from pytz import timezone
@@ -137,7 +138,9 @@ class AccountIntentHandler(AbstractRequestHandler):
             safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
             
             # Request to get token
-            r_safra = requests.get(safra_url, headers=safra_headers)
+            session = Session()
+            prepped = Request('GET', safra_url, headers=safra_headers).prepare()
+            r_safra = session.send(prepped)
             r_safra_status_code = r_safra.status_code
             res_safra = r_safra.json()
             logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
