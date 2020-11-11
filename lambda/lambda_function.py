@@ -322,12 +322,13 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
         # Save persisted attributes
         attributes_manager.save_persistent_attributes()
         
-        speak_output = 'Thanks, I will remember that your account number is {account_number}.'.format(account_number=account_number)
+        speak_output = 'Thanks, I will remember that your account number is {account_number}. You can now choose between Account Data, Account Statement or Account Balance. Which service do you want?'.format(account_number=account_number)
+        reprompt_text = 'How can I help you today? You can choose between Account Data, Account Statement or Account Balance. Which service do you want?'
         
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                #.ask(reprompt_text)
+                .ask(reprompt_text)
                 .response
         )
 
