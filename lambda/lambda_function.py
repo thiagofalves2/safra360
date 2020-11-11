@@ -119,55 +119,59 @@ class AccountIntentHandler(AbstractRequestHandler):
         token_url = '{token_host}/oauth2/v1/token'.format(token_host=token_host)
         token_headers = {'Authorization': 'Basic ' + token_key, 'Content-Type': 'application/x-www-form-urlencoded'}
         
-        token = ""
-        
-        try:
-            # Request to get token
-            r_token = requests.post(token_url, headers=token_headers, data=token_body)
-            res_token = r_token.json()
-            logger.info("Token API result: {}".format(str(res_token)))
-            token = res_token['access_token']
+        if (service == "data") :
+            try:
+                # Request to get token
+                r_token = requests.post(token_url, headers=token_headers, data=token_body)
+                res_token = r_token.json()
+                logger.info("Token API result: {}".format(str(res_token)))
+                token = res_token['access_token']
+                
+                logger.info("Token: {}".format(token))
+                logger.info("Account: {}".format(persisted_account_number))
+                
+                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
+                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+                
+                # Request to get token
+                session = Session()
+                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
+                r_safra = session.send(prepped)
+                r_safra_status_code = r_safra.status_code
+                res_safra = r_safra.json()
+                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
+                logger.info("Safra API result: {}".format(str(res_safra)))
+                
+                # Account data
+                account_data = res_safra['Data']
+                logger.info("Account Data: {}".format(account_data))
+                account = account_data['Account']
+                logger.info("Account: {}".format(account))
+                account_record = account[0]
+                account_id = account_record['AccountId']
+                logger.info("Account Id: {}".format(account_id))
+                account_currency = account_record['Currency']
+                logger.info("Account Currency: {}".format(account_currency))
+                account_nickname = account_record['Nickname']
+                account_info = account_record['Account']
+                account_identification = account_info['Identification']
+                account_name = account_info['Name']
+                account_sec_id = account_info['SecondaryIdentification']
+                account_link = res_safra['Links']
+                account_self = account_link['Self']
+                
+            except Exception:
+                handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
+                return handler_input.response_builder.response
             
-            logger.info("Token: {}".format(token))
-            logger.info("Account: {}".format(persisted_account_number))
-            
-            safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
-            safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
-            
-            # Request to get token
-            session = Session()
-            prepped = Request('GET', safra_url, headers=safra_headers).prepare()
-            r_safra = session.send(prepped)
-            r_safra_status_code = r_safra.status_code
-            res_safra = r_safra.json()
-            logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
-            logger.info("Safra API result: {}".format(str(res_safra)))
-            
-            # Account data
-            account_data = res_safra['Data']
-            logger.info("Account Data: {}".format(account_data))
-            account = account_data['Account']
-            logger.info("Account: {}".format(account))
-            account_record = account[0]
-            account_id = account_record['AccountId']
-            logger.info("Account Id: {}".format(account_id))
-            account_currency = account_record['Currency']
-            logger.info("Account Currency: {}".format(account_currency))
-            account_nickname = account_record['Nickname']
-            account_info = account_record['Account']
-            account_identification = account_info['Identification']
-            account_name = account_info['Name']
-            account_sec_id = account_info['SecondaryIdentification']
-            account_link = res_safra['Links']
-            account_self = account_link['Self']
-            
-        except Exception:
-            handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
-            return handler_input.response_builder.response
-        
-        speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
-            Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
-            account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
+            speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
+                Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
+                account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
+                
+        elseif (service == "balance") :
+            speak_output = 'You chose Account {service}.'.format(service.service)
+        else :
+            speak_output = 'You chose Account {service}.'.format(service.service)
         
         # It will exit for now.
         return (
