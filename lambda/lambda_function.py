@@ -228,7 +228,7 @@ class AccountIntentHandler(AbstractRequestHandler):
     
                 credit_amount = credit_line_amount['Amount']
                 logger.info("Credit Line Amount: {}".format(credit_amount))
-                
+
                 credit_currency = credit_line_amount['Currency']
                 logger.info("Credit Line Currency: {}".format(credit_currency))
                 
