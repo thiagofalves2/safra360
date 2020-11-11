@@ -128,41 +128,36 @@ class AccountIntentHandler(AbstractRequestHandler):
             logger.info("Token API result: {}".format(str(res_token)))
             token = res_token['access_token']
             
-            try:
-                logger.info("Token: {}".format(token))
-                logger.info("Account: {}".format(persisted_account_number))
-                
-                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
-                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
-                
-                # Request to get token
-                session = Session()
-                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
-                r_safra = session.send(prepped)
-                r_safra_status_code = r_safra.status_code
-                res_safra = r_safra.json()
-                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
-                logger.info("Safra API result: {}".format(str(res_safra)))
-                
-                # Account data
-                account_data = res_safra['Data']
-                account = account_data['Account']
-                account_id = account['AccountId']
-                account_currency = account['Currency']
-                account_nickname = account['Nickname']
-                account_info = account['Account']
-                account_identification = account_info['Identification']
-                account_name = account_info['Name']
-                account_sec_id = account_info['SecondaryIdentification']
-                account_link = res_safra['Links']
-                account_self = account_link['Self']
+            logger.info("Token: {}".format(token))
+            logger.info("Account: {}".format(persisted_account_number))
             
-            except Exception:
-                handler_input.response_builder.speak("There was a problem connecting to Safra service")
-                return handler_input.response_builder.response
+            safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
+            safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+            
+            # Request to get token
+            session = Session()
+            prepped = Request('GET', safra_url, headers=safra_headers).prepare()
+            r_safra = session.send(prepped)
+            r_safra_status_code = r_safra.status_code
+            res_safra = r_safra.json()
+            logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
+            logger.info("Safra API result: {}".format(str(res_safra)))
+            
+            # Account data
+            account_data = res_safra['Data']
+            account = account_data['Account']
+            account_id = account['AccountId']
+            account_currency = account['Currency']
+            account_nickname = account['Nickname']
+            account_info = account['Account']
+            account_identification = account_info['Identification']
+            account_name = account_info['Name']
+            account_sec_id = account_info['SecondaryIdentification']
+            account_link = res_safra['Links']
+            account_self = account_link['Self']
             
         except Exception:
-            handler_input.response_builder.speak("There was a problem connecting to the token service")
+            handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
             return handler_input.response_builder.response
         
         speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
