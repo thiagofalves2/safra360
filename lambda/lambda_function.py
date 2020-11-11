@@ -187,6 +187,53 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
                 .response
         )
 
+class CaptureCelphoneIntentHandler(AbstractRequestHandler):
+    """Handler for Document Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("CaptureCelphoneIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        slots = handler_input.request_envelope.request.intent.slots
+        cpf_one = slots["cpf_one"].value
+        cpf_two = slots["cpf_two"].value
+        cpf_three = slots["cpf_three"].value
+        cpf_four = slots["cpf_four"].value
+        cpf_five = slots["cpf_five"].value
+        cpf_six = slots["cpf_six"].value
+        cpf_seven = slots["cpf_seven"].value
+        cpf_eight = slots["cpf_eight"].value
+        cpf_nine = slots["cpf_nine"].value
+        cpf_ten = slots["cpf_ten"].value
+        cpf_eleven = slots["cpf_eleven"].value
+        cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
+            str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
+            str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
+            str(cpf_ten) + str(cpf_eleven)
+        
+        attributes_manager = handler_input.attributes_manager
+        
+        # Add cpf variable to persisted attributes
+        persisted_attributes = {
+            "cpf": cpf
+        }
+        
+        attributes_manager.persistent_attributes = persisted_attributes
+        
+        # Save persisted attributes
+        attributes_manager.save_persistent_attributes()
+        
+        speak_output = 'Thanks, I will remember that your CPF is {cpf}. What\'s your celphone number?'.format(cpf=cpf)
+        reprompt_text = 'What\'s your celphone number?'
+        
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(reprompt_text)
+                .response
+        )
+
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
     def can_handle(self, handler_input):
@@ -295,6 +342,7 @@ sb.add_request_handler(LaunchRequestHandler())
 sb.add_request_handler(BankingIntentHandler())
 sb.add_request_handler(AccountIntentHandler())
 sb.add_request_handler(CaptureCPFIntentHandler())
+sb.add_request_handler(CaptureCelphoneIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(SessionEndedRequestHandler())
