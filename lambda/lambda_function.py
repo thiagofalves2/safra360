@@ -106,6 +106,8 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         #logger.error("Unkown self type")
         #return handler_input.response_builder.response
 
+        #TODO trigger token validation
+
         speak_output = 'Your token is {}'.format(token)
 
         return (
