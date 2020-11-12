@@ -68,7 +68,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         #TODO trigger sms token
         
         speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
-            To access our services, please confirm the token that was sent to your celphone number.'
+            To access our services, please confirm the token that was sent to your celphone number.'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
         reprompt_text = 'Please, confirm the token we sent to your celphone.'
         
         return (
@@ -98,7 +98,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
         if (token_validated) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' \
-                .format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
+                
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
         else :
             speak_output = 'Incorrect Token. Exiting.'
