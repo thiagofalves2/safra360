@@ -95,21 +95,29 @@ def sms_controller(cpf):
     
     try:
         request_sms = requests.post(endpoint)
-        logger.info('Request: {}'.format(request_sms))
         response_sms = request_sms.json()
         response_sms_status = request_sms.status_code
         logger.info("SMS API status code: {}".format(response_sms_status))
-        logger.info("Safra API result: {}".format(str(response_sms)))
+        logger.info("SMS API result: {}".format(str(response_sms)))
         
         return response_sms_status
     except Exception as e:
         logger.error("There was a problem connecting to the SMS API: {}".format(e))
-        return False
+        return ''
 
 """ Function to call validate SMS token API. """
 def token_controller(cpf, token):
-    base_url = "3.133.16.98:8085"
-    endpoint = '{base_url}/open-banking/v1/accounts/{account_number}{option}'.format(safra_host=safra_host,account_number=account_number,option=option)
+    base_url = "http://3.133.16.98:8085"
+    endpoint = '{base_url}/token/{cpf}/{token}'.format(base_url=base_url,cpf=cpf.translate({ord(i): None for i in '.-'}),token=token)
     
-    return 
-
+    try:
+        request_token_validation = requests.post(endpoint)
+        response_token_validation = request_token_validation.json()
+        response_token_validation_status = request_token_validation.status_code
+        logger.info("Token Validation API status code: {}".format(response_token_validation_status))
+        logger.info("Token Validation API result: {}".format(str(response_token_validation)))
+        
+        return response_token_validation_status
+    except Exception as e:
+        logger.error("There was a problem connecting to the Token Validation API: {}".format(e))
+        return ''
