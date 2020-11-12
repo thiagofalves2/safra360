@@ -591,6 +591,7 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 
 sb.add_request_handler(HasClientInfoLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestHandler())
+sb.add_request_handler(AuthenticationIntentHandler())
 sb.add_request_handler(BankingIntentHandler())
 sb.add_request_handler(AccountIntentHandler())
 sb.add_request_handler(CaptureCPFIntentHandler())
