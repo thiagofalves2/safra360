@@ -89,7 +89,7 @@ def call_safra_api(option, account_number):
 """ Function to call SMS API. """
 def sms_controller(cpf):
     base_url = "http://3.133.16.98:8085"
-    endpoint = '{base_url}/sms/{cpf}'.format(base_url=base_url,cpf=cpf.translate({ord(i): None for i in '.-'}))
+    endpoint = '{base_url}/sms/{cpf}'.format(base_url=base_url,cpf=cpf)
     
     logger.info('Final endpoint: {}'.format(endpoint))
     
@@ -108,7 +108,7 @@ def sms_controller(cpf):
 """ Function to call validate SMS token API. """
 def token_controller(cpf, token):
     base_url = "http://3.133.16.98:8085"
-    endpoint = '{base_url}/token/{cpf}/{token}'.format(base_url=base_url,cpf=cpf.translate({ord(i): None for i in '.-'}),token=token)
+    endpoint = '{base_url}/token/{cpf}/{token}'.format(base_url=base_url,cpf=cpf,token=token)
     
     try:
         request_token_validation = requests.post(endpoint)
