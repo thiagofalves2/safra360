@@ -64,6 +64,28 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         persisted_celphone = attr['celphone']
         persisted_account_number = attr['account_number']
         
+        #speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
+        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
+        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+        
+        #return (
+        #    handler_input.response_builder
+        #        .speak(speak_output)
+        #        .ask(reprompt_text)
+        #        .response
+        #)
+        
+        return AuthenticationIntentHandler.handle(self, handler_input)
+
+class AuthenticationIntentHandler(AbstractRequestHandler):
+    """Handler for Authentication Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("AuthenticationIntent")(handler_input)
+        
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        
         speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
             How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
         reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
