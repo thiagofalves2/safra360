@@ -59,10 +59,16 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         return attributes_are_present and ask_utils.is_request_type("LaunchRequest")(handler_input)
         
     def handle(self, handler_input):
+        # Extract persistent attributes and check if they are all present
+        attr = handler_input.attributes_manager.persistent_attributes
+        persisted_cpf = attr['cpf']
+        persisted_celphone = attr['celphone']
+        persisted_account_number = attr['account_number']
         
         #TODO trigger sms token
         
-        speak_output = 'Welcome back, please confirm the token that was sent to your celphone...'
+        speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
+            To access our services, please confirm the token that was sent to your celphone number.'
         reprompt_text = 'Please, confirm the token we sent to your celphone.'
         
         return (
@@ -86,34 +92,23 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         token_four = slots["token_four"].value
         token = str(token_one) + str(token_two) + str(token_three) + str(token_four)
         
-        # Extract persistent attributes and check if they are all present
-        #attr = handler_input.attributes_manager.persistent_attributes
-        #persisted_cpf = attr['cpf']
-        #persisted_celphone = attr['celphone']
-        #persisted_account_number = attr['account_number']
-        #
-        logger.info("Self called type: {}".format(type(self)))
-        #
-        #if (type(self) == type(HasClientInfoLaunchRequestHandler())) :
-        #speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
-        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
-        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
-        #elif (type(self) == type(CaptureAccountIntentHandler())) :
-        #speak_output = 'Thanks, I will remember that your account number is {persisted_account_number}. \
-        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_account_number=persisted_account_number)
-        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
-        #else :
-        #logger.error("Unkown self type")
-        #return handler_input.response_builder.response
-
         #TODO trigger token validation
-
-        speak_output = 'Your token is {}'.format(token)
+        
+        token_validated = true
+        
+        if (token_validated) :
+            speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' \
+                .format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
+            reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+        else :
+            speak_output = 'Incorrect Token. Exiting.'
+            logger.error("Incorrect token: {}".format(token))
+            return handler_input.response_builder.speak(speak_output).response
 
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                #.ask(reprompt_text)
+                .ask(reprompt_text)
                 .response
         )
 
