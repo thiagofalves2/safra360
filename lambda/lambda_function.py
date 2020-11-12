@@ -179,9 +179,9 @@ class AccountIntentHandler(AbstractRequestHandler):
             logger.info("Account Currency: {}".format(account_currency))
             account_nickname = account_record['Nickname']
             account_info = account_record['Account']
-                account_identification = account_info['Identification']
-                account_name = account_info['Name']
-                account_sec_id = account_info['SecondaryIdentification']
+            account_identification = account_info['Identification']
+            account_name = account_info['Name']
+            account_sec_id = account_info['SecondaryIdentification']
             account_link = response_safra['Links']['Self']
 
             speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
