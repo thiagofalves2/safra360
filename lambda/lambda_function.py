@@ -60,7 +60,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         return attributes_are_present and ask_utils.is_request_type("LaunchRequest")(handler_input)
         
     def handle(self, handler_input):
-        # Extract persistent attributes and check if they are all present
+        # Extract persistent attributes
         attr = handler_input.attributes_manager.persistent_attributes
         persisted_cpf = attr['cpf']
         persisted_celphone = attr['celphone']
@@ -91,6 +91,10 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("AuthenticationIntent")(handler_input)
         
     def handle(self, handler_input):
+        # Extract persistent attributes
+        attr = handler_input.attributes_manager.persistent_attributes
+        persisted_cpf = attr['cpf']
+        
         slots = handler_input.request_envelope.request.intent.slots
         token_one = slots["token_one"].value
         token_two = slots["token_two"].value
