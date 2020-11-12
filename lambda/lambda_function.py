@@ -5,6 +5,7 @@
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
 import logging
+import alexa
 import ask_sdk_core.utils as ask_utils
 import os
 import requests
@@ -97,7 +98,45 @@ class AccountIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("AccountIntent")(handler_input)
+    
+    def get_token():
+        token_host = "https://idcs-902a944ff6854c5fbe94750e48d66be5.identity.oraclecloud.com"
+        token_key = "OThiMmEwZDY0MWQ0NDFmZDhmMWQyOTdlNDg3NjFmMzk6ZDczMjU5YWYtYzJhZC00MTMzLWI0NjEtNDYyN2IwN2VlMDZj"
+        token_body = "grant_type=client_credentials&scope=urn:opc:resource:consumer::all"
+        token_url = '{}/oauth2/v1/token'.format(token_host)
+        token_headers = {'Authorization': 'Basic ' + token_key, 'Content-Type': 'application/x-www-form-urlencoded'}
         
+        request_token = requests.post(token_url, headers=token_headers, data=token_body)
+        response_token = request_token.json()
+        response_token_status = response_token.status_code
+        logger.info("Token API status code: {response_token}".format(r_safra_status_code=r_safra_status_code))
+        
+        token = response_token['access_token']
+        logger.info("Token API result: {}".format(token))
+        
+        return token
+    
+    def call_safra_api(option = ''):
+        safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}{option}'.format(safra_host=safra_host,endpoint=endpoint,persisted_account_number=persisted_account_number,option=option)
+        
+        token = get_token()
+        
+        safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+        
+        #session = Session()
+        #prepped = Request('GET', safra_url, headers=safra_headers).prepare()
+        #r_safra = session.send(prepped)
+        #r_safra_status_code = r_safra.status_code
+        
+        request_token = requests.get(safra_url, headers=safra_headers)
+        response_token = request_token.json()
+        
+        res_safra = r_safra.json()
+        logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
+        logger.info("Safra API result: {}".format(str(res_safra)))
+        
+        return response
+    
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         slots = handler_input.request_envelope.request.intent.slots
@@ -107,40 +146,15 @@ class AccountIntentHandler(AbstractRequestHandler):
         persisted_account_number = attr['account_number']
         
         # Set Safra API endpoints settings
-        token_host = "https://idcs-902a944ff6854c5fbe94750e48d66be5.identity.oraclecloud.com"
         safra_host = "https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox"
-        token_key = "OThiMmEwZDY0MWQ0NDFmZDhmMWQyOTdlNDg3NjFmMzk6ZDczMjU5YWYtYzJhZC00MTMzLWI0NjEtNDYyN2IwN2VlMDZj"
-        token_body = "grant_type=client_credentials&scope=urn:opc:resource:consumer::all"
         
-        # Fill in with token returned by token endpoint
-        # api_access_token = 
-
-        # Construct endpoints url
-        token_url = '{token_host}/oauth2/v1/token'.format(token_host=token_host)
-        token_headers = {'Authorization': 'Basic ' + token_key, 'Content-Type': 'application/x-www-form-urlencoded'}
+        logger.info("Account: {}".format(persisted_account_number))
+        logger.info("Service: {}".format(service))
         
         if (service == "data") :
             try:
-                # Request to get token
-                r_token = requests.post(token_url, headers=token_headers, data=token_body)
-                res_token = r_token.json()
-                logger.info("Token API result: {}".format(str(res_token)))
-                token = res_token['access_token']
                 
-                logger.info("Token: {}".format(token))
-                logger.info("Account: {}".format(persisted_account_number))
                 
-                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
-                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
-                
-                # Request to get token
-                session = Session()
-                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
-                r_safra = session.send(prepped)
-                r_safra_status_code = r_safra.status_code
-                res_safra = r_safra.json()
-                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
-                logger.info("Safra API result: {}".format(str(res_safra)))
                 
                 # Account data
                 account_data = res_safra['Data']
@@ -226,7 +240,6 @@ class AccountIntentHandler(AbstractRequestHandler):
                 
                 credit_line_amount = credit_line_record['Amount']
     
-                credit_amount = credit_line_amount['Amount']
                 logger.info("Credit Line Amount: {}".format(credit_amount))
 
                 credit_currency = credit_line_amount['Currency']
@@ -242,22 +255,107 @@ class AccountIntentHandler(AbstractRequestHandler):
                 handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
                 return handler_input.response_builder.response
             
-            speak_output = 'Your account balance is:&#xD;&#xA; \
-                Account ID: {account_id}&#xD;&#xA; \
-                Balance Amount: {amount}&#xD;&#xA; \
-                Balance Currency: {currency}&#xD;&#xA; \
-                Credit/Debit: {credit_debit}&#xD;&#xA; \
-                Balance Type: {balance_type}&#xD;&#xA; \
-                Balance Date: {balance_date}&#xD;&#xA; \
-                Credit Line Included? {credit_line_included}&#xD;&#xA; \
-                Credit Line Amount: {credit_amount}&#xD;&#xA; \
-                Credit Line Currency: {credit_currency}&#xD;&#xA; \
-                Credit Line Type: {credit_line_type}&#xD;&#xA; \
+            speak_output = 'Your account balance is: \
+                Account ID: {account_id} \
+                Balance Amount: {amount} \
+                Balance Currency: {currency} \
+                Credit/Debit: {credit_debit} \
+                Balance Type: {balance_type} \
+                Balance Date: {balance_date} \
+                Credit Line Included? {credit_line_included} \
+                Credit Line Amount: {credit_amount} \
+                Credit Line Currency: {credit_currency} \
+                Credit Line Type: {credit_line_type} \
                 Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
                 credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                 credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
         else :
-            speak_output = 'You chose Account {}.'.format(service)
+            try:
+                # Request to get token
+                r_token = requests.post(token_url, headers=token_headers, data=token_body)
+                res_token = r_token.json()
+                logger.info("Token API result: {}".format(str(res_token)))
+                token = res_token['access_token']
+                
+                logger.info("Token: {}".format(token))
+                logger.info("Account: {}".format(persisted_account_number))
+                
+                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}/transactions'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
+                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+                
+                # Request to get token
+                session = Session()
+                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
+                r_safra = session.send(prepped)
+                r_safra_status_code = r_safra.status_code
+                res_safra = r_safra.json()
+                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
+                logger.info("Safra API result: {}".format(str(res_safra)))
+                
+                # Account data
+                account_data = res_safra['data']
+                logger.info("Account Data: {}".format(account_data))
+                
+                transaction = account_data['transaction']
+                balance_record = balance[0]
+                
+                account_id = balance_record['AccountId']
+                logger.info("Account Id: {}".format(account_id))
+                
+                amount_record = balance_record['Amount']
+                
+                amount = amount_record['Amount']
+                logger.info("Balance Amount: {}".format(amount))
+                
+                currency = amount_record['Currency']
+                logger.info("Balance Currency: {}".format(currency))
+                
+                credit_debit = balance_record['CreditDebitIndicator']
+                logger.info("Credit/Debit: {}".format(credit_debit))
+                
+                balance_type = balance_record['Type']
+                logger.info("Balance Type: {}".format(balance_type))
+                
+                balance_date = balance_record['DateTime']
+                logger.info("Balance Date: {}".format(balance_date))
+                
+                balance_credit_line = balance_record['CreditLine']
+                credit_line_record = balance_credit_line[0]
+                
+                credit_line_included = credit_line_record['Included']
+                logger.info("Credit line included? {}".format(credit_line_included))
+                
+                credit_line_amount = credit_line_record['Amount']
+    
+                logger.info("Credit Line Amount: {}".format(credit_amount))
+
+                credit_currency = credit_line_amount['Currency']
+                logger.info("Credit Line Currency: {}".format(credit_currency))
+                
+                credit_line_type = credit_line_record['Type']
+                logger.info("Credit Line Type: {}".format(credit_line_type))
+                
+                account_link = res_safra['Links']
+                account_self = account_link['Self']
+                
+            except Exception:
+                handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
+                return handler_input.response_builder.response
+            
+            speak_output = 'Your account balance is: \
+                Account ID: {account_id} \
+                Balance Amount: {amount} \
+                Balance Currency: {currency} \
+                Credit/Debit: {credit_debit} \
+                Balance Type: {balance_type} \
+                Balance Date: {balance_date} \
+                Credit Line Included? {credit_line_included} \
+                Credit Line Amount: {credit_amount} \
+                Credit Line Currency: {credit_currency} \
+                Credit Line Type: {credit_line_type} \
+                Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
+                credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
+                credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
         
         # It will exit for now.
         return (
