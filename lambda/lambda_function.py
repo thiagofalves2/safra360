@@ -92,7 +92,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         #persisted_celphone = attr['celphone']
         #persisted_account_number = attr['account_number']
         #
-        #logger.info("Self called type: {}".format(type(self)))
+        logger.info("Self called type: {}".format(type(self)))
         #
         #if (type(self) == type(HasClientInfoLaunchRequestHandler())) :
         #speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
