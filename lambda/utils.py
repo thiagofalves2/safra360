@@ -45,7 +45,7 @@ def get_token():
     try:
         request_token = requests.post(token_url, headers=token_headers, data=token_body)
         response_token = request_token.json()
-        response_token_status = response_token.status_code
+        response_token_status = request_token.status_code
         logger.info("Token API status code: {}".format(response_token_status))
         token = response_token['access_token']
     except Exception as e:
