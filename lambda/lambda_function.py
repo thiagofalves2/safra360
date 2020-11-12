@@ -248,8 +248,7 @@ class AccountIntentHandler(AbstractRequestHandler):
             logger.info("Credit line included? {}".format(credit_line_included))
             
             credit_line_amount = credit_line_record['Amount']
-
-            logger.info("Credit Line Amount: {}".format(credit_amount))
+            logger.info("Credit Line Amount: {}".format(credit_line_amount))
 
             credit_currency = credit_line_amount['Currency']
             logger.info("Credit Line Currency: {}".format(credit_currency))
@@ -267,12 +266,12 @@ class AccountIntentHandler(AbstractRequestHandler):
                 Balance Type: {balance_type} \
                 Balance Date: {balance_date} \
                 Credit Line Included? {credit_line_included} \
-                Credit Line Amount: {credit_amount} \
+                Credit Line Amount: {credit_line_amount} \
                 Credit Line Currency: {credit_currency} \
                 Credit Line Type: {credit_line_type} \
                 Link: {account_link}'.format(account_id=account_id,amount=amount,currency=currency, \
                 credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
-                credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
+                credit_line_amount=credit_line_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
         
         # It will exit for now.
         return (
