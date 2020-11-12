@@ -86,3 +86,9 @@ def call_safra_api(option, account_number):
         return ''
         
     return response_safra
+
+def authentication():
+    
+    
+    return 
+
