@@ -11,6 +11,7 @@ import requests
 from requests import Request, Session
 
 from ask_sdk_s3.adapter import S3Adapter
+
 s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
 
 from ask_sdk_core.skill_builder import CustomSkillBuilder
