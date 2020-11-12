@@ -94,11 +94,12 @@ class BankingIntentHandler(AbstractRequestHandler):
         )
 
 class AccountIntentHandler(AbstractRequestHandler):
-    """Handler for Account Intent."""
+    """ Handler for Account Intent. """
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("AccountIntent")(handler_input)
     
+    """ Function to call API token. """
     def get_token():
         token_host = "https://idcs-902a944ff6854c5fbe94750e48d66be5.identity.oraclecloud.com"
         token_key = "OThiMmEwZDY0MWQ0NDFmZDhmMWQyOTdlNDg3NjFmMzk6ZDczMjU5YWYtYzJhZC00MTMzLWI0NjEtNDYyN2IwN2VlMDZj"
@@ -106,17 +107,23 @@ class AccountIntentHandler(AbstractRequestHandler):
         token_url = '{}/oauth2/v1/token'.format(token_host)
         token_headers = {'Authorization': 'Basic ' + token_key, 'Content-Type': 'application/x-www-form-urlencoded'}
         
-        request_token = requests.post(token_url, headers=token_headers, data=token_body)
-        response_token = request_token.json()
-        response_token_status = response_token.status_code
-        logger.info("Token API status code: {response_token}".format(r_safra_status_code=r_safra_status_code))
-        
+        try:
+            request_token = requests.post(token_url, headers=token_headers, data=token_body)
+            response_token = request_token.json()
+            response_token_status = response_token.status_code
+            logger.info("Token API status code: {}".format(response_token_status))
+        except Exception:
+            handler_input.response_builder.speak("There was a problem connecting to the Token API.")
+            return handler_input.response_builder.response
+            
         token = response_token['access_token']
         logger.info("Token API result: {}".format(token))
         
         return token
     
+    """ Function to call Safra API. """
     def call_safra_api(option = ''):
+        safra_host = "https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox"
         safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}{option}'.format(safra_host=safra_host,endpoint=endpoint,persisted_account_number=persisted_account_number,option=option)
         
         token = get_token()
@@ -128,14 +135,17 @@ class AccountIntentHandler(AbstractRequestHandler):
         #r_safra = session.send(prepped)
         #r_safra_status_code = r_safra.status_code
         
-        request_token = requests.get(safra_url, headers=safra_headers)
-        response_token = request_token.json()
+        try:
+            request_safra = requests.get(safra_url, headers=safra_headers)
+            response_safra = request_safra.json()
+            response_safra_status = response_safra.status_code
+            logger.info("Safra API status code: {}".format(response_safra_status))
+            logger.info("Safra API result: {}".format(str(response_safra)))
+        except Exception:
+            handler_input.response_builder.speak("There was a problem connecting to the Safra API.")
+            return handler_input.response_builder.response
         
-        res_safra = r_safra.json()
-        logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
-        logger.info("Safra API result: {}".format(str(res_safra)))
-        
-        return response
+        return response_safra
     
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -145,115 +155,86 @@ class AccountIntentHandler(AbstractRequestHandler):
         attr = handler_input.attributes_manager.persistent_attributes
         persisted_account_number = attr['account_number']
         
-        # Set Safra API endpoints settings
-        safra_host = "https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox"
-        
         logger.info("Account: {}".format(persisted_account_number))
         logger.info("Service: {}".format(service))
         
         if (service == "data") :
-            try:
+            response_safra = call_safra_api()
                 
-                
-                
-                # Account data
-                account_data = res_safra['Data']
-                logger.info("Account Data: {}".format(account_data))
-                account = account_data['Account']
-                logger.info("Account: {}".format(account))
-                account_record = account[0]
-                account_id = account_record['AccountId']
-                logger.info("Account Id: {}".format(account_id))
-                account_currency = account_record['Currency']
-                logger.info("Account Currency: {}".format(account_currency))
-                account_nickname = account_record['Nickname']
-                account_info = account_record['Account']
+            # Get Data dict
+            account_data = response_safra['Data']
+            logger.info("Account Data: {}".format(account_data))
+            
+            # Get Account list
+            account = account_data['Account']
+            logger.info("Account: {}".format(account))
+            
+            # Get first account
+            account_record = account[0]
+            
+            # Get first account data
+            account_id = account_record['AccountId']
+            logger.info("Account Id: {}".format(account_id))
+            account_currency = account_record['Currency']
+            logger.info("Account Currency: {}".format(account_currency))
+            account_nickname = account_record['Nickname']
+            account_info = account_record['Account']
                 account_identification = account_info['Identification']
                 account_name = account_info['Name']
                 account_sec_id = account_info['SecondaryIdentification']
-                account_link = res_safra['Links']
-                account_self = account_link['Self']
-                
-            except Exception:
-                handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
-                return handler_input.response_builder.response
-            
+            account_link = response_safra['Links']['Self']
+
             speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
                 Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
                 account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
                 
         elif (service == "balance") :
-            try:
-                # Request to get token
-                r_token = requests.post(token_url, headers=token_headers, data=token_body)
-                res_token = r_token.json()
-                logger.info("Token API result: {}".format(str(res_token)))
-                token = res_token['access_token']
-                
-                logger.info("Token: {}".format(token))
-                logger.info("Account: {}".format(persisted_account_number))
-                
-                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}/balances'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
-                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
-                
-                # Request to get token
-                session = Session()
-                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
-                r_safra = session.send(prepped)
-                r_safra_status_code = r_safra.status_code
-                res_safra = r_safra.json()
-                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
-                logger.info("Safra API result: {}".format(str(res_safra)))
-                
-                # Account data
-                account_data = res_safra['Data']
-                logger.info("Account Data: {}".format(account_data))
-                
-                balance = account_data['Balance']
-                balance_record = balance[0]
-                
-                account_id = balance_record['AccountId']
-                logger.info("Account Id: {}".format(account_id))
-                
-                amount_record = balance_record['Amount']
-                
-                amount = amount_record['Amount']
-                logger.info("Balance Amount: {}".format(amount))
-                
-                currency = amount_record['Currency']
-                logger.info("Balance Currency: {}".format(currency))
-                
-                credit_debit = balance_record['CreditDebitIndicator']
-                logger.info("Credit/Debit: {}".format(credit_debit))
-                
-                balance_type = balance_record['Type']
-                logger.info("Balance Type: {}".format(balance_type))
-                
-                balance_date = balance_record['DateTime']
-                logger.info("Balance Date: {}".format(balance_date))
-                
-                balance_credit_line = balance_record['CreditLine']
-                credit_line_record = balance_credit_line[0]
-                
-                credit_line_included = credit_line_record['Included']
-                logger.info("Credit line included? {}".format(credit_line_included))
-                
-                credit_line_amount = credit_line_record['Amount']
-    
-                logger.info("Credit Line Amount: {}".format(credit_amount))
+            response_safra = call_safra_api('/balances')
+            
+            # Account data
+            account_data = response_safra['Data']
+            logger.info("Account Data: {}".format(account_data))
+            
+            balance = account_data['Balance']
+            balance_record = balance[0]
+            
+            account_id = balance_record['AccountId']
+            logger.info("Account Id: {}".format(account_id))
+            
+            amount_record = balance_record['Amount']
+            
+            amount = amount_record['Amount']
+            logger.info("Balance Amount: {}".format(amount))
+            
+            currency = amount_record['Currency']
+            logger.info("Balance Currency: {}".format(currency))
+            
+            credit_debit = balance_record['CreditDebitIndicator']
+            logger.info("Credit/Debit: {}".format(credit_debit))
+            
+            balance_type = balance_record['Type']
+            logger.info("Balance Type: {}".format(balance_type))
+            
+            balance_date = balance_record['DateTime']
+            logger.info("Balance Date: {}".format(balance_date))
+            
+            balance_credit_line = balance_record['CreditLine']
+            credit_line_record = balance_credit_line[0]
+            
+            credit_line_included = credit_line_record['Included']
+            logger.info("Credit line included? {}".format(credit_line_included))
+            
+            credit_line_amount = credit_line_record['Amount']
 
-                credit_currency = credit_line_amount['Currency']
-                logger.info("Credit Line Currency: {}".format(credit_currency))
-                
-                credit_line_type = credit_line_record['Type']
-                logger.info("Credit Line Type: {}".format(credit_line_type))
-                
-                account_link = res_safra['Links']
-                account_self = account_link['Self']
-                
-            except Exception:
-                handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
-                return handler_input.response_builder.response
+            logger.info("Credit Line Amount: {}".format(credit_amount))
+
+            credit_currency = credit_line_amount['Currency']
+            logger.info("Credit Line Currency: {}".format(credit_currency))
+            
+            credit_line_type = credit_line_record['Type']
+            logger.info("Credit Line Type: {}".format(credit_line_type))
+            
+            account_link = response_safra['Links']['Self']
             
             speak_output = 'Your account balance is: \
                 Account ID: {account_id} \
@@ -270,78 +251,53 @@ class AccountIntentHandler(AbstractRequestHandler):
                 credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                 credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
         else :
-            try:
-                # Request to get token
-                r_token = requests.post(token_url, headers=token_headers, data=token_body)
-                res_token = r_token.json()
-                logger.info("Token API result: {}".format(str(res_token)))
-                token = res_token['access_token']
-                
-                logger.info("Token: {}".format(token))
-                logger.info("Account: {}".format(persisted_account_number))
-                
-                safra_url = '{safra_host}/open-banking/v1/accounts/{persisted_account_number}/transactions'.format(safra_host=safra_host,persisted_account_number=persisted_account_number)
-                safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
-                
-                # Request to get token
-                session = Session()
-                prepped = Request('GET', safra_url, headers=safra_headers).prepare()
-                r_safra = session.send(prepped)
-                r_safra_status_code = r_safra.status_code
-                res_safra = r_safra.json()
-                logger.info("Safra API status code: {r_safra_status_code}".format(r_safra_status_code=r_safra_status_code))
-                logger.info("Safra API result: {}".format(str(res_safra)))
-                
-                # Account data
-                account_data = res_safra['data']
-                logger.info("Account Data: {}".format(account_data))
-                
-                transaction = account_data['transaction']
-                balance_record = balance[0]
-                
-                account_id = balance_record['AccountId']
-                logger.info("Account Id: {}".format(account_id))
-                
-                amount_record = balance_record['Amount']
-                
-                amount = amount_record['Amount']
-                logger.info("Balance Amount: {}".format(amount))
-                
-                currency = amount_record['Currency']
-                logger.info("Balance Currency: {}".format(currency))
-                
-                credit_debit = balance_record['CreditDebitIndicator']
-                logger.info("Credit/Debit: {}".format(credit_debit))
-                
-                balance_type = balance_record['Type']
-                logger.info("Balance Type: {}".format(balance_type))
-                
-                balance_date = balance_record['DateTime']
-                logger.info("Balance Date: {}".format(balance_date))
-                
-                balance_credit_line = balance_record['CreditLine']
-                credit_line_record = balance_credit_line[0]
-                
-                credit_line_included = credit_line_record['Included']
-                logger.info("Credit line included? {}".format(credit_line_included))
-                
-                credit_line_amount = credit_line_record['Amount']
-    
-                logger.info("Credit Line Amount: {}".format(credit_amount))
+            response_safra = call_safra_api('/transactions')
 
-                credit_currency = credit_line_amount['Currency']
-                logger.info("Credit Line Currency: {}".format(credit_currency))
-                
-                credit_line_type = credit_line_record['Type']
-                logger.info("Credit Line Type: {}".format(credit_line_type))
-                
-                account_link = res_safra['Links']
-                account_self = account_link['Self']
-                
-            except Exception:
-                handler_input.response_builder.speak("There was a problem connecting to the Token or Safra service")
-                return handler_input.response_builder.response
+            # Account data
+            account_data = response_safra['data']
+            logger.info("Account Data: {}".format(account_data))
             
+            transaction = account_data['transaction']
+            balance_record = balance[0]
+            
+            account_id = balance_record['AccountId']
+            logger.info("Account Id: {}".format(account_id))
+            
+            amount_record = balance_record['Amount']
+            
+            amount = amount_record['Amount']
+            logger.info("Balance Amount: {}".format(amount))
+            
+            currency = amount_record['Currency']
+            logger.info("Balance Currency: {}".format(currency))
+            
+            credit_debit = balance_record['CreditDebitIndicator']
+            logger.info("Credit/Debit: {}".format(credit_debit))
+            
+            balance_type = balance_record['Type']
+            logger.info("Balance Type: {}".format(balance_type))
+            
+            balance_date = balance_record['DateTime']
+            logger.info("Balance Date: {}".format(balance_date))
+            
+            balance_credit_line = balance_record['CreditLine']
+            credit_line_record = balance_credit_line[0]
+            
+            credit_line_included = credit_line_record['Included']
+            logger.info("Credit line included? {}".format(credit_line_included))
+            
+            credit_line_amount = credit_line_record['Amount']
+
+            logger.info("Credit Line Amount: {}".format(credit_amount))
+
+            credit_currency = credit_line_amount['Currency']
+            logger.info("Credit Line Currency: {}".format(credit_currency))
+            
+            credit_line_type = credit_line_record['Type']
+            logger.info("Credit Line Type: {}".format(credit_line_type))
+            
+            account_link = response_safra['Links']['Self']
+
             speak_output = 'Your account balance is: \
                 Account ID: {account_id} \
                 Balance Amount: {amount} \
