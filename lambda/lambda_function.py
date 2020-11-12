@@ -9,9 +9,7 @@ import ask_sdk_core.utils as ask_utils
 import os
 import requests
 from requests import Request, Session
-import calendar
-from datetime import datetime
-from pytz import timezone
+
 from ask_sdk_s3.adapter import S3Adapter
 s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
 
