@@ -51,7 +51,7 @@ def get_token():
     return token
 
 """ Function to call Safra API. """
-def call_safra_api(option = '',account_number):
+def call_safra_api(option = '', account_number):
     safra_host = "https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox"
     safra_url = '{safra_host}/open-banking/v1/accounts/{account_number}{option}'.format(safra_host=safra_host,account_number=account_number,option=option)
     
