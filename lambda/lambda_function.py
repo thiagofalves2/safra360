@@ -274,7 +274,7 @@ class AccountIntentHandler(AbstractRequestHandler):
             transaction_balance_type = transaction_record['balance']['type']
             logger.info("Transaction Balance Type: {}".format(transaction_balance_type))
             
-            account_link = response_safra['Links']['Self']
+            account_link = response_safra['links']['self']
 
             speak_output = 'Here\'s your account transaction: \
                 Account ID: {account_id} \
