@@ -87,8 +87,17 @@ def call_safra_api(option, account_number):
         
     return response_safra
 
-def authentication():
+""" Function to call SMS API. """
+def sms_controller(cpf):
+    base_url = "3.133.16.98:8085"
+    endpoint = '{base_url}/sms/{cpf}}'.format(safra_host=safra_host,account_number=account_number,option=option)
     
+    return
+
+""" Function to call validate SMS token API. """
+def token_controller(cpf, token):
+    base_url = "3.133.16.98:8085"
+    endpoint = '{base_url}/open-banking/v1/accounts/{account_number}{option}'.format(safra_host=safra_host,account_number=account_number,option=option)
     
     return 
 
