@@ -22,6 +22,8 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
+import utils
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
