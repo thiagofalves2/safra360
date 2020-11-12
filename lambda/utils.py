@@ -95,6 +95,7 @@ def sms_controller(cpf):
     
     try:
         request_sms = requests.post(endpoint)
+        logger.info('Request: {}'.format(request_sms))
         response_sms = request_sms.json()
         response_sms_status = request_sms.status_code
         logger.info("SMS API status code: {}".format(response_sms_status))
