@@ -38,9 +38,9 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Hello! Welcome to Safra Bank. What\'s your <say-as interpret-as="spell-out">CPF</say-as> number?"
+        speak_output = "Hello! Welcome to Safra Bank. What\'s your <say-as interpret-as=\"spell-out\">CPF</say-as> number?"
         # reprompt_text required to keep session open or set shouldEndSession to true
-        reprompt_text = "Please say your <say-as interpret-as="spell-out">CPF</say-as> number."
+        reprompt_text = "Please say your <say-as interpret-as=\"spell-out\">CPF</say-as> number."
 
         return (
             handler_input.response_builder
@@ -68,8 +68,8 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         get_token = sms_controller(persisted_cpf)
         
         if (get_token == 200) : 
-            speak_output = 'Welcome back, your <say-as interpret-as="spell-out">CPF</say-as> is <say-as interpret-as="digits">{persisted_cpf}</say-as>, your celphone is <say-as interpret-as="digits">{persisted_celphone}</say-as> \
-                and your account is <say-as interpret-as="digits">{persisted_account_number}</say-as>. \
+            speak_output = 'Welcome back, your <say-as interpret-as=\"spell-out\">CPF</say-as> is <say-as interpret-as=\"digits\">{persisted_cpf}</say-as>, your celphone is <say-as interpret-as=\"digits\">{persisted_celphone}</say-as> \
+                and your account is <say-as interpret-as=\"digits\">{persisted_account_number}</say-as>. \
                 To access our services, please confirm the token that was sent to your celphone.'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
             reprompt_text = 'Please, confirm the token we sent to your celphone.'
             
