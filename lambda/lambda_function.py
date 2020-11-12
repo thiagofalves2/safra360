@@ -138,6 +138,21 @@ class BankingIntentHandler(AbstractRequestHandler):
                 .response
         )
 
+class SafraPayIntentHandler(AbstractRequestHandler):
+    """Handler for Safra Pay Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("SafraPayIntent")(handler_input)
+        
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        
+        speak_output = 'Welcome to Safra Pay. Here you can check your Sold Amount, Received Amount and Future Amount on a specific date. Please choose service and date.'
+        reprompt_text = 'How can I help you today? You can choose between Sold Amount, Received Amount or Future Amount and a specific date. Please choose service and date.'
+        
+        # Exit for now
+        return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response 
+
 class AccountIntentHandler(AbstractRequestHandler):
     """ Handler for Account Intent. """
     def can_handle(self, handler_input):
