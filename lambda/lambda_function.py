@@ -94,7 +94,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
         #TODO trigger token validation
         
-        token_validated = True
+        token_validated = False
         
         if (token_validated) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
