@@ -24,6 +24,7 @@ from ask_sdk_model import Response
 import utils
 from utils import get_token
 from utils import call_safra_api
+from utils import authentication
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -59,7 +60,17 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         
     def handle(self, handler_input):
         
-        return AuthenticationIntentHandler.handle(self, handler_input)
+        #TODO trigger sms token
+        
+        speak_output = 'Welcome back, please confirm the token that was sent to your celphone...'
+        reprompt_text = 'Please, confirm the token we sent to your celphone.'
+        
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(reprompt_text)
+                .response
+        )
 
 class AuthenticationIntentHandler(AbstractRequestHandler):
     """Handler for Authentication Intent."""
@@ -68,27 +79,39 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         return ask_utils.is_intent_name("AuthenticationIntent")(handler_input)
         
     def handle(self, handler_input):
+        slots = handler_input.request_envelope.request.intent.slots
+        token_one = slots["token_one"].value
+        token_two = slots["token_two"].value
+        token_three = slots["token_three"].value
+        token_four = slots["token_four"].value
+        token = str(token_one) + str(token_two) + str(token_three) + str(token_four)
+        
         # Extract persistent attributes and check if they are all present
-        attr = handler_input.attributes_manager.persistent_attributes
-        persisted_cpf = attr['cpf']
-        persisted_celphone = attr['celphone']
-        persisted_account_number = attr['account_number']
-        
-        logger.info("Self HasClientInfoLaunchRequestHandler: {}".format(type(self)))
-        logger.info("Self HasClientInfoLaunchRequestHandler: {}".format(str(type(self))))
-        
-        check_type = (type(self) == type(HasClientInfoLaunchRequestHandler()))
-        
-        logger.info("Same type? {}".format(check_type))
-        
-        speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
-            How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
-        reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
-        
+        #attr = handler_input.attributes_manager.persistent_attributes
+        #persisted_cpf = attr['cpf']
+        #persisted_celphone = attr['celphone']
+        #persisted_account_number = attr['account_number']
+        #
+        #logger.info("Self called type: {}".format(type(self)))
+        #
+        #if (type(self) == type(HasClientInfoLaunchRequestHandler())) :
+        #speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
+        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
+        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+        #elif (type(self) == type(CaptureAccountIntentHandler())) :
+        #speak_output = 'Thanks, I will remember that your account number is {persisted_account_number}. \
+        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_account_number=persisted_account_number)
+        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+        #else :
+        #logger.error("Unkown self type")
+        #return handler_input.response_builder.response
+
+        speak_output = 'Your token is {}'.format(token)
+
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                .ask(reprompt_text)
+                #.ask(reprompt_text)
                 .response
         )
 
