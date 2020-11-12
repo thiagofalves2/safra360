@@ -247,10 +247,10 @@ class AccountIntentHandler(AbstractRequestHandler):
             credit_line_included = credit_line_record['Included']
             logger.info("Credit line included? {}".format(credit_line_included))
             
-            credit_line_amount = credit_line_record['Amount']
+            credit_line_amount = credit_line_record['Amount']['Amount']
             logger.info("Credit Line Amount: {}".format(credit_line_amount))
 
-            credit_currency = credit_line_amount['Currency']
+            credit_currency = credit_line_record['Amount']['Currency']
             logger.info("Credit Line Currency: {}".format(credit_currency))
             
             credit_line_type = credit_line_record['Type']
