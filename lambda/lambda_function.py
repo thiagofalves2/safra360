@@ -187,7 +187,7 @@ class AccountIntentHandler(AbstractRequestHandler):
             speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
                 Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
                 account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
-                
+
         elif (service == "balance") :
             response_safra = call_safra_api('/balances')
             
@@ -250,6 +250,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                 Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
                 credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                 credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
+
         else :
             response_safra = call_safra_api('/transactions')
 
