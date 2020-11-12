@@ -102,7 +102,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         else :
             speak_output = 'Incorrect Token. Exiting.'
             logger.error("Incorrect token: {}".format(token))
-            return handler_input.response_builder.speak(speak_output).shouldEndSession(true).response
+            return handler_input.response_builder.speak(speak_output).set_should_end_session(true).response
 
         return (
             handler_input.response_builder
