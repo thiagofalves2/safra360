@@ -467,20 +467,23 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
         # Save persisted attributes
         attributes_manager.save_persistent_attributes()
         
-        #speak_output = 'Thanks, I will remember that your account number is {account_number}. \
-        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(account_number=account_number)
-        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+        get_token = sms_controller(session_attr["cpf"])
         
-        #return (
-        #    handler_input.response_builder
-        #        .speak(speak_output)
-        #        .ask(reprompt_text)
-        #        .response
-        #)
-        
-        logger.info("Self CaptureAccountIntentHandler: {}".format(type(self)))
-        
-        return AuthenticationIntentHandler.handle(self, handler_input)
+        if (get_token == 200) : 
+            speak_output = 'Thanks, I\'ll remember that your account number is <say-as interpret-as=\"digits\">{account_number}</say-as>. \
+                To access our services, please confirm the token that was sent to your celphone.'.format(account_number=account_number)
+            reprompt_text = 'Please, confirm the token we sent to your celphone.'
+            
+            return (
+                handler_input.response_builder
+                    .speak(speak_output)
+                    .ask(reprompt_text)
+                    .response
+            )
+        else : 
+            speak_output = 'Error while sending SMS Token. Exiting.'
+            logger.error("Error calling token API: {}".format(get_token))
+            return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response 
 
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
