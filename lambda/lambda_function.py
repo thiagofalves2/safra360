@@ -59,6 +59,8 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         
     def handle(self, handler_input):
         
+        logger.info("Self HasClientInfoLaunchRequestHandler: {}".format(self))
+        
         return AuthenticationIntentHandler.handle(self, handler_input)
 
 class AuthenticationIntentHandler(AbstractRequestHandler):
@@ -463,16 +465,18 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
         # Save persisted attributes
         attributes_manager.save_persistent_attributes()
         
-        speak_output = 'Thanks, I will remember that your account number is {account_number}. \
-            How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(account_number=account_number)
-        reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+        #speak_output = 'Thanks, I will remember that your account number is {account_number}. \
+        #    How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(account_number=account_number)
+        #reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
         
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask(reprompt_text)
-                .response
-        )
+        #return (
+        #    handler_input.response_builder
+        #        .speak(speak_output)
+        #        .ask(reprompt_text)
+        #        .response
+        #)
+        
+        
 
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
