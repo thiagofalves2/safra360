@@ -23,6 +23,8 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
 import utils
+from utils import get_token
+from utils import call_safra_api
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
