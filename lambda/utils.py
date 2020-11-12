@@ -39,6 +39,9 @@ def get_token():
     token_url = '{}/oauth2/v1/token'.format(token_host)
     token_headers = {'Authorization': 'Basic ' + token_key, 'Content-Type': 'application/x-www-form-urlencoded'}
     
+    logger.info("Token url: {}".format(token_url))
+    logger.info("Token headers: {}".format(token_headers))
+    
     try:
         request_token = requests.post(token_url, headers=token_headers, data=token_body)
         response_token = request_token.json()
