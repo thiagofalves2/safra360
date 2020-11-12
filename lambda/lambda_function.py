@@ -79,7 +79,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
         check_type = (type(self) == type(HasClientInfoLaunchRequestHandler()))
         
-        logger.info("Same type? {}".format(check_type)
+        logger.info("Same type? {}".format(check_type))
         
         speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
             How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
