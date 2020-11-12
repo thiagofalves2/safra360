@@ -361,6 +361,17 @@ class AccountIntentHandler(AbstractRequestHandler):
         # It will exit for now.
         return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
 
+class SafraPayAccountIntentHandler(AbstractRequestHandler):
+    """ Handler for Account Intent. """
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("SafraPayAccountIntent")(handler_input)
+    
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        slots = handler_input.request_envelope.request.intent.slots
+        service = slots["service"].value
+
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
     def can_handle(self, handler_input):
@@ -604,6 +615,7 @@ sb.add_request_handler(AuthenticationIntentHandler())
 sb.add_request_handler(BankingIntentHandler())
 sb.add_request_handler(SafraPayIntentHandler())
 sb.add_request_handler(AccountIntentHandler())
+sb.add_request_handler(SafraPayAccountIntentHandler())
 sb.add_request_handler(CaptureCPFIntentHandler())
 sb.add_request_handler(CaptureCelphoneIntentHandler())
 sb.add_request_handler(CaptureAccountIntentHandler())
