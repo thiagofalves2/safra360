@@ -100,7 +100,7 @@ def sms_controller(cpf):
         logger.info("SMS API status code: {}".format(response_sms_status))
         logger.info("Safra API result: {}".format(str(response_sms)))
         
-        return True
+        return response_sms_status
     except Exception as e:
         logger.error("There was a problem connecting to the SMS API: {}".format(e))
         return False
