@@ -104,7 +104,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
         token_validated = token_controller(persisted_cpf,token)
         
-        if (token_validated == 200) :
+        if (token_validated == 202) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
             
