@@ -6,6 +6,9 @@ from requests import Request, Session
 from botocore.exceptions import ClientError
 from ask_sdk_model import Response
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 def create_presigned_url(object_name):
     """Generate a presigned URL to share an S3 object with a capped expiration of 60 seconds
 
