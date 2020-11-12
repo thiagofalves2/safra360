@@ -294,8 +294,8 @@ class AccountIntentHandler(AbstractRequestHandler):
                 Transaction Balance Currency: {transaction_balance_currency} \
                 Transaction Balance Credit/Debit: {transaction_balance_creditdebit} \
                 Transaction Balance Type: {transaction_balance_type} \
-                Link: {account_link}'.format(account_id=account_id,transaction_id=transaction_id,transaction_currency=transaction_currency, \
-                credit_debit=credit_debit,transaction_status=transaction_status,transaction_booking_datetime=transaction_booking_datetime,transaction_value_datetime=transaction_value_datetime, \
+                Link: {account_link}'.format(account_id=account_id, transaction_id=transaction_id, transaction_amount=transaction_amount, transaction_currency=transaction_currency, \
+                credit_debit=credit_debit, transaction_status=transaction_status, transaction_booking_datetime=transaction_booking_datetime, transaction_value_datetime=transaction_value_datetime, \
                 transaction_info=transaction_info, bank_transaction_code=bank_transaction_code, bank_transaction_subcode=bank_transaction_subcode, proprietary_bank_transaction_code=proprietary_bank_transaction_code, \
                 proprietary_bank_transaction_issuer=proprietary_bank_transaction_issuer, transaction_balance_amount=transaction_balance_amount, transaction_balance_currency=transaction_balance_currency, \
                 transaction_balance_creditdebit=transaction_balance_creditdebit, transaction_balance_type=transaction_balance_type, account_link=account_link)
