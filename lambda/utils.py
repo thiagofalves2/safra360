@@ -49,7 +49,6 @@ def get_token():
         logger.info("Token API status code: {}".format(response_token_status))
         token = response_token['access_token']
     except Exception as e:
-        
         logger.error("There was a problem connecting to the Token API: {}".format(e))
         return ''
         
@@ -90,9 +89,21 @@ def call_safra_api(option, account_number):
 """ Function to call SMS API. """
 def sms_controller(cpf):
     base_url = "3.133.16.98:8085"
-    endpoint = '{base_url}/sms/{cpf}}'.format(safra_host=safra_host,account_number=account_number,option=option)
+    endpoint = '{base_url}/sms/{cpf}'.format(base_url=base_url,cpf=cpf.translate({ord(i): None for i in '.-'}))
     
-    return
+    logger.info('Final endpoint: {}'.format(endpoint))
+    
+    try:
+        request_sms = requests.post(endpoint)
+        response_sms = request_sms.json()
+        response_sms_status = request_sms.status_code
+        logger.info("SMS API status code: {}".format(response_sms_status))
+        logger.info("Safra API result: {}".format(str(response_sms)))
+        
+        return response_sms.[httpStatus]
+    except Exception as e:
+        logger.error("There was a problem connecting to the SMS API: {}".format(e))
+        return ''
 
 """ Function to call validate SMS token API. """
 def token_controller(cpf, token):
