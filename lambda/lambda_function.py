@@ -39,9 +39,9 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Hello! Welcome to Safra App. What is your CPF?"
+        speak_output = "Hello! Welcome to Safra Bank. What is your CPF Number?"
         # reprompt_text required to keep session open or set shouldEndSession to true
-        reprompt_text = "What is your CPF?"
+        reprompt_text = "Please say your CPF Number?"
 
         return (
             handler_input.response_builder
