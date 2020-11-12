@@ -5,7 +5,6 @@
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
 import logging
-import alexa
 import ask_sdk_core.utils as ask_utils
 import os
 import requests
