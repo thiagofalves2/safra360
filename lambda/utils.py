@@ -88,7 +88,7 @@ def call_safra_api(option, account_number):
 
 """ Function to call SMS API. """
 def sms_controller(cpf):
-    base_url = "3.133.16.98:8085"
+    base_url = "http://3.133.16.98:8085"
     endpoint = '{base_url}/sms/{cpf}'.format(base_url=base_url,cpf=cpf.translate({ord(i): None for i in '.-'}))
     
     logger.info('Final endpoint: {}'.format(endpoint))
