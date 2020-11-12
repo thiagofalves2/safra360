@@ -41,11 +41,11 @@ def get_token():
         response_token = request_token.json()
         response_token_status = response_token.status_code
         logger.info("Token API status code: {}".format(response_token_status))
+        token = response_token['access_token']
     except Exception:
-        handler_input.response_builder.speak("There was a problem connecting to the Token API.")
-        return handler_input.response_builder.response
+        logger.info("There was a problem connecting to the Token API.")
+        return ''
         
-    token = response_token['access_token']
     logger.info("Token API result: {}".format(token))
     
     return token
@@ -57,7 +57,11 @@ def call_safra_api(option, account_number):
     
     token = get_token()
     
-    safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
+    if (token == '') :
+        logger.info("Empty token.")
+        return ''
+    else :
+        safra_headers = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'}
     
     #session = Session()
     #prepped = Request('GET', safra_url, headers=safra_headers).prepare()
@@ -71,7 +75,7 @@ def call_safra_api(option, account_number):
         logger.info("Safra API status code: {}".format(response_safra_status))
         logger.info("Safra API result: {}".format(str(response_safra)))
     except Exception:
-        handler_input.response_builder.speak("There was a problem connecting to the Safra API.")
-        return handler_input.response_builder.response
-    
+        logger.info("There was a problem connecting to the Safra API.")
+        return ''
+        
     return response_safra
