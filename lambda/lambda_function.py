@@ -401,9 +401,9 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
         cpf_nine = slots["cpf_nine"].value
         cpf_ten = slots["cpf_ten"].value
         cpf_eleven = slots["cpf_eleven"].value
-        cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + "." + \
-            str(cpf_four) + str(cpf_five) + str(cpf_six) + "." + \
-            str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + "-" + \
+        cpf = str(cpf_one) + str(cpf_two) + str(cpf_three) + \
+            str(cpf_four) + str(cpf_five) + str(cpf_six) + \
+            str(cpf_seven) + str(cpf_eight) + str(cpf_nine) + \
             str(cpf_ten) + str(cpf_eleven)
 
         attributes_manager = handler_input.attributes_manager
