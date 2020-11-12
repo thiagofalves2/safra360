@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # This sample demonstrates handling intents from an Alexa skill using the Alexa Skills Kit SDK for Python.
 # Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
 # session persistence, api calls, and more.
@@ -39,9 +38,9 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Hello! Welcome to Safra Bank. What is your CPF Number?"
+        speak_output = "Hello! Welcome to Safra Bank. What\'s your <say-as interpret-as="spell-out">CPF</say-as> number?"
         # reprompt_text required to keep session open or set shouldEndSession to true
-        reprompt_text = "Please say your CPF Number."
+        reprompt_text = "Please say your <say-as interpret-as="spell-out">CPF</say-as> number."
 
         return (
             handler_input.response_builder
@@ -254,7 +253,6 @@ class AccountIntentHandler(AbstractRequestHandler):
                     Link: {account_link}'.format(account_id=account_id,amount=amount,currency=currency, \
                     credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                     credit_line_amount=credit_line_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
-
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
 
@@ -352,35 +350,6 @@ class AccountIntentHandler(AbstractRequestHandler):
                 .response
         )
 
-# Asks user for account info
-#class AccountServicesIntentHandler(AbstractRequestHandler):
-#    """Handler for Account Intent."""
-#    def can_handle(self, handler_input):
-#        # type: (HandlerInput) -> bool
-#        return ask_utils.is_intent_name("AccountDataIntent")(handler_input)
-#        
-#    def handle(self, handler_input):
-#        # type: (HandlerInput) -> Response
-
-#class AccountDataIntentHandler(AbstractRequestHandler):
-#    """Handler for Account Intent."""
-#    def can_handle(self, handler_input):
-#        # type: (HandlerInput) -> bool
-#        return ask_utils.is_intent_name("AccountDataIntent")(handler_input)
-#        
-#    def handle(self, handler_input):
-#        # type: (HandlerInput) -> Response
-#        
-#        speak_output = 'Welcome to your Account. You chose the service: Account {service}'.format(service=service)
-#        
-#        # It will exit for now.
-#        return (
-#            handler_input.response_builder
-#                .speak(speak_output)
-#                # .ask("add a reprompt if you want to keep the session open for the user to respond")
-#                .response
-#        )
-
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
     def can_handle(self, handler_input):
@@ -414,7 +383,7 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
         # Add cpf variable to session attributes
         session_attr["cpf"] = cpf
         
-        speak_output = 'Thanks, I will remember that your CPF is {cpf}. What\'s your celphone number?'.format(cpf=cpf)
+        speak_output = 'Thanks, I\'ll remember that your <say-as interpret-as="spell-out">CPF</say-as> is <say-as interpret-as="digits">{cpf}</say-as>. What\'s your celphone number?'.format(cpf=cpf)
         reprompt_text = 'What\'s your celphone number?'
         
         return (
