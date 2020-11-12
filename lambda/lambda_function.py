@@ -97,8 +97,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         token_validated = true
         
         if (token_validated) :
-            speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' \
-                
+            speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
         else :
             speak_output = 'Incorrect Token. Exiting.'
