@@ -78,7 +78,7 @@ def call_safra_api(option, account_number):
     try:
         request_safra = requests.get(safra_url, headers=safra_headers)
         response_safra = request_safra.json()
-        response_safra_status = response_safra.status_code
+        response_safra_status = request_safra.status_code
         logger.info("Safra API status code: {}".format(response_safra_status))
         logger.info("Safra API result: {}".format(str(response_safra)))
     except Exception:
