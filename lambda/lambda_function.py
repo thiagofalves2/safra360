@@ -142,8 +142,8 @@ class AccountIntentHandler(AbstractRequestHandler):
                 account_link = response_safra['Links']['Self']
                 
                 speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
-                    Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
-                    account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
+                    Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_link}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
+                    account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_link=account_link)
 
         elif (service == "balance") :
             response_safra = call_safra_api('/balances', persisted_account_number)
@@ -207,9 +207,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                     Credit Line Amount: {credit_amount} \
                     Credit Line Currency: {credit_currency} \
                     Credit Line Type: {credit_line_type} \
-                    Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
+                    Link: {account_link}'.format(account_id=account_id,amount=amount,currency=currency, \
                     credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
-                    credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
+                    credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
 
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
@@ -270,9 +270,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                 Credit Line Amount: {credit_amount} \
                 Credit Line Currency: {credit_currency} \
                 Credit Line Type: {credit_line_type} \
-                Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
+                Link: {account_link}'.format(account_id=account_id,amount=amount,currency=currency, \
                 credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
-                credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
+                credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
         
         # It will exit for now.
         return (
