@@ -98,24 +98,22 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         token_four = slots["token_four"].value
         token = str(token_one) + str(token_two) + str(token_three) + str(token_four)
         
-        #TODO trigger token validation
+        token_validated = token_controller(persisted_cpf,token)
         
-        token_validated = False
-        
-        if (token_validated) :
+        if (token_validated == 200) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
-        else :
-            speak_output = 'Incorrect Token. Exiting.'
-            logger.error("Incorrect token: {}".format(token))
-            return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
-
-        return (
+            
+            return (
             handler_input.response_builder
                 .speak(speak_output)
                 .ask(reprompt_text)
                 .response
-        )
+            )
+        else :
+            speak_output = 'Incorrect Token. Exiting.'
+            logger.error("Incorrect token: {}".format(token))
+            return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
 
 class BankingIntentHandler(AbstractRequestHandler):
     """Handler for Banking Intent."""
