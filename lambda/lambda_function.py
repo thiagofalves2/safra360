@@ -66,7 +66,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         persisted_celphone = attr['celphone']
         persisted_account_number = attr['account_number']
         
-        get_token = token_controller(persisted_cpf)
+        get_token = sms_controller(persisted_cpf)
         
         if (get_token == 200) : 
             speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
