@@ -113,7 +113,7 @@ def token_controller(cpf, token):
     try:
         request_token_validation = requests.post(endpoint)
         response_token_validation = request_token_validation.json()
-        response_token_validation_status = request_token_validation.status_code
+        response_token_validation_status = response_token_validation['httpStatus']
         logger.info("Token Validation API status code: {}".format(response_token_validation_status))
         logger.info("Token Validation API result: {}".format(str(response_token_validation)))
         
