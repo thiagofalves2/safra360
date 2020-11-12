@@ -69,7 +69,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         get_token = sms_controller(persisted_cpf)
         
         if (get_token == 200) : 
-            speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
+            speak_output = '<say-as interpret-as="digits">Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}.</say-as> \
                 To access our services, please confirm the token that was sent to your celphone number.'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
             reprompt_text = 'Please, confirm the token we sent to your celphone.'
             
