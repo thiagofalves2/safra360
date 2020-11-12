@@ -48,8 +48,9 @@ def get_token():
         response_token_status = response_token.status_code
         logger.info("Token API status code: {}".format(response_token_status))
         token = response_token['access_token']
-    except Exception:
-        logger.error("There was a problem connecting to the Token API.")
+    except Exception as e:
+        
+        logger.error("There was a problem connecting to the Token API: {}".format(e))
         return ''
         
     logger.info("Token API result: {}".format(token))
