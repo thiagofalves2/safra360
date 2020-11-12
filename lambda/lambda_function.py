@@ -476,7 +476,9 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
         #        .response
         #)
         
+        logger.info("Self CaptureAccountIntentHandler: {}".format(self))
         
+        return AuthenticationIntentHandler.handle(self, handler_input)
 
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
