@@ -59,7 +59,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         
     def handle(self, handler_input):
         
-        logger.info("Self HasClientInfoLaunchRequestHandler: {}".format(type(self)))
+        logger.info("Self HasClientInfoLaunchRequestHandler: {}".format(str(type(self)))
         
         return AuthenticationIntentHandler.handle(self, handler_input)
 
