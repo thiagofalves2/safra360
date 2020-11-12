@@ -33,7 +33,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-
+        
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
@@ -51,7 +51,6 @@ class LaunchRequestHandler(AbstractRequestHandler):
 
 class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
     """Handler for launch after we save user's info"""
-    
     def can_handle(self, handler_input):
         # Retrive persisted attributes and check if they are all present
         attr = handler_input.attributes_manager.persistent_attributes
@@ -115,96 +114,103 @@ class AccountIntentHandler(AbstractRequestHandler):
         
         if (service == "data") :
             response_safra = call_safra_api('', persisted_account_number)
+            
+            if (response_safra == '') :
+                logger.error("Empty API response.")
+                return ''
+            else : 
+                # Get Data dict
+                account_data = response_safra['Data']
+                logger.info("Account Data: {}".format(account_data))
                 
-            # Get Data dict
-            account_data = response_safra['Data']
-            logger.info("Account Data: {}".format(account_data))
-            
-            # Get Account list
-            account = account_data['Account']
-            logger.info("Account: {}".format(account))
-            
-            # Get first account
-            account_record = account[0]
-            
-            # Get first account data
-            account_id = account_record['AccountId']
-            logger.info("Account Id: {}".format(account_id))
-            account_currency = account_record['Currency']
-            logger.info("Account Currency: {}".format(account_currency))
-            account_nickname = account_record['Nickname']
-            account_info = account_record['Account']
-            account_identification = account_info['Identification']
-            account_name = account_info['Name']
-            account_sec_id = account_info['SecondaryIdentification']
-            account_link = response_safra['Links']['Self']
-
-            speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
-                Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
-                account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
+                # Get Account list
+                account = account_data['Account']
+                logger.info("Account: {}".format(account))
+                
+                # Get first account
+                account_record = account[0]
+                
+                # Get first account data
+                account_id = account_record['AccountId']
+                logger.info("Account Id: {}".format(account_id))
+                account_currency = account_record['Currency']
+                logger.info("Account Currency: {}".format(account_currency))
+                account_nickname = account_record['Nickname']
+                account_info = account_record['Account']
+                account_identification = account_info['Identification']
+                account_name = account_info['Name']
+                account_sec_id = account_info['SecondaryIdentification']
+                account_link = response_safra['Links']['Self']
+                
+                speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
+                    Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_self}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
+                    account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
 
         elif (service == "balance") :
             response_safra = call_safra_api('/balances', persisted_account_number)
             
-            # Account data
-            account_data = response_safra['Data']
-            logger.info("Account Data: {}".format(account_data))
-            
-            balance = account_data['Balance']
-            balance_record = balance[0]
-            
-            account_id = balance_record['AccountId']
-            logger.info("Account Id: {}".format(account_id))
-            
-            amount_record = balance_record['Amount']
-            
-            amount = amount_record['Amount']
-            logger.info("Balance Amount: {}".format(amount))
-            
-            currency = amount_record['Currency']
-            logger.info("Balance Currency: {}".format(currency))
-            
-            credit_debit = balance_record['CreditDebitIndicator']
-            logger.info("Credit/Debit: {}".format(credit_debit))
-            
-            balance_type = balance_record['Type']
-            logger.info("Balance Type: {}".format(balance_type))
-            
-            balance_date = balance_record['DateTime']
-            logger.info("Balance Date: {}".format(balance_date))
-            
-            balance_credit_line = balance_record['CreditLine']
-            credit_line_record = balance_credit_line[0]
-            
-            credit_line_included = credit_line_record['Included']
-            logger.info("Credit line included? {}".format(credit_line_included))
-            
-            credit_line_amount = credit_line_record['Amount']
-
-            logger.info("Credit Line Amount: {}".format(credit_amount))
-
-            credit_currency = credit_line_amount['Currency']
-            logger.info("Credit Line Currency: {}".format(credit_currency))
-            
-            credit_line_type = credit_line_record['Type']
-            logger.info("Credit Line Type: {}".format(credit_line_type))
-            
-            account_link = response_safra['Links']['Self']
-            
-            speak_output = 'Your account balance is: \
-                Account ID: {account_id} \
-                Balance Amount: {amount} \
-                Balance Currency: {currency} \
-                Credit/Debit: {credit_debit} \
-                Balance Type: {balance_type} \
-                Balance Date: {balance_date} \
-                Credit Line Included? {credit_line_included} \
-                Credit Line Amount: {credit_amount} \
-                Credit Line Currency: {credit_currency} \
-                Credit Line Type: {credit_line_type} \
-                Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
-                credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
-                credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
+            if (response_safra == '') :
+                logger.error("Empty API response.")
+                return ''
+            else : 
+                # Account data
+                account_data = response_safra['Data']
+                logger.info("Account Data: {}".format(account_data))
+                
+                balance = account_data['Balance']
+                balance_record = balance[0]
+                
+                account_id = balance_record['AccountId']
+                logger.info("Account Id: {}".format(account_id))
+                
+                amount_record = balance_record['Amount']
+                
+                amount = amount_record['Amount']
+                logger.info("Balance Amount: {}".format(amount))
+                
+                currency = amount_record['Currency']
+                logger.info("Balance Currency: {}".format(currency))
+                
+                credit_debit = balance_record['CreditDebitIndicator']
+                logger.info("Credit/Debit: {}".format(credit_debit))
+                
+                balance_type = balance_record['Type']
+                logger.info("Balance Type: {}".format(balance_type))
+                
+                balance_date = balance_record['DateTime']
+                logger.info("Balance Date: {}".format(balance_date))
+                
+                balance_credit_line = balance_record['CreditLine']
+                credit_line_record = balance_credit_line[0]
+                
+                credit_line_included = credit_line_record['Included']
+                logger.info("Credit line included? {}".format(credit_line_included))
+                
+                credit_line_amount = credit_line_record['Amount']
+                logger.info("Credit Line Amount: {}".format(credit_amount))
+                
+                credit_currency = credit_line_amount['Currency']
+                logger.info("Credit Line Currency: {}".format(credit_currency))
+                
+                credit_line_type = credit_line_record['Type']
+                logger.info("Credit Line Type: {}".format(credit_line_type))
+                
+                account_link = response_safra['Links']['Self']
+                
+                speak_output = 'Your account balance is: \
+                    Account ID: {account_id} \
+                    Balance Amount: {amount} \
+                    Balance Currency: {currency} \
+                    Credit/Debit: {credit_debit} \
+                    Balance Type: {balance_type} \
+                    Balance Date: {balance_date} \
+                    Credit Line Included? {credit_line_included} \
+                    Credit Line Amount: {credit_amount} \
+                    Credit Line Currency: {credit_currency} \
+                    Credit Line Type: {credit_line_type} \
+                    Link: {account_self}'.format(account_id=account_id,amount=amount,currency=currency, \
+                    credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
+                    credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
 
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
