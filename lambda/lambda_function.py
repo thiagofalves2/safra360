@@ -24,7 +24,8 @@ from ask_sdk_model import Response
 import utils
 from utils import get_token
 from utils import call_safra_api
-from utils import authentication
+from utils import sms_controller
+from utils import token_controller
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -65,18 +66,23 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         persisted_celphone = attr['celphone']
         persisted_account_number = attr['account_number']
         
-        #TODO trigger sms token
+        get_token = token_controller(persisted_cpf)
         
-        speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
-            To access our services, please confirm the token that was sent to your celphone number.'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
-        reprompt_text = 'Please, confirm the token we sent to your celphone.'
-        
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask(reprompt_text)
-                .response
-        )
+        if (get_token == 200) : 
+            speak_output = 'Welcome back, your CPF is {persisted_cpf}, your celphone is {persisted_celphone} and your account is {persisted_account_number}. \
+                To access our services, please confirm the token that was sent to your celphone number.'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
+            reprompt_text = 'Please, confirm the token we sent to your celphone.'
+            
+            return (
+                handler_input.response_builder
+                    .speak(speak_output)
+                    .ask(reprompt_text)
+                    .response
+            )
+        else : 
+            speak_output = 'Error while sending SMS Token. Exiting.'
+            logger.error("Error calling token API: {}".format(get_token))
+            return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response 
 
 class AuthenticationIntentHandler(AbstractRequestHandler):
     """Handler for Authentication Intent."""
