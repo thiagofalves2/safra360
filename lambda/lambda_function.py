@@ -114,7 +114,7 @@ class AccountIntentHandler(AbstractRequestHandler):
         logger.info("Service: {}".format(service))
         
         if (service == "data") :
-            response_safra = call_safra_api()
+            response_safra = call_safra_api('', persisted_account_number)
                 
             # Get Data dict
             account_data = response_safra['Data']
@@ -144,7 +144,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                 account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_self=account_self)
 
         elif (service == "balance") :
-            response_safra = call_safra_api('/balances')
+            response_safra = call_safra_api('/balances', persisted_account_number)
             
             # Account data
             account_data = response_safra['Data']
@@ -207,7 +207,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                 credit_amount=credit_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_self=account_self)
 
         else :
-            response_safra = call_safra_api('/transactions')
+            response_safra = call_safra_api('/transactions', persisted_account_number)
 
             # Account data
             account_data = response_safra['data']
