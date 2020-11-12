@@ -100,10 +100,10 @@ def sms_controller(cpf):
         logger.info("SMS API status code: {}".format(response_sms_status))
         logger.info("Safra API result: {}".format(str(response_sms)))
         
-        return response_sms.[httpStatus]
+        return True
     except Exception as e:
         logger.error("There was a problem connecting to the SMS API: {}".format(e))
-        return ''
+        return False
 
 """ Function to call validate SMS token API. """
 def token_controller(cpf, token):
