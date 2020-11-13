@@ -130,11 +130,11 @@ def authentication_controller(option, cpf, date):
     logger.info('Final endpoint: {}'.format(endpoint))
     
     try:
-        request = requests.post(endpoint)
+        request = requests.get(endpoint)
         response = request.json()
         response_status = request.status_code
-        logger.info("Token Validation API status code: {}".format(response_status))
-        logger.info("Token Validation API result: {}".format(str(response)))
+        logger.info("Authentication API status code: {}".format(response_status))
+        logger.info("Authentication API result: {}".format(str(response)))
         
         return response
     except Exception as e:
