@@ -370,7 +370,24 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         slots = handler_input.request_envelope.request.intent.slots
-        service = slots["service"].value
+        option = slots["option"].value
+        date = slots["date"].value
+        
+        attr = handler_input.attributes_manager.persistent_attributes
+        persisted_cpf = attr['cpf']
+        
+        logger.info("CPF: {}".format(persisted_cpf))
+        logger.info("Option: {}".format(option))
+        
+        if (service == "received amount") :
+            speak_output = 'Here\'s your received amount on {}: R$ XXX,XX.'.format(date)
+        elif (service == "sold amount") :
+            speak_output = 'Here\'s your sold amount on {}: R$ XXX,XX.'.format(date)
+        else :
+            speak_output = 'Here\'s your future amount on {}: R$ XXX,XX.'.format(date)
+            
+        # It will exit for now.
+        return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
 
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
