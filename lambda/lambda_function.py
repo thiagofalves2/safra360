@@ -384,10 +384,16 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         logger.info("Option: {}".format(option))
         
         if (option == "received amount") :
+            #TODO call received amount API
+            
             speak_output = 'Here\'s your received amount on {}: R$ XXX,XX.'.format(date)
         elif (option == "sold amount") :
+            #TODO call sold amount API
+            
             speak_output = 'Here\'s your sold amount on {}: R$ XXX,XX.'.format(date)
         else :
+            #TODO call future amount API
+            
             speak_output = 'Here\'s your future amount on {}: R$ XXX,XX.'.format(date)
             
         # It will exit for now.
