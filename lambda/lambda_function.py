@@ -180,8 +180,13 @@ class AccountIntentHandler(AbstractRequestHandler):
         slots = handler_input.request_envelope.request.intent.slots
         service = slots["service"].value
         
-        attr = handler_input.attributes_manager.persistent_attributes
+        attributes_manager = handler_input.attributes_manager
+        
+        attr = attributes_manager.persistent_attributes
         persisted_account_number = attr['account_number']
+        
+        # Get any existing attributes from the incoming request
+        session_attr = attributes_manager.session_attributes
         
         logger.info("Account: {}".format(persisted_account_number))
         logger.info("Service: {}".format(service))
@@ -219,6 +224,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                 speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
                     Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_link}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
                     account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_link=account_link)
+                
+                # Add speak_output variable to session attributes
+                session_attr["speak_output"] = speak_output
 
         elif (service == "balance") :
             response_safra = call_safra_api('/balances', persisted_account_number)
@@ -285,6 +293,10 @@ class AccountIntentHandler(AbstractRequestHandler):
                     Link: {account_link}'.format(account_id=account_id,amount=amount,currency=currency, \
                     credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                     credit_line_amount=credit_line_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
+                    
+                # Add speak_output variable to session attributes
+                session_attr["speak_output"] = speak_output
+
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
 
@@ -373,6 +385,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                 transaction_info=transaction_info, bank_transaction_code=bank_transaction_code, bank_transaction_subcode=bank_transaction_subcode, proprietary_bank_transaction_code=proprietary_bank_transaction_code, \
                 proprietary_bank_transaction_issuer=proprietary_bank_transaction_issuer, transaction_balance_amount=transaction_balance_amount, transaction_balance_currency=transaction_balance_currency, \
                 transaction_balance_creditdebit=transaction_balance_creditdebit, transaction_balance_type=transaction_balance_type, account_link=account_link)
+                
+            # Add speak_output variable to session attributes
+            session_attr["speak_output"] = speak_output
         
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
@@ -389,11 +404,16 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         option = slots["option"].value
         date = slots["date"].value
         
-        attr = handler_input.attributes_manager.persistent_attributes
+        attributes_manager = handler_input.attributes_manager
+        
+        attr = attributes_manager.persistent_attributes
         persisted_cpf = attr['cpf']
         
         logger.info("CPF: {}".format(persisted_cpf))
         logger.info("Option: {}".format(option))
+        
+        # Get any existing attributes from the incoming request
+        session_attr = attributes_manager.session_attributes
         
         if (option == "received amount") :
             received_amount = authentication_controller('authorization/howMuchReceived',persisted_cpf,date)
@@ -403,6 +423,10 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 return ''
             else :
                 speak_output = 'Here\'s your received amount on {date}: R$ {received_amount}'.format(date=date, received_amount=received_amount)
+                
+                # Add speak_output variable to session attributes
+                session_attr["speak_output"] = speak_output
+
         elif (option == "sold amount") :
             sold_amount = authentication_controller('authorization/howMuchSell',persisted_cpf,date)
             
@@ -411,6 +435,9 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 return ''
             else :
                 speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}'.format(date=date, sold_amount=sold_amount)
+                
+                # Add speak_output variable to session attributes
+                session_attr["speak_output"] = speak_output
         else :
             future_amount = authentication_controller('authorization/howFutureSettlementSchedule',persisted_cpf,date)
             
@@ -419,6 +446,9 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 return ''
             else :
                 speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}'.format(date=date, future_amount=future_amount)
+                
+                # Add speak_output variable to session attributes
+                session_attr["speak_output"] = speak_output
             
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
