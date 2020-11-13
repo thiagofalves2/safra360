@@ -96,10 +96,12 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         attributes_manager=handler_input.attributes_manager
         
         attr = attributes_manager.persistent_attributes
+        
         persisted_cpf = attr['cpf']
         
         # Get any existing attributes from the incoming request
         session_attr = attributes_manager.session_attributes
+        logger.info('Session Atts: {}'.format(session_attr))
         
         if (type(self) != type(AuthenticationIntentHandler)) :
             old_speak_output = session_attr["previous_speak_output"]
