@@ -121,3 +121,21 @@ def token_controller(cpf, token):
     except Exception as e:
         logger.error("There was a problem connecting to the Token Validation API: {}".format(e))
         return ''
+    
+    """ Function to call authentication controller services. """
+def authentication_controller(option, cpf, date):
+    base_url = "http://3.133.16.98:8085"
+    endpoint = '{base_url}/{option}/{cpf}/{date}'.format(base_url=base_url,option=option,cpf=cpf,date=date)
+    
+    try:
+        request = requests.post(endpoint)
+        response = request.json()
+        response_status = request.status_code
+        logger.info("Token Validation API status code: {}".format(response_status))
+        logger.info("Token Validation API result: {}".format(str(response)))
+        
+        return response
+    except Exception as e:
+        logger.error("There was a problem connecting to the Token Validation API: {}".format(e))
+        return ''
+
