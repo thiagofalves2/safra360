@@ -102,8 +102,11 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         # Get any existing attributes from the incoming request
         session_attr = attributes_manager.session_attributes
         logger.info('Session Atts: {}'.format(session_attr))
+        logger.info('Type Self: {}'.format(type(self)))
+        logger.info('Session Atts: {}'.format(type(AuthenticationIntentHandler)))
         
         if (type(self) != type(AuthenticationIntentHandler)) :
+            logger.info("Entrou no if.")
             old_speak_output = session_attr["previous_speak_output"]
             speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?'.format(old_speak_output)
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
