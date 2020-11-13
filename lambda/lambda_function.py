@@ -383,9 +383,9 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         logger.info("CPF: {}".format(persisted_cpf))
         logger.info("Option: {}".format(option))
         
-        if (service == "received amount") :
+        if (option == "received amount") :
             speak_output = 'Here\'s your received amount on {}: R$ XXX,XX.'.format(date)
-        elif (service == "sold amount") :
+        elif (option == "sold amount") :
             speak_output = 'Here\'s your sold amount on {}: R$ XXX,XX.'.format(date)
         else :
             speak_output = 'Here\'s your future amount on {}: R$ XXX,XX.'.format(date)
