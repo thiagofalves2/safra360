@@ -103,7 +103,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
         if (type(self) != type(AuthenticationIntentHandler)) :
             old_speak_output = session_attr["speak_output"]
-            speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?' 
+            speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?'.format(old_speak_output)
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
             
             return (
@@ -428,7 +428,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 logger.error("Empty API response.")
                 return ''
             else :
-                speak_output = 'Here\'s your received amount on {date}: R$ {received_amount}'.format(date=date, received_amount=received_amount)
+                speak_output = 'Here\'s your received amount on {date}: R$ {received_amount}.'.format(date=date, received_amount=received_amount)
                 
                 # Add speak_output variable to session attributes
                 session_attr["speak_output"] = speak_output
@@ -440,7 +440,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 logger.error("Empty API response.")
                 return ''
             else :
-                speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}'.format(date=date, sold_amount=sold_amount)
+                speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}.'.format(date=date, sold_amount=sold_amount)
                 
                 # Add speak_output variable to session attributes
                 session_attr["speak_output"] = speak_output
@@ -451,7 +451,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 logger.error("Empty API response.")
                 return ''
             else :
-                speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}'.format(date=date, future_amount=future_amount)
+                speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}.'.format(date=date, future_amount=future_amount)
                 
                 # Add speak_output variable to session attributes
                 session_attr["speak_output"] = speak_output
