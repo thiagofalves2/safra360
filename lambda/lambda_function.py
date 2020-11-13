@@ -96,8 +96,6 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         attr = handler_input.attributes_manager.persistent_attributes
         persisted_cpf = attr['cpf']
         
-        token_validated = token_controller(persisted_cpf,token)
-        
         if (type(self) != type(AuthenticationIntentHandler)) :
             speak_output = 'What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
@@ -115,6 +113,8 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         token_three = slots["token_three"].value
         token_four = slots["token_four"].value
         token = str(token_one) + str(token_two) + str(token_three) + str(token_four)
+        
+        token_validated = token_controller(persisted_cpf,token)
         
         if (token_validated == 202) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
