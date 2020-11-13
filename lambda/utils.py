@@ -136,6 +136,6 @@ def authentication_controller(option, cpf, date):
         
         return response
     except Exception as e:
-        logger.error("There was a problem connecting to the Token Validation API: {}".format(e))
+        logger.error("There was a problem connecting to the Authentication Controller API: {}".format(e))
         return ''
 
