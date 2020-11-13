@@ -25,6 +25,7 @@ from utils import get_token
 from utils import call_safra_api
 from utils import sms_controller
 from utils import token_controller
+from utils import authentication_controller
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -385,6 +386,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         
         if (option == "received amount") :
             #TODO call received amount API
+            authentication_controller
             
             speak_output = 'Here\'s your received amount on {}: R$ XXX,XX.'.format(date)
         elif (option == "sold amount") :
