@@ -127,6 +127,8 @@ def authentication_controller(option, cpf, date):
     base_url = "http://3.133.16.98:8085"
     endpoint = '{base_url}/{option}/{cpf}/{date}'.format(base_url=base_url,option=option,cpf=cpf,date=date)
     
+    logger.info('Final endpoint: {}'.format(endpoint))
+    
     try:
         request = requests.post(endpoint)
         response = request.json()
