@@ -4,9 +4,6 @@ import boto3
 import requests
 from botocore.exceptions import ClientError
 
-#from requests import Request, Session
-#from ask_sdk_model import Response
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
