@@ -150,8 +150,12 @@ class SafraPayIntentHandler(AbstractRequestHandler):
         speak_output = 'Welcome to Safra Pay. Here you can check your Sold Amount, Received Amount and Future Amount on a specific date. Please choose service and date.'
         reprompt_text = 'How can I help you today? You can choose between Sold Amount, Received Amount or Future Amount and a specific date. Please choose service and date.'
         
-        # Exit for now
-        return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response 
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(reprompt_text)
+                .response
+        )
 
 class AccountIntentHandler(AbstractRequestHandler):
     """ Handler for Account Intent. """
