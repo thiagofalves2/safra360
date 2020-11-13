@@ -93,11 +93,17 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
     def handle(self, handler_input):
         # Extract persistent attributes
-        attr = handler_input.attributes_manager.persistent_attributes
+        attributes_manager=handler_input.attributes_manager
+        
+        attr = attributes_manager.persistent_attributes
         persisted_cpf = attr['cpf']
         
+        # Get any existing attributes from the incoming request
+        session_attr = attributes_manager.session_attributes
+        
         if (type(self) != type(AuthenticationIntentHandler)) :
-            speak_output = 'What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?' 
+            old_speak_output = session_attr["speak_output"]
+            speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
             
             return (
@@ -222,7 +228,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                 account_link = response_safra['Links']['Self']
                 
                 speak_output = 'Your account data is:\nAccount ID: {account_id}\nCurrency: {account_currency}\nNickname: {account_nickname}\nIdentification: {account_identification}\n \
-                    Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_link}'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
+                    Name: {account_name}\nSecondary ID: {account_sec_id}\nLink: {account_link}.'.format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, \
                     account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_link=account_link)
                 
                 # Add speak_output variable to session attributes
@@ -290,7 +296,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                     Credit Line Amount: {credit_line_amount} \
                     Credit Line Currency: {credit_currency} \
                     Credit Line Type: {credit_line_type} \
-                    Link: {account_link}'.format(account_id=account_id,amount=amount,currency=currency, \
+                    Link: {account_link}.'.format(account_id=account_id,amount=amount,currency=currency, \
                     credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included, \
                     credit_line_amount=credit_line_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
                     
@@ -380,7 +386,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                 Transaction Balance Currency: {transaction_balance_currency} \
                 Transaction Balance Credit/Debit: {transaction_balance_creditdebit} \
                 Transaction Balance Type: {transaction_balance_type} \
-                Link: {account_link}'.format(account_id=account_id, transaction_id=transaction_id, transaction_amount=transaction_amount, transaction_currency=transaction_currency, \
+                Link: {account_link}.'.format(account_id=account_id, transaction_id=transaction_id, transaction_amount=transaction_amount, transaction_currency=transaction_currency, \
                 credit_debit=credit_debit, transaction_status=transaction_status, transaction_booking_datetime=transaction_booking_datetime, transaction_value_datetime=transaction_value_datetime, \
                 transaction_info=transaction_info, bank_transaction_code=bank_transaction_code, bank_transaction_subcode=bank_transaction_subcode, proprietary_bank_transaction_code=proprietary_bank_transaction_code, \
                 proprietary_bank_transaction_issuer=proprietary_bank_transaction_issuer, transaction_balance_amount=transaction_balance_amount, transaction_balance_currency=transaction_balance_currency, \
