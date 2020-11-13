@@ -387,7 +387,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         if (option == "received amount") :
             received_amount = authentication_controller('authorization/howMuchReceived',persisted_cpf,date)
             
-            if (received == '') :
+            if (received_amount == '') :
                 logger.error("Empty API response.")
                 return ''
             else :
@@ -395,7 +395,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         elif (option == "sold amount") :
             sold_amount = authentication_controller('authorization/howMuchSell',persisted_cpf,date)
             
-            if (received == '') :
+            if (sold_amount == '') :
                 logger.error("Empty API response.")
                 return ''
             else :
@@ -405,7 +405,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         else :
             future_amount = authentication_controller('authorization/howFutureSettlementSchedule',persisted_cpf,date)
             
-            if (received == '') :
+            if (future_amount == '') :
                 logger.error("Empty API response.")
                 return ''
             else :
