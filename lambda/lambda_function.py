@@ -385,18 +385,31 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         logger.info("Option: {}".format(option))
         
         if (option == "received amount") :
-            #TODO call received amount API
-            authentication_controller
+            received_amount = authentication_controller('authorization/howMuchReceived',persisted_cpf,date)
             
-            speak_output = 'Here\'s your received amount on {}: R$ XXX,XX.'.format(date)
+            if (received == '') :
+                logger.error("Empty API response.")
+                return ''
+            else :
+                speak_output = 'Here\'s your received amount on {date}: R$ {received_amount}'.format(date=date, received_amount=received_amount)
         elif (option == "sold amount") :
-            #TODO call sold amount API
+            sold_amount = authentication_controller('authorization/howMuchSell',persisted_cpf,date)
+            
+            if (received == '') :
+                logger.error("Empty API response.")
+                return ''
+            else :
+                speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}'.format(date=date, sold_amount=sold_amount)
             
             speak_output = 'Here\'s your sold amount on {}: R$ XXX,XX.'.format(date)
         else :
-            #TODO call future amount API
+            future_amount = authentication_controller('authorization/howFutureSettlementSchedule',persisted_cpf,date)
             
-            speak_output = 'Here\'s your future amount on {}: R$ XXX,XX.'.format(date)
+            if (received == '') :
+                logger.error("Empty API response.")
+                return ''
+            else :
+                speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}'.format(date=date, future_amount=future_amount)
             
         # It will exit for now.
         return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
