@@ -102,7 +102,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         session_attr = attributes_manager.session_attributes
         
         if (type(self) != type(AuthenticationIntentHandler)) :
-            old_speak_output = session_attr["speak_output"]
+            old_speak_output = session_attr['speak_output']
             speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?'.format(old_speak_output)
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
             
