@@ -102,7 +102,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         session_attr = attributes_manager.session_attributes
         
         if (type(self) != type(AuthenticationIntentHandler)) :
-            old_speak_output = session_attr['speak_output']
+            old_speak_output = session_attr["previous_speak_output"]
             speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?'.format(old_speak_output)
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
             
@@ -232,7 +232,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                     account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_link=account_link)
                 
                 # Add speak_output variable to session attributes
-                session_attr["speak_output"] = speak_output
+                session_attr["previous_speak_output"] = speak_output
 
         elif (service == "balance") :
             response_safra = call_safra_api('/balances', persisted_account_number)
@@ -301,7 +301,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                     credit_line_amount=credit_line_amount, credit_currency=credit_currency, credit_line_type=credit_line_type, account_link=account_link)
                     
                 # Add speak_output variable to session attributes
-                session_attr["speak_output"] = speak_output
+                session_attr["previous_speak_output"] = speak_output
 
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
@@ -393,7 +393,7 @@ class AccountIntentHandler(AbstractRequestHandler):
                 transaction_balance_creditdebit=transaction_balance_creditdebit, transaction_balance_type=transaction_balance_type, account_link=account_link)
                 
             # Add speak_output variable to session attributes
-            session_attr["speak_output"] = speak_output
+            session_attr["previous_speak_output"] = speak_output
         
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
@@ -431,7 +431,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 speak_output = 'Here\'s your received amount on {date}: R$ {received_amount}.'.format(date=date, received_amount=received_amount)
                 
                 # Add speak_output variable to session attributes
-                session_attr["speak_output"] = speak_output
+                session_attr["previous_speak_output"] = speak_output
 
         elif (option == "sold amount") :
             sold_amount = authentication_controller('authorization/howMuchSell',persisted_cpf,date)
@@ -443,7 +443,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}.'.format(date=date, sold_amount=sold_amount)
                 
                 # Add speak_output variable to session attributes
-                session_attr["speak_output"] = speak_output
+                session_attr["previous_speak_output"] = speak_output
         else :
             future_amount = authentication_controller('authorization/howFutureSettlementSchedule',persisted_cpf,date)
             
@@ -454,7 +454,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}.'.format(date=date, future_amount=future_amount)
                 
                 # Add speak_output variable to session attributes
-                session_attr["speak_output"] = speak_output
+                session_attr["previous_speak_output"] = speak_output
             
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
