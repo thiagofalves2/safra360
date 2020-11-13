@@ -21,11 +21,11 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
 import utils
-from utils import get_token
-from utils import call_safra_api
-from utils import sms_controller
-from utils import token_controller
-from utils import authentication_controller
+#from utils import get_token
+#from utils import call_safra_api
+#from utils import sms_controller
+#from utils import token_controller
+#from utils import authentication_controller
 
 #import services_utils
 #import sub_services_utils
