@@ -105,6 +105,17 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         
         token_validated = token_controller(persisted_cpf,token)
         
+        if (type(self) != type(AuthenticationIntentHandler)) :
+            speak_output = 'What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?' 
+            reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+            
+            return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(reprompt_text)
+                .response
+            )
+        
         if (token_validated == 202) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
@@ -363,8 +374,8 @@ class AccountIntentHandler(AbstractRequestHandler):
                 proprietary_bank_transaction_issuer=proprietary_bank_transaction_issuer, transaction_balance_amount=transaction_balance_amount, transaction_balance_currency=transaction_balance_currency, \
                 transaction_balance_creditdebit=transaction_balance_creditdebit, transaction_balance_type=transaction_balance_type, account_link=account_link)
         
-        # It will exit for now.
-        return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
+        # Return to "menu".
+        return AuthenticationIntentHandler.handle(self, handler_input)
 
 class SafraPayAccountIntentHandler(AbstractRequestHandler):
     """ Handler for Account Intent. """
@@ -409,8 +420,8 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
             else :
                 speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}'.format(date=date, future_amount=future_amount)
             
-        # It will exit for now.
-        return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response
+        # Return to "menu".
+        return AuthenticationIntentHandler.handle(self, handler_input)
 
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
