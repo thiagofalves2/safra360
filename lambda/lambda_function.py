@@ -400,8 +400,6 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 return ''
             else :
                 speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}'.format(date=date, sold_amount=sold_amount)
-            
-            speak_output = 'Here\'s your sold amount on {}: R$ XXX,XX.'.format(date)
         else :
             future_amount = authentication_controller('authorization/howFutureSettlementSchedule',persisted_cpf,date)
             
