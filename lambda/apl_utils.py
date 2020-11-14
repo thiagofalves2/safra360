@@ -113,28 +113,18 @@ def generateRecipeScreenDatasource(handler_input, sauce_item, selected_recipe):
     sauce_ssml = "<speak>{}</speak>".format(selected_recipe['instructions'])
     # Generate JSON Datasource
     return {
-        'sauceBossData': {
-            'type': 'object',
-            'properties': {
-                'headerTitle': header_title,
-                'headerBackButton': (not handler_input.request_envelope.session.new),
-                'hintText': hint_text,
-                'sauceImg': sauce_item['image'],
-                'sauceText': selected_recipe['instructions'],
-                'sauceSsml': sauce_ssml
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "What's your CPF number?",
+                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
             },
-            'transformers': [
-                {
-                    'inputPath': 'sauceSsml',
-                    'transformer': 'ssmlToSpeech',
-                    'outputName': 'sauceSpeech'
-                },
-                {
-                    'inputPath': 'hintText',
-                    'transformer': 'textToHint'
-                }
-            ]
-        }
+            "basicHeaderData": {
+                "headerTitle": "Safra 360",
+                "headerSubtitle": "Welcome to Safra Bank",
+                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+            }
+        },
+        "sources": {}
     }
 
 
@@ -149,8 +139,6 @@ def generateLaunchScreenDatasource(handler_input):
     # Define header title nad hint
     header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
     hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
-    welcome_text = data[prompts.WELCOME_MESSAGE].format(data[prompts.SKILL_NAME])
-    welcome_ssml = "<speak>{}</speak>".format(welcome_text)
     # Define sauces to be displayed
     saucesIdsToDisplay = ["BBQ", "CRA", "HON",
                           "PES", "PIZ", "TAR", "THO", "SEC"]
@@ -166,16 +154,19 @@ def generateLaunchScreenDatasource(handler_input):
             })
     # Generate JSON Datasource
     return {
-        "datasources": {
-            "basicBackgroundData": {
-                "textToDisplay": "What's your CPF number?",
-                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
+        'sauceBossData': {
+            'type': 'object',
+            'properties': {
+                'headerTitle': header_title,
+                'hintText': hint_text,
+                'items': sauces
             },
-            "basicHeaderData": {
-                "headerTitle": "Safra 360",
-                "headerSubtitle": "Welcome to Safra Bank",
-                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
-            }
+            'transformers': [
+                {
+                    'inputPath': 'hintText',
+                    'transformer': 'textToHint'
+                }
+            ]
         }
     }
 
