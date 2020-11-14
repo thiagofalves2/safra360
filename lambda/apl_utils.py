@@ -75,6 +75,7 @@ def generateLaunchRequestIntentScreenDatasource(handler_input):
         "datasources": {
             "basicBackgroundData": {
                 "textToDisplay": "What's your CPF number?",
+                "textToDisplay": "textStyleDisplay3",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
@@ -95,7 +96,7 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
     
     # Define header title nad hint
     skill_name = data[prompts.SKILL_NAME]
-    header_subtitle = data[prompts.HEADER_TITLE].format(prompts.BANK_NAME)
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
     #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
     attributes_manager = handler_input.attributes_manager
@@ -110,6 +111,7 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
         "datasources": {
             "basicBackgroundData": {
                 "textToDisplay": "Your CPF is {}. What's your celphone number?".format(cpf),
+                "textToDisplay": "textStyleDisplay4",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
