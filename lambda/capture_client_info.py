@@ -1,3 +1,8 @@
+from ask_sdk_core.dispatch_components import (
+    AbstractRequestHandler, AbstractExceptionHandler,
+    AbstractResponseInterceptor, AbstractRequestInterceptor
+)
+
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
     def can_handle(self, handler_input):
