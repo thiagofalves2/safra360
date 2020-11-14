@@ -2,6 +2,8 @@ import json
 import recipes
 import prompts
 import recipe_utils
+import utils
+from utils import get_image
 
 import ask_sdk_core as Alexa
 from ask_sdk_model.interfaces.alexa.presentation.apl import (
@@ -17,7 +19,7 @@ def _load_apl_document(file_path):
         return json.load(f)
 
 APL_DOCS = {
-    'launchRequestIntentHandler': _load_apl_document('./documents/launchRequestIntentHandler.json')
+    'launchRequestIntent': _load_apl_document('./documents/launchRequestIntent.json')
 }
 
 def supports_apl(handler_input):
@@ -28,7 +30,7 @@ def supports_apl(handler_input):
         handler_input)
     return supported_interfaces.alexa_presentation_apl != None
 
-def launch_request_intent_handler_screen(handler_input):
+def launch_request_intent_screen(handler_input):
     """
     Adds Launch Screen (APL Template) to Response
     """
@@ -37,12 +39,54 @@ def launch_request_intent_handler_screen(handler_input):
         handler_input.response_builder.add_directive(
             RenderDocumentDirective(
                 token="launchToken",
-                document=APL_DOCS['launchRequestIntentHandler'],
-                datasources=generateLaunchScreenDatasource(handler_input)
+                document=APL_DOCS['launchRequestIntent'],
+                datasources=generateLaunchRequestIntentScreenDatasource(handler_input)
             )
         )
 
-def generateLaunchScreenDatasource(handler_input):
+def capture_cpf_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['launchRequestIntent'],
+                datasources=generateCaptureCpfIntentScreenDatasource(handler_input)
+            )
+        )
+
+def generateLaunchRequestIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(prompts.BANK_NAME)
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "What's your CPF number?",
+                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+            }
+        },
+        "sources": {}
+    }
+
+def generateCaptureCpfIntentScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
@@ -57,7 +101,7 @@ def generateLaunchScreenDatasource(handler_input):
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "What's your CPF number?",
+                "textToDisplay": "Thanks, I'll remember that your CPF is {cpf}. What's your celphone number?",
                 "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
             },
             "basicHeaderData": {
@@ -68,8 +112,6 @@ def generateLaunchScreenDatasource(handler_input):
         },
         "sources": {}
     }
-
-
 
 
 
