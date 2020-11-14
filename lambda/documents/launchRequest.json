@@ -51,7 +51,7 @@
     "datasources": {
         "basicBackgroundData": {
             "textToDisplay": "What's your CPF number?",
-            "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
+            "backgroundImage": "https://s3.amazonaws.com/ask-samples-resources/images/sauce-boss/sauceBoss-background-right-Hub.png"
         },
         "basicHeaderData": {
             "headerTitle": "Safra 360",
