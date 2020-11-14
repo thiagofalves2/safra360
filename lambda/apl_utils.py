@@ -109,7 +109,7 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "Thanks, I'll remember that your CPF is {}. What's your celphone number?".format(cpf),
+                "textToDisplay": "Your CPF is {}. What's your celphone number?".format(cpf),
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
