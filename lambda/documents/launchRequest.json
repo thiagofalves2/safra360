@@ -254,50 +254,29 @@
             ]
           },
           {
-            "description": "Use containers to display 4 sauces per row (container) for Landscape Hubs",
+            "description": "Define a Container to contain sauce image & instructions for Landscape Hubs",
             "when": "${@viewportProfile != @hubRoundSmall}",
             "type": "Container",
-            "height": "70vh",
+            "direction": "row",
             "width": "100vw",
-            "direction": "column",
-            "alignItems": "center",
+            "height": "65vh",
+            "top": "10vh",
             "justifyContent": "center",
             "items": [
               {
-                "type": "Container",
-                "width": "100vw",
-                "height": "35vh",
-                "paddingTop": "5vh",
-                "direction": "row",
-                "data": [
-                  "${payload.sauceBossData.properties.items[0]}",
-                  "${payload.sauceBossData.properties.items[1]}",
-                  "${payload.sauceBossData.properties.items[2]}",
-                  "${payload.sauceBossData.properties.items[3]}"
-                ],
-                "items": [
-                  {
-                    "type": "HorizontalListItem"
-                  }
-                ]
-              },
-              {
-                "type": "Container",
-                "width": "100vw",
-                "height": "35vh",
-                "paddingTop": "5vh",
-                "direction": "row",
-                "data": [
-                  "${payload.sauceBossData.properties.items[4]}",
-                  "${payload.sauceBossData.properties.items[5]}",
-                  "${payload.sauceBossData.properties.items[6]}",
-                  "${payload.sauceBossData.properties.items[7]}"
-                ],
-                "items": [
-                  {
-                    "type": "HorizontalListItem"
-                  }
-                ]
+                "type": "ScrollView",
+                "paddingLeft": "5vw",
+                "width": "60vw",
+                "height": "60vh",
+                "item": {
+                  "type": "Text",
+                  "id": "recipeText",
+                  "style": "karaokeStyle",
+                  "text": "${payload.sauceBossData.properties.sauceText}",
+                  "speech": "${payload.sauceBossData.properties.sauceSpeech}",
+                  "fontSize": "6vh",
+                  "fontWeight": "300"
+                }
               }
             ]
           },
