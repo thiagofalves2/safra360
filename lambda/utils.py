@@ -142,3 +142,13 @@ def authentication_controller(option, cpf, date):
         logger.error("There was a problem connecting to the Authentication Controller API: {}".format(e))
         return ''
 
+def get_image(id):
+    """
+    Returns the image url of a specified id
+    """
+    url = IMAGES[id]
+    
+    if(url):
+        return url
+    else:
+        return RECIPE_DEFAULT_IMAGE
