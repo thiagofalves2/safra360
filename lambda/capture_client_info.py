@@ -81,6 +81,9 @@ class CaptureCelphoneIntentHandler(AbstractRequestHandler):
         speak_output = 'Thanks, I will remember that your celphone is {celphone}. What\'s your account number?'.format(celphone=celphone)
         reprompt_text = 'What\'s your account number?'
         
+        # Add APL Template if device is compatible
+        apl_utils.capture_celphone_intent_handler_screen(handler_input)
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
