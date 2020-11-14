@@ -20,6 +20,7 @@
 		"HINT_TEMPLATE": "How do I make {} sauce?"
 	},
 	"pt": {
+	    "BANK_NAME": "Banco Safra",
 		"SKILL_NAME": "Mestre dos Molhos",
 		"HEADER_TITLE": "Boas vindas ao {}",
 		"RECIPE_HEADER_TITLE": "COMO FAZER MOLHO {}",
