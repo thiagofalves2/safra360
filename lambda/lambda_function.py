@@ -53,17 +53,13 @@ class LaunchRequestIntentHandler(AbstractRequestHandler):
         data = handler_input.attributes_manager.request_attributes["_"]
         
         logger.info('Data variable: {}'.format(data))
-        
-        #speak_output = "Hello! Welcome to Safra Bank. What\'s your <say-as interpret-as=\"spell-out\">CPF</say-as> number?"
-        ## reprompt_text required to keep session open or set shouldEndSession to true
-        #reprompt_text = "Please say your <say-as interpret-as=\"spell-out\">CPF</say-as> number."
 
         # Get prompt and reprompt speech
         speak_output = data[prompts.WELCOME_MESSAGE].format(
             data[prompts.SKILL_NAME])
         reprompt_output = data[prompts.WELCOME_REPROMPT]
         # Add APL Template if device is compatible
-        apl_utils.launch_screen(handler_input)
+        apl_utils.launch_request_intent_handler_screen(handler_input)
 
         return (
             handler_input.response_builder
