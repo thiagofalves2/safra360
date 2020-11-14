@@ -76,6 +76,7 @@ def generateLaunchRequestIntentScreenDatasource(handler_input):
             "basicBackgroundData": {
                 "textToDisplay": "What's your CPF number?",
                 "backgroundImage": get_image('background')
+            },
             "basicHeaderData": {
                 "headerTitle": skill_name,
                 "headerSubtitle": header_subtitle,
@@ -110,6 +111,7 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
             "basicBackgroundData": {
                 "textToDisplay": "Thanks, I'll remember that your CPF is {}. What's your celphone number?".format(cpf),
                 "backgroundImage": get_image('background')
+            },
             "basicHeaderData": {
                 "headerTitle": skill_name,
                 "headerSubtitle": header_subtitle,
