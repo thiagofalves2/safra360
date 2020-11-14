@@ -99,7 +99,8 @@ def authentication_intent_screen(handler_input):
                 token="launchToken",
                 document=APL_DOCS['authenticateIntent'],
                 datasources=generateAuthenticationIntentScreenDatasource(handler_input)
-            ).add_directive(
+            )
+        ).add_directive(
             ExecuteCommandsDirective(
                 token="pagerToken",
                 commands=[
