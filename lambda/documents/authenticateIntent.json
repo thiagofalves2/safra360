@@ -34,7 +34,7 @@
                                 "type": "Pager",
                                 "height": "200dp",
                                 "width": "300dp",
-                                "id": "myPager",
+                                "id": "pagerComponentId",
                                 "items": [
                                     {
                                         "type": "Text",
