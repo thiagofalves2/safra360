@@ -33,7 +33,7 @@
                             {
                                 "type": "Text",
                                 "text": "${payload.datasources.basicBackgroundData.textToDisplay}",
-                                "style": "textStyleDisplay3",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle}",
                                 "paddingTop": "@spacing3XLarge",
                                 "paddingLeft": "@marginHorizontal",
                                 "paddingRight": "@marginHorizontal",
