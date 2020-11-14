@@ -7,6 +7,11 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
+IMAGES = {
+    'logo': "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png",
+    'background': "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
+}
+
 def create_presigned_url(object_name):
     """Generate a presigned URL to share an S3 object with a capped expiration of 60 seconds
     :param object_name: string
