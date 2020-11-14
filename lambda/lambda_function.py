@@ -63,6 +63,7 @@ class LaunchRequestIntentHandler(AbstractRequestHandler):
         speak_output = data[prompts.WELCOME_MESSAGE].format(
             data[prompts.SKILL_NAME])
         reprompt_output = data[prompts.WELCOME_REPROMPT]
+        
         # Add APL Template if device is compatible
         apl_utils.launch_request_intent_handler_screen(handler_input)
 
