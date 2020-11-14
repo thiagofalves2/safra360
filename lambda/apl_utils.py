@@ -18,7 +18,7 @@ def _load_apl_document(file_path):
 
 
 APL_DOCS = {
-    'launch': _load_apl_document('./documents/launchRequest.json')
+    'launchRequestIntentHandler': _load_apl_document('./documents/launchRequestIntentHandler.json')
 }
 
 
@@ -31,7 +31,7 @@ def supports_apl(handler_input):
     return supported_interfaces.alexa_presentation_apl != None
 
 
-def launch_screen(handler_input):
+def launch_request_intent_handler_screen(handler_input):
     """
     Adds Launch Screen (APL Template) to Response
     """
@@ -40,7 +40,7 @@ def launch_screen(handler_input):
         handler_input.response_builder.add_directive(
             RenderDocumentDirective(
                 token="launchToken",
-                document=APL_DOCS['launch'],
+                document=APL_DOCS['launchRequestIntentHandler'],
                 datasources=generateLaunchScreenDatasource(handler_input)
             )
         )
