@@ -115,6 +115,7 @@ def token_validation_screen(handler_input):
             )
         )
     time.sleep(5)
+    authentication_intent_screen(handler_input)
 
 def generateLaunchRequestIntentScreenDatasource(handler_input):
     """
