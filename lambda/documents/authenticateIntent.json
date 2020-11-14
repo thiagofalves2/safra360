@@ -39,12 +39,20 @@
                                     {
                                         "type": "Text",
                                         "text": "${payload.datasources.basicBackgroundData.textToDisplay}",
-                                        "style": "${payload.datasources.basicBackgroundData.textStyle}"
+                                        "style": "${payload.datasources.basicBackgroundData.textStyle}",
+                                        "paddingTop": "@spacing3XLarge",
+                                        "paddingLeft": "@marginHorizontal",
+                                        "paddingRight": "@marginHorizontal",
+                                        "textAlign": "center"
                                     },
                                     {
                                         "type": "Text",
                                         "text": "${payload.datasources.basicBackgroundData.textToDisplay2}",
-                                        "style": "${payload.datasources.basicBackgroundData.textStyle2}"
+                                        "style": "${payload.datasources.basicBackgroundData.textStyle2}",
+                                        "paddingTop": "@spacing3XLarge",
+                                        "paddingLeft": "@marginHorizontal",
+                                        "paddingRight": "@marginHorizontal",
+                                        "textAlign": "center"
                                     }
                                 ]
                             }
