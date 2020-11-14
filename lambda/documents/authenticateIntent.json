@@ -1,0 +1,57 @@
+{
+    "type": "APL",
+    "version": "1.5",
+    "import": [
+        {
+            "name": "alexa-layouts",
+            "version": "1.2.0"
+        }
+    ],
+    "mainTemplate": {
+        "parameters": [
+            "payload"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "items": [
+                    {
+                        "type": "AlexaBackground",
+                        "backgroundImageSource": "${payload.datasources.basicBackgroundData.backgroundImage}",
+                        "colorOverlay": true
+                    },
+                    {
+                        "type": "Container",
+                        "items": [
+                            {
+                                "type": "AlexaHeader",
+                                "headerTitle": "${payload.datasources.basicHeaderData.headerTitle}",
+                                "headerSubtitle": "${payload.datasources.basicHeaderData.headerSubtitle}",
+                                "headerDivider": true,
+                                "headerAttributionImage": "${payload.datasources.basicHeaderData.headerAttributionImage}"
+                            },
+                            {
+                                "type": "Pager",
+                                "height": "200dp",
+                                "width": "300dp",
+                                "id": "myPager",
+                                "items": [
+                                    {
+                                        "type": "Text",
+                                        "text": "${payload.datasources.basicBackgroundData.textToDisplay}",
+                                        "style": "${payload.datasources.basicBackgroundData.textStyle}"
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "text": "${payload.datasources.basicBackgroundData.textToDisplay2}",
+                                        "style": "${payload.datasources.basicBackgroundData.textStyle2}"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
