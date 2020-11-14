@@ -710,6 +710,27 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
                 .response
         )
 
+class LocalizationInterceptor(AbstractRequestInterceptor):
+    """
+    Add function to request attributes, that can load locale specific data.
+    """
+
+    def process(self, handler_input):
+        locale = handler_input.request_envelope.request.locale
+        logger.info("Locale is {}".format(locale[:2]))
+
+        # localized strings stored in language_strings.json
+        with open("language_strings.json") as language_prompts:
+            language_data = json.load(language_prompts)
+        # set default translation data to broader translation
+        data = language_data[locale[:2]]
+        # if a more specialized translation exists, then select it instead
+        # example: "fr-CA" will pick "fr" translations first, but if "fr-CA" translation exists,
+        #          then pick that instead
+        if locale in language_data:
+            data.update(language_data[locale])
+        handler_input.attributes_manager.request_attributes["_"] = data
+
 # The SkillBuilder object acts as the entry point for your skill, routing all request and response
 # payloads to the handlers above. Make sure any new handlers or interceptors you've
 # defined are included below. The order matters - they're processed top to bottom.
@@ -732,5 +753,8 @@ sb.add_request_handler(SessionEndedRequestHandler())
 sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
 
 sb.add_exception_handler(CatchAllExceptionHandler())
+
+# register response interceptors
+sb.add_global_request_interceptor(LocalizationInterceptor())
 
 lambda_handler = sb.lambda_handler()
