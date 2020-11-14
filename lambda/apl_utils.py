@@ -20,7 +20,8 @@ def _load_apl_document(file_path):
         return json.load(f)
 
 APL_DOCS = {
-    'launchRequestIntent': _load_apl_document('./documents/launchRequestIntent.json')
+    'launchRequestIntent': _load_apl_document('./documents/launchRequestIntent.json'),
+    'authenticateIntent': _load_apl_document('./documents/authenticateIntent.json')
 }
 
 def supports_apl(handler_input):
@@ -96,26 +97,18 @@ def authentication_intent_screen(handler_input):
         handler_input.response_builder.add_directive(
             RenderDocumentDirective(
                 token="launchToken",
-                document=APL_DOCS['launchRequestIntent'],
+                document=APL_DOCS['authenticateIntent'],
                 datasources=generateAuthenticationIntentScreenDatasource(handler_input)
+            ).add_directive(
+            ExecuteCommandsDirective(
+                token="pagerToken",
+                commands=[
+                    AutoPageCommand(
+                        component_id="pagerComponentId",
+                        duration=5000)
+                ]
             )
         )
-        
-def token_validation_screen(handler_input):
-    """
-    Adds Launch Screen (APL Template) to Response
-    """
-    # Only add APL directive if User's device supports APL
-    if(supports_apl(handler_input)):
-        handler_input.response_builder.add_directive(
-            RenderDocumentDirective(
-                token="launchToken",
-                document=APL_DOCS['launchRequestIntent'],
-                datasources=generateTokenValidationScreenDatasource(handler_input)
-            )
-        )
-    time.sleep(5)
-    authentication_intent_screen(handler_input)
 
 def generateLaunchRequestIntentScreenDatasource(handler_input):
     """
@@ -273,34 +266,6 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
     
     account_number = session_attr["account_number"]
     
-    token_validation_screen(handler_input)
-    
-    # Generate JSON Datasource
-    return {
-        "datasources": {
-            "basicBackgroundData": {
-                "textToDisplay": "How can I help you today? You can go to Safra Pay or Banking. Which service do you want?",
-                "textStyle": "textStyleDisplay4",
-                "backgroundImage": get_image('background')
-            },
-            "basicHeaderData": {
-                "headerTitle": skill_name,
-                "headerSubtitle": header_subtitle,
-                "headerAttributionImage": get_image('logo')
-            }
-        },
-        "sources": {}
-    }
-
-def generateTokenValidationScreenDatasource(handler_input):
-    """
-    Compute the JSON Datasource associated to APL Launch Screen
-    """
-    data = handler_input.attributes_manager.request_attributes["_"]
-    
-    # Define header title nad hint
-    skill_name = data[prompts.SKILL_NAME]
-    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
     
     # Generate JSON Datasource
     return {
@@ -308,6 +273,8 @@ def generateTokenValidationScreenDatasource(handler_input):
             "basicBackgroundData": {
                 "textToDisplay": "* * * *<br>'Token succesfully validated",
                 "textStyle": "textStyleDisplay3",
+                "textToDisplay2": "How can I help you today? You can go to Safra Pay or Banking. Which service do you want?",
+                "textStyle2": "textStyleDisplay4",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
@@ -318,7 +285,6 @@ def generateTokenValidationScreenDatasource(handler_input):
         },
         "sources": {}
     }
-
 
 
 
