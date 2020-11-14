@@ -132,13 +132,12 @@ def generateLaunchScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
-    data = handler_input.attributes_manager.request_attributes["_"]
-    print(str(data))
+    #data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
     
     # Define header title nad hint
-    header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
-    hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
-    
+    #header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
     # Generate JSON Datasource
     return {
