@@ -86,6 +86,34 @@ def capture_account_intent_screen(handler_input):
             )
         )
 
+def authentication_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['launchRequestIntent'],
+                datasources=generateAuthenticationIntentScreenDatasource(handler_input)
+            )
+        )
+        
+def token_validation_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['launchRequestIntent'],
+                datasources=generateTokenValidationScreenDatasource(handler_input)
+            )
+        )
+        
 def generateLaunchRequestIntentScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
@@ -223,9 +251,70 @@ def generateCaptureAccountIntentScreenDatasource(handler_input):
         "sources": {}
     }
 
+def generateAuthenticationIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    attributes_manager = handler_input.attributes_manager
+        
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    
+    account_number = session_attr["account_number"]
+    
+    token_validation_screen(handler_input)
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "How can I help you today? You can go to Safra Pay or Banking. Which service do you want?",
+                "textStyle": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
 
-
-
+def generateTokenValidationScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "* * * *<br>'Token succesfully validated",
+                "textStyle": "textStyleDisplay3",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
 
 
 
