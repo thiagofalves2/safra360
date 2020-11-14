@@ -1,4 +1,5 @@
 import json
+import time
 import recipes
 import prompts
 import recipe_utils
@@ -113,7 +114,8 @@ def token_validation_screen(handler_input):
                 datasources=generateTokenValidationScreenDatasource(handler_input)
             )
         )
-        
+    time.sleep(2.4)
+
 def generateLaunchRequestIntentScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
