@@ -148,7 +148,7 @@ def generateLaunchScreenDatasource(handler_input):
     data = handler_input.attributes_manager.request_attributes["_"]
     print(str(data))
     # Get random recipe name for hint
-    #random_recipe = recipe_utils.get_random_recipe(handler_input)
+    random_recipe = recipe_utils.get_random_recipe(handler_input)
     # Define header title nad hint
     header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
     hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
