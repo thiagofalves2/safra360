@@ -39,6 +39,9 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
         speak_output = 'Thanks, I\'ll remember that your <say-as interpret-as="spell-out">CPF</say-as> is <say-as interpret-as="digits">{cpf}</say-as>. What\'s your celphone number?'.format(cpf=cpf)
         reprompt_text = 'What\'s your celphone number?'
         
+        # Add APL Template if device is compatible
+        apl_utils.capture_cpf_intent_screen(handler_input)
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
@@ -80,9 +83,6 @@ class CaptureCelphoneIntentHandler(AbstractRequestHandler):
         
         speak_output = 'Thanks, I will remember that your celphone is {celphone}. What\'s your account number?'.format(celphone=celphone)
         reprompt_text = 'What\'s your account number?'
-        
-        # Add APL Template if device is compatible
-        apl_utils.capture_celphone_intent_handler_screen(handler_input)
         
         return (
             handler_input.response_builder
