@@ -154,7 +154,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
             
             # Add APL Template if device is compatible
-            apl_utils.authentication_intent_screen(handler_input)
+            apl_utils.token_validation_screen(handler_input)
             
             return (
             handler_input.response_builder
