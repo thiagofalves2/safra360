@@ -1,63 +1,49 @@
 {
-  "document": {
-        "type": "APL",
-        "version": "1.5",
-        "import": [
-            {
-                "name": "alexa-layouts",
-                "version": "1.2.0"
-            }
+    "type": "APL",
+    "version": "1.5",
+    "import": [
+        {
+            "name": "alexa-layouts",
+            "version": "1.2.0"
+        }
+    ],
+    "mainTemplate": {
+        "parameters": [
+            "basicBackgroundData",
+            "basicHeaderData"
         ],
-        "mainTemplate": {
-            "parameters": [
-                "basicBackgroundData",
-                "basicHeaderData"
-            ],
-            "items": [
-                {
-                    "type": "Container",
-                    "items": [
-                        {
-                            "type": "AlexaBackground",
-                            "backgroundImageSource": "${basicBackgroundData.backgroundImage}",
-                            "colorOverlay": true
-                        },
-                        {
-                            "type": "Container",
-                            "items": [
-                                {
-                                    "type": "AlexaHeader",
-                                    "headerTitle": "${basicHeaderData.headerTitle}",
-                                    "headerSubtitle": "${basicHeaderData.headerSubtitle}",
-                                    "headerDivider": true,
-                                    "headerAttributionImage": "${basicHeaderData.headerAttributionImage}"
-                                },
-                                {
-                                    "type": "Text",
-                                    "text": "${basicBackgroundData.textToDisplay}",
-                                    "style": "textStyleDisplay3",
-                                    "paddingTop": "@spacing3XLarge",
-                                    "paddingLeft": "@marginHorizontal",
-                                    "paddingRight": "@marginHorizontal",
-                                    "textAlign": "center"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    },
-    "datasources": {
-        "basicBackgroundData": {
-            "textToDisplay": "What's your CPF number?",
-            "backgroundImage": "https://s3.amazonaws.com/ask-samples-resources/images/sauce-boss/sauceBoss-background-right-Hub.png"
-        },
-        "basicHeaderData": {
-            "headerTitle": "Safra 360",
-            "headerSubtitle": "Welcome to Safra Bank",
-            "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
-        }
-    },
-    "sources": {}
+        "items": [
+            {
+                "type": "Container",
+                "items": [
+                    {
+                        "type": "AlexaBackground",
+                        "backgroundImageSource": "${basicBackgroundData.backgroundImage}",
+                        "colorOverlay": true
+                    },
+                    {
+                        "type": "Container",
+                        "items": [
+                            {
+                                "type": "AlexaHeader",
+                                "headerTitle": "${basicHeaderData.headerTitle}",
+                                "headerSubtitle": "${basicHeaderData.headerSubtitle}",
+                                "headerDivider": true,
+                                "headerAttributionImage": "${basicHeaderData.headerAttributionImage}"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${basicBackgroundData.textToDisplay}",
+                                "style": "textStyleDisplay3",
+                                "paddingTop": "@spacing3XLarge",
+                                "paddingLeft": "@marginHorizontal",
+                                "paddingRight": "@marginHorizontal",
+                                "textAlign": "center"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }
