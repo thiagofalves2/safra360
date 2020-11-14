@@ -1,0 +1,40 @@
+{
+	"en": {
+		"SKILL_NAME": "Sauce Boss",
+		"HEADER_TITLE": "Welcome to {}",
+		"RECIPE_HEADER_TITLE": "HOW TO MAKE {} SAUCE",
+		"HELP_HEADER_TITLE": "HELP",
+		"HELP_HEADER_SUBTITLE": "Select the sauce you want to prepare",
+		"WELCOME_MESSAGE": "Welcome to {}. You can ask a question like, what's the recipe for {} sauce? ... Now, which sauce would you like to prepare?",
+		"WELCOME_REPROMPT": "For instructions on what you can say, please say help me.  Which sauce would you like to prepare?",
+		"DISPLAY_CARD_TITLE": "{}  - Recipe for {}",
+		"HELP_MESSAGE": "You can ask questions such as, what's the recipe for {}, or, you can say exit ... Now, which sauce would you like to prepare?",
+		"HELP_REPROMPT": "You can say things like, what's the recipe for {}, or you can say exit ... Now, which sauce would you like to prepare?",
+		"STOP_MESSAGE": "Goodbye!",
+		"RECIPE_REPEAT_MESSAGE": "Try saying repeat.",
+		"RECIPE_NOT_FOUND_WITH_ITEM_NAME": "I'm sorry, I currently do not know the recipe for {}. Which sauce would you like to prepare ?",
+		"RECIPE_NOT_FOUND_WITHOUT_ITEM_NAME": "I'm sorry, I currently do not know that recipe. Which sauce would you like to prepare?",
+		"RECIPE_NOT_FOUND_REPROMPT": "Which sauce would you like to prepare?",
+		"ERROR_MESSAGE": "I'm sorry I didn't catch that. Can you reformulate please ?",
+		"HINT_TEMPLATE": "How do I make {} sauce?"
+	},
+	"pt": {
+		"SKILL_NAME": "Mestre dos Molhos",
+		"HEADER_TITLE": "Boas vindas ao {}",
+		"RECIPE_HEADER_TITLE": "COMO FAZER MOLHO {}",
+		"HELP_HEADER_TITLE": "AJUDA",
+		"HELP_HEADER_SUBTITLE": "Selecione o molho que você quer preparar",
+		"WELCOME_MESSAGE": "Boas vindas ao {}. Você pode me perguntar algo como, qual a receita para o molho {}? ... Então, qual molho você quer preparar?",
+		"WELCOME_REPROMPT": "Para instruções sobre o que dizer, por favor diga ajuda. Qual molho você gostaria de preparar?",
+		"DISPLAY_CARD_TITLE": "{}  - Receita para {}",
+		"HELP_MESSAGE": "Você pode fazer perguntas do tipo, qual a receita para {}, ou você pode dizer sair ... Então, qual molho você quer preparar?",
+		"HELP_REPROMPT": "Você pode dizer coisas como, qual a receita para {}, ou você pode dizer sair ... Então, qual molho você quer preparar?",
+		"STOP_MESSAGE": "Tchau!",
+		"RECIPE_REPEAT_MESSAGE": "Tente dizer repita.",
+		"RECIPE_NOT_FOUND_WITH_ITEM_NAME": "Sinto muito, mas no momento não sei a receita para {}. Qual outro molho você gostaria de preparar?",
+		"RECIPE_NOT_FOUND_WITHOUT_ITEM_NAME": "Sinto muito, mas no momento não sei a receita para {}. Qual outro molho você gostaria de preparar?",
+		"RECIPE_NOT_FOUND_REPROMPT": "Qual molho você gostaria de preparar?",
+		"ERROR_MESSAGE": "Desculpe, eu não entendi. Você pode reformular, por favor?",
+		"HINT_TEMPLATE": "Como eu faço o molho {}?"
+	}
+}
