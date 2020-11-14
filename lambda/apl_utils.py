@@ -75,12 +75,11 @@ def generateLaunchRequestIntentScreenDatasource(handler_input):
         "datasources": {
             "basicBackgroundData": {
                 "textToDisplay": "What's your CPF number?",
-                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
-            },
+                "backgroundImage": get_image('background')
             "basicHeaderData": {
                 "headerTitle": skill_name,
                 "headerSubtitle": header_subtitle,
-                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+                "headerAttributionImage": get_image('logo')
             }
         },
         "sources": {}
@@ -90,24 +89,24 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
-    #data = handler_input.attributes_manager.request_attributes["_"]
+    data = handler_input.attributes_manager.request_attributes["_"]
     #print(str(data))
     
     # Define header title nad hint
-    #header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(prompts.BANK_NAME)
     #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
     # Generate JSON Datasource
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "Thanks, I'll remember that your CPF is {cpf}. What's your celphone number?",
-                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
-            },
+                "textToDisplay": "What's your CPF number?",
+                "backgroundImage": get_image('background')
             "basicHeaderData": {
-                "headerTitle": "Safra 360",
-                "headerSubtitle": "Welcome to Safra Bank",
-                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
             }
         },
         "sources": {}
