@@ -1,11 +1,11 @@
 {
 	"en": {
-		"SKILL_NAME": "Sauce Boss",
+		"SKILL_NAME": "Safra 360",
 		"HEADER_TITLE": "Welcome to {}",
 		"RECIPE_HEADER_TITLE": "HOW TO MAKE {} SAUCE",
 		"HELP_HEADER_TITLE": "HELP",
 		"HELP_HEADER_SUBTITLE": "Select the sauce you want to prepare",
-		"WELCOME_MESSAGE": "Welcome to {}. You can ask a question like, what's the recipe for {} sauce? ... Now, which sauce would you like to prepare?",
+		"WELCOME_MESSAGE": "Hello! Welcome to {}. What's your <say-as interpret-as=\"spell-out\">CPF</say-as> number?",
 		"WELCOME_REPROMPT": "For instructions on what you can say, please say help me.  Which sauce would you like to prepare?",
 		"DISPLAY_CARD_TITLE": "{}  - Recipe for {}",
 		"HELP_MESSAGE": "You can ask questions such as, what's the recipe for {}, or, you can say exit ... Now, which sauce would you like to prepare?",
