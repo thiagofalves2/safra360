@@ -16,11 +16,9 @@ def _load_apl_document(file_path):
     with open(file_path) as f:
         return json.load(f)
 
-
 APL_DOCS = {
     'launchRequestIntentHandler': _load_apl_document('./documents/launchRequestIntentHandler.json')
 }
-
 
 def supports_apl(handler_input):
     """
@@ -29,7 +27,6 @@ def supports_apl(handler_input):
     supported_interfaces = get_supported_interfaces(
         handler_input)
     return supported_interfaces.alexa_presentation_apl != None
-
 
 def launch_request_intent_handler_screen(handler_input):
     """
@@ -44,6 +41,38 @@ def launch_request_intent_handler_screen(handler_input):
                 datasources=generateLaunchScreenDatasource(handler_input)
             )
         )
+
+def generateLaunchScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    #data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    #header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "What's your CPF number?",
+                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
+            },
+            "basicHeaderData": {
+                "headerTitle": "Safra 360",
+                "headerSubtitle": "Welcome to Safra Bank",
+                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+            }
+        },
+        "sources": {}
+    }
+
+
+
+
+
 
 
 def helpScreen(handler_input):
@@ -128,32 +157,7 @@ def generateRecipeScreenDatasource(handler_input, sauce_item, selected_recipe):
     }
 
 
-def generateLaunchScreenDatasource(handler_input):
-    """
-    Compute the JSON Datasource associated to APL Launch Screen
-    """
-    #data = handler_input.attributes_manager.request_attributes["_"]
-    #print(str(data))
-    
-    # Define header title nad hint
-    #header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
-    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
-    
-    # Generate JSON Datasource
-    return {
-        "datasources": {
-            "basicBackgroundData": {
-                "textToDisplay": "What's your CPF number?",
-                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
-            },
-            "basicHeaderData": {
-                "headerTitle": "Safra 360",
-                "headerSubtitle": "Welcome to Safra Bank",
-                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
-            }
-        },
-        "sources": {}
-    }
+
 
 
 def generateHelpScreenDatasource(handler_input):
