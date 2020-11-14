@@ -42,7 +42,7 @@ sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-class LaunchRequestHandler(AbstractRequestHandler):
+class LaunchRequestIntentHandler(AbstractRequestHandler):
     """
     Handles LaunchRequest requests sent by Alexa
     Note: this type of request is sent when hte user invokes your skill without providing a specific intent
