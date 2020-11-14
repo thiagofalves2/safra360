@@ -65,7 +65,7 @@ class LaunchRequestIntentHandler(AbstractRequestHandler):
         reprompt_output = data[prompts.WELCOME_REPROMPT]
         
         # Add APL Template if device is compatible
-        apl_utils.launch_request_intent_handler_screen(handler_input)
+        apl_utils.launch_request_intent_screen(handler_input)
 
         return (
             handler_input.response_builder
