@@ -71,7 +71,7 @@ class LaunchRequestIntentHandler(AbstractRequestHandler):
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                .ask(reprompt_text)
+                .ask(reprompt_output)
                 .response
         )
 
