@@ -14,11 +14,9 @@ from ask_sdk_core.dispatch_components import (
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
     def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
         return is_intent_name("CaptureCPFIntent")(handler_input)
 
     def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
         slots = handler_input.request_envelope.request.intent.slots
         cpf_one = slots["cpf_one"].value
         cpf_two = slots["cpf_two"].value
@@ -58,13 +56,11 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
         )
 
 class CaptureCelphoneIntentHandler(AbstractRequestHandler):
-    """Handler for Celphone Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return is_intent_name("CaptureCelphoneIntent")(handler_input)
 
     def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
         slots = handler_input.request_envelope.request.intent.slots
         celphone_area_one = slots["celphone_area_one"].value
         celphone_area_two = slots["celphone_area_two"].value
@@ -103,13 +99,10 @@ class CaptureCelphoneIntentHandler(AbstractRequestHandler):
         )
 
 class CaptureAccountIntentHandler(AbstractRequestHandler):
-    """Handler for Account Intent."""
     def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
         return is_intent_name("CaptureAccountIntent")(handler_input)
 
     def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
         slots = handler_input.request_envelope.request.intent.slots
         account_number = slots["account_number"].value
         
