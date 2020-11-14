@@ -41,7 +41,7 @@ def launch_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['launch'],
-                datasources=APL_DOCS['launch']
+                datasources=generateLaunchScreenDatasource(handler_input)
             )
         )
 
@@ -134,40 +134,26 @@ def generateLaunchScreenDatasource(handler_input):
     """
     data = handler_input.attributes_manager.request_attributes["_"]
     print(str(data))
-    # Get random recipe name for hint
-    random_recipe = recipe_utils.get_random_recipe(handler_input)
+    
     # Define header title nad hint
     header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
     hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
-    # Define sauces to be displayed
-    saucesIdsToDisplay = ["BBQ", "CRA", "HON",
-                          "PES", "PIZ", "TAR", "THO", "SEC"]
-    locale = handler_input.request_envelope.request.locale
-    all_recipes = recipe_utils.get_locale_specific_recipes(locale)
-    sauces = []
-    for k in all_recipes.keys():
-        if(k in saucesIdsToDisplay):
-            sauces.append({
-                'id': k,
-                'image': recipe_utils.get_sauce_image(k),
-                'text': all_recipes[k]['name']
-            })
+    
+    
     # Generate JSON Datasource
     return {
-        'sauceBossData': {
-            'type': 'object',
-            'properties': {
-                'headerTitle': header_title,
-                'hintText': hint_text,
-                'items': sauces
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "What's your CPF number?",
+                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
             },
-            'transformers': [
-                {
-                    'inputPath': 'hintText',
-                    'transformer': 'textToHint'
-                }
-            ]
-        }
+            "basicHeaderData": {
+                "headerTitle": "Safra 360",
+                "headerSubtitle": "Welcome to Safra Bank",
+                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+            }
+        },
+        "sources": {}
     }
 
 
