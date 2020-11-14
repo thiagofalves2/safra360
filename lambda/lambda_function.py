@@ -15,7 +15,7 @@ from ask_sdk_core.dispatch_components import (
     AbstractResponseInterceptor, AbstractRequestInterceptor
 )
 from ask_sdk_core.handler_input import HandlerInput
-import ask_sdk_core.utils as ask_utils
+from ask_sdk_core.utils import is_request_type, is_intent_name
 from ask_sdk_model import Response
 from ask_sdk_s3.adapter import S3Adapter
 
@@ -48,7 +48,7 @@ class LaunchRequestIntentHandler(AbstractRequestHandler):
     Note: this type of request is sent when hte user invokes your skill without providing a specific intent
     """
     def can_handle(self, handler_input):
-        return ask_utils.is_request_type("LaunchRequest")(handler_input)
+        return is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
         data = handler_input.attributes_manager.request_attributes["_"]
@@ -73,7 +73,7 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
         attr = handler_input.attributes_manager.persistent_attributes
         attributes_are_present = ("cpf" in attr and "celphone" in attr and "account_number" in attr)
         
-        return attributes_are_present and ask_utils.is_request_type("LaunchRequest")(handler_input)
+        return attributes_are_present and is_request_type("LaunchRequest")(handler_input)
         
     def handle(self, handler_input):
         # Extract persistent attributes
@@ -105,7 +105,7 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
     """Handler for Authentication Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("AuthenticationIntent")(handler_input)
+        return is_intent_name("AuthenticationIntent")(handler_input)
         
     def handle(self, handler_input):
         # Extract persistent attributes
@@ -162,7 +162,7 @@ class BankingIntentHandler(AbstractRequestHandler):
     """Handler for Banking Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("BankingIntent")(handler_input)
+        return is_intent_name("BankingIntent")(handler_input)
         
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -181,7 +181,7 @@ class SafraPayIntentHandler(AbstractRequestHandler):
     """Handler for Safra Pay Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("SafraPayIntent")(handler_input)
+        return is_intent_name("SafraPayIntent")(handler_input)
         
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -200,7 +200,7 @@ class AccountIntentHandler(AbstractRequestHandler):
     """ Handler for Account Intent. """
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("AccountIntent")(handler_input)
+        return is_intent_name("AccountIntent")(handler_input)
     
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -423,7 +423,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
     """ Handler for Account Intent. """
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("SafraPayAccountIntent")(handler_input)
+        return is_intent_name("SafraPayAccountIntent")(handler_input)
     
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -484,7 +484,7 @@ class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("CaptureCPFIntent")(handler_input)
+        return is_intent_name("CaptureCPFIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -527,7 +527,7 @@ class CaptureCelphoneIntentHandler(AbstractRequestHandler):
     """Handler for Celphone Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("CaptureCelphoneIntent")(handler_input)
+        return is_intent_name("CaptureCelphoneIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -569,7 +569,7 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
     """Handler for Account Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("CaptureAccountIntent")(handler_input)
+        return is_intent_name("CaptureAccountIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -615,10 +615,11 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
             return handler_input.response_builder.speak(speak_output).set_should_end_session(True).response 
 
 class HelpIntentHandler(AbstractRequestHandler):
-    """Handler for Help Intent."""
+    """
+    Handles AMAZON.HelpIntent requests sent by Alexa
+    """
     def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("AMAZON.HelpIntent")(handler_input)
+        return is_intent_name("AMAZON.HelpIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -636,8 +637,8 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
     """Single handler for Cancel and Stop Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return (ask_utils.is_intent_name("AMAZON.CancelIntent")(handler_input) or
-                ask_utils.is_intent_name("AMAZON.StopIntent")(handler_input))
+        return (is_intent_name("AMAZON.CancelIntent")(handler_input) or
+                is_intent_name("AMAZON.StopIntent")(handler_input))
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -654,7 +655,7 @@ class SessionEndedRequestHandler(AbstractRequestHandler):
     """Handler for Session End."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_request_type("SessionEndedRequest")(handler_input)
+        return is_request_type("SessionEndedRequest")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
@@ -672,11 +673,11 @@ class IntentReflectorHandler(AbstractRequestHandler):
     """
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_request_type("IntentRequest")(handler_input)
+        return is_request_type("IntentRequest")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        intent_name = ask_utils.get_intent_name(handler_input)
+        intent_name = get_intent_name(handler_input)
         speak_output = "You just triggered " + intent_name + "."
 
         return (
@@ -714,7 +715,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 # defined are included below. The order matters - they're processed top to bottom.
 
 
-
+sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(HasClientInfoLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestIntentHandler())
 sb.add_request_handler(AuthenticationIntentHandler())
