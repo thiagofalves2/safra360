@@ -20,8 +20,6 @@ def _load_apl_document(file_path):
 
 APL_DOCS = {
     'launch': _load_apl_document('./documents/launchRequest.json'),
-    'recipe': _load_apl_document('./documents/recipeIntent.json'),
-    'help': _load_apl_document('./documents/helpIntent.json')
 }
 
 
@@ -44,7 +42,7 @@ def launch_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['launch'],
-                datasources=generateLaunchScreenDatasource(handler_input)
+                datasources=APL_DOCS['launch']
             )
         )
 
@@ -169,26 +167,16 @@ def generateLaunchScreenDatasource(handler_input):
             })
     # Generate JSON Datasource
     return {
-        'safraBankData': {
-            'type': 'object',
-            'properties': {
-                'headerTitle': header_title,
-                'headerBackButton': (not handler_input.request_envelope.session.new),
-                'hintText': hint_text,
-                'cpfText': welcome_text,
-                'welcomeSsml': welcome_ssml
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "What's your CPF number?",
+                "backgroundImage": "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png"
             },
-            'transformers': [
-                {
-                    'inputPath': 'welcomeSsml',
-                    'transformer': 'ssmlToSpeech',
-                    'outputName': 'welcomeSpeech'
-                },
-                {
-                    'inputPath': 'hintText',
-                    'transformer': 'textToHint'
-                }
-            ]
+            "basicHeaderData": {
+                "headerTitle": "Safra 360",
+                "headerSubtitle": "Welcome to Safra Bank",
+                "headerAttributionImage": "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png"
+            }
         }
     }
 
