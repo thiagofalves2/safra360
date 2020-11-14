@@ -58,6 +58,34 @@ def capture_cpf_intent_screen(handler_input):
             )
         )
 
+def capture_celphone_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['launchRequestIntent'],
+                datasources=generateCaptureCelphoneIntentScreenDatasource(handler_input)
+            )
+        )
+
+def capture_account_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['launchRequestIntent'],
+                datasources=generateCaptureAccountIntentScreenDatasource(handler_input)
+            )
+        )
+
 def generateLaunchRequestIntentScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
@@ -122,6 +150,83 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
         },
         "sources": {}
     }
+
+def generateCaptureCelphoneIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    attributes_manager = handler_input.attributes_manager
+        
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    
+    celphone = session_attr["celphone"]
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "Your celphone is {}. What's your account number?".format(celphone),
+                "textStyle": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateCaptureAccountIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    attributes_manager = handler_input.attributes_manager
+        
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    
+    account_number = session_attr["account_number"]
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "Your account number is {}. Please, confirm the token we sent to your celphone...".format(account_number),
+                "textStyle": "textStyleDisplay5",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+
+
+
+
 
 
 
