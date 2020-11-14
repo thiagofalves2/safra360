@@ -112,7 +112,6 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
 class AuthenticationIntentHandler(AbstractRequestHandler):
     """Handler for Authentication Intent."""
     def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
         return is_intent_name("AuthenticationIntent")(handler_input)
         
     def handle(self, handler_input):
@@ -130,7 +129,6 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         logger.info('Session Atts: {}'.format(type(AuthenticationIntentHandler())))
         
         if (type(self) != type(AuthenticationIntentHandler())) :
-            logger.info("Entrou no if.")
             old_speak_output = session_attr["previous_speak_output"]
             speak_output = '{} What more can I help you with today? You can go to Safra Pay or Banking. Which service do you want?'.format(old_speak_output)
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
@@ -154,6 +152,9 @@ class AuthenticationIntentHandler(AbstractRequestHandler):
         if (token_validated == 202) :
             speak_output = 'Token succesfully validated. How can I help you today? You can go to Safra Pay or Banking. Which service do you want?' 
             reprompt_text = 'How can I help you today? You can go to Safra Pay or Banking. Which service do you want?'
+            
+            # Add APL Template if device is compatible
+            apl_utils.authentication_intent_screen(handler_input)
             
             return (
             handler_input.response_builder
