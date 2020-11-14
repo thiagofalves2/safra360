@@ -21,11 +21,11 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
 import utils
-#from utils import get_token
-#from utils import call_safra_api
-#from utils import sms_controller
-#from utils import token_controller
-#from utils import authentication_controller
+from utils import get_token
+from utils import call_safra_api
+from utils import sms_controller
+from utils import token_controller
+from utils import authentication_controller
 
 #import services_utils
 #import sub_services_utils
@@ -34,14 +34,18 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 class LaunchRequestHandler(AbstractRequestHandler):
-    """Handler for Skill Launch."""
+    """
+    Handles LaunchRequest requests sent by Alexa
+    Note: this type of request is sent when hte user invokes your skill without providing a specific intent
+    """
     def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
+        data = handler_input.attributes_manager.request_attributes["_"]
+        
+        logger.info('Data variable: {}'.format(data))
+        
         speak_output = "Hello! Welcome to Safra Bank. What\'s your <say-as interpret-as=\"spell-out\">CPF</say-as> number?"
         # reprompt_text required to keep session open or set shouldEndSession to true
         reprompt_text = "Please say your <say-as interpret-as=\"spell-out\">CPF</say-as> number."
