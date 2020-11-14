@@ -4,21 +4,20 @@
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
 import logging
+import json
+import prompts
+
 import ask_sdk_core.utils as ask_utils
-import os
-import requests
-from requests import Request, Session
-
-from ask_sdk_s3.adapter import S3Adapter
-
-s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
-
 from ask_sdk_core.skill_builder import CustomSkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
-
 from ask_sdk_model import Response
+from ask_sdk_s3.adapter import S3Adapter
+
+import os
+import requests
+from requests import Request, Session
 
 import utils
 from utils import get_token
@@ -29,6 +28,8 @@ from utils import authentication_controller
 
 #import services_utils
 #import sub_services_utils
+
+s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
