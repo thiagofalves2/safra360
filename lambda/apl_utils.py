@@ -1,7 +1,7 @@
 import json
-import recipes
+#import recipes
 import prompts
-import recipe_utils
+#import recipe_utils
 
 import ask_sdk_core as Alexa
 from ask_sdk_model.interfaces.alexa.presentation.apl import (
