@@ -8,15 +8,16 @@ import json
 import prompts
 import apl_utils
 
-import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.skill_builder import CustomSkillBuilder
-from ask_sdk_core.handler_input import HandlerInput
-from ask_sdk_model import Response
-from ask_sdk_s3.adapter import S3Adapter
+from ask_sdk_core.serialize import DefaultSerializer
 from ask_sdk_core.dispatch_components import (
     AbstractRequestHandler, AbstractExceptionHandler,
     AbstractResponseInterceptor, AbstractRequestInterceptor
 )
+from ask_sdk_core.handler_input import HandlerInput
+import ask_sdk_core.utils as ask_utils
+from ask_sdk_model import Response
+from ask_sdk_s3.adapter import S3Adapter
 
 import os
 import requests
@@ -33,6 +34,10 @@ from utils import authentication_controller
 #import sub_services_utils
 
 s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
+
+# Builder to use storage
+sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
+#sb = SkillBuilder()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -708,9 +713,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 # payloads to the handlers above. Make sure any new handlers or interceptors you've
 # defined are included below. The order matters - they're processed top to bottom.
 
-# Builder to use storage
-sb = CustomSkillBuilder(persistence_adapter=s3_adapter)
-#sb = SkillBuilder()
+
 
 sb.add_request_handler(HasClientInfoLaunchRequestHandler())
 sb.add_request_handler(LaunchRequestHandler())
