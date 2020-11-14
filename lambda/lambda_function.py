@@ -32,9 +32,6 @@ from utils import sms_controller
 from utils import token_controller
 from utils import authentication_controller
 
-#import services_utils
-#import sub_services_utils
-
 s3_adapter = S3Adapter(bucket_name=os.environ["S3_PERSISTENCE_BUCKET"])
 
 # Builder to use storage
