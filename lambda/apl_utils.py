@@ -97,11 +97,18 @@ def generateCaptureCpfIntentScreenDatasource(handler_input):
     header_subtitle = data[prompts.HEADER_TITLE].format(prompts.BANK_NAME)
     #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
+    attributes_manager = handler_input.attributes_manager
+        
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    
+    cpf = session_attr["cpf"]
+    
     # Generate JSON Datasource
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "What's your CPF number?",
+                "textToDisplay": "Thanks, I'll remember that your CPF is {}. What's your celphone number?".format(cpf),
                 "backgroundImage": get_image('background')
             "basicHeaderData": {
                 "headerTitle": skill_name,
