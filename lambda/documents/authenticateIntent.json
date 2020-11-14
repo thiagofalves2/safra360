@@ -32,8 +32,8 @@
                             },
                             {
                                 "type": "Pager",
-                                "height": "200dp",
-                                "width": "300dp",
+                                "height": "100%",
+                                "width": "100%",
                                 "id": "pagerComponentId",
                                 "items": [
                                     {
