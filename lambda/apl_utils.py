@@ -8,7 +8,8 @@ from utils import get_image
 
 import ask_sdk_core as Alexa
 from ask_sdk_model.interfaces.alexa.presentation.apl import (
-    RenderDocumentDirective, ExecuteCommandsDirective, SpeakItemCommand, HighlightMode
+    RenderDocumentDirective, ExecuteCommandsDirective, SpeakItemCommand,
+    AutoPageCommand, HighlightMode
 )
 from ask_sdk_core.utils import (get_supported_interfaces)
 
