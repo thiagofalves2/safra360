@@ -9,8 +9,7 @@
     ],
     "mainTemplate": {
         "parameters": [
-            "basicBackgroundData",
-            "basicHeaderData"
+            "payload"
         ],
         "items": [
             {
@@ -18,7 +17,7 @@
                 "items": [
                     {
                         "type": "AlexaBackground",
-                        "backgroundImageSource": "${basicBackgroundData.backgroundImage}",
+                        "backgroundImageSource": "${payload.datasources.basicBackgroundData.backgroundImage}",
                         "colorOverlay": true
                     },
                     {
@@ -26,14 +25,14 @@
                         "items": [
                             {
                                 "type": "AlexaHeader",
-                                "headerTitle": "${basicHeaderData.headerTitle}",
-                                "headerSubtitle": "${basicHeaderData.headerSubtitle}",
+                                "headerTitle": "${payload.datasources.basicHeaderData.headerTitle}",
+                                "headerSubtitle": "${payload.datasources.basicHeaderData.headerSubtitle}",
                                 "headerDivider": true,
-                                "headerAttributionImage": "${basicHeaderData.headerAttributionImage}"
+                                "headerAttributionImage": "${payload.datasources.basicHeaderData.headerAttributionImage}"
                             },
                             {
                                 "type": "Text",
-                                "text": "${basicBackgroundData.textToDisplay}",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay}",
                                 "style": "textStyleDisplay3",
                                 "paddingTop": "@spacing3XLarge",
                                 "paddingLeft": "@marginHorizontal",
