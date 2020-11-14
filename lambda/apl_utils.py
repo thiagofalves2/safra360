@@ -152,6 +152,8 @@ def generateLaunchScreenDatasource(handler_input):
     # Define header title nad hint
     header_title = data[prompts.HEADER_TITLE].format(data[prompts.SKILL_NAME])
     hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    welcome_text = data[prompts.WELCOME_MESSAGE].format(data[prompts.SKILL_NAME])
+    welcome_ssml = "<speak>{}</speak>".format(welcome_text)
     # Define sauces to be displayed
     saucesIdsToDisplay = ["BBQ", "CRA", "HON",
                           "PES", "PIZ", "TAR", "THO", "SEC"]
@@ -167,14 +169,21 @@ def generateLaunchScreenDatasource(handler_input):
             })
     # Generate JSON Datasource
     return {
-        'sauceBossData': {
+        'safraBankData': {
             'type': 'object',
             'properties': {
                 'headerTitle': header_title,
+                'headerBackButton': (not handler_input.request_envelope.session.new),
                 'hintText': hint_text,
-                'items': sauces
+                'cpfText': welcome_text,
+                'welcomeSsml': welcome_ssml
             },
             'transformers': [
+                {
+                    'inputPath': 'welcomeSsml',
+                    'transformer': 'ssmlToSpeech',
+                    'outputName': 'welcomeSpeech'
+                },
                 {
                     'inputPath': 'hintText',
                     'transformer': 'textToHint'
