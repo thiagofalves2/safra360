@@ -6,7 +6,7 @@
 		"HELP_HEADER_TITLE": "HELP",
 		"HELP_HEADER_SUBTITLE": "Select the sauce you want to prepare",
 		"WELCOME_MESSAGE": "Hello! Welcome to {}. What's your <say-as interpret-as=\"spell-out\">CPF</say-as> number?",
-		"WELCOME_REPROMPT": "For instructions on what you can say, please say help me.  Which sauce would you like to prepare?",
+		"WELCOME_REPROMPT": "Please, tell me your <say-as interpret-as=\"spell-out\">CPF</say-as> number.",
 		"DISPLAY_CARD_TITLE": "{}  - Recipe for {}",
 		"HELP_MESSAGE": "You can ask questions such as, what's the recipe for {}, or, you can say exit ... Now, which sauce would you like to prepare?",
 		"HELP_REPROMPT": "You can say things like, what's the recipe for {}, or you can say exit ... Now, which sauce would you like to prepare?",
