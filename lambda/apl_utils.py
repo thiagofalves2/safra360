@@ -272,8 +272,8 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "* * * *<br>'Token succesfully validated",
-                "textStyle": "textStyleDisplay3",
+                "textToDisplay": "* * * *<br>Token succesfully validated",
+                "textStyle": "textStyleDisplay5",
                 "textToDisplay2": "How can I help you today? You can go to Safra Pay or Banking. Which service do you want?",
                 "textStyle2": "textStyleDisplay4",
                 "backgroundImage": get_image('background')
