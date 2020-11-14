@@ -9,7 +9,6 @@ from ask_sdk_model.interfaces.alexa.presentation.apl import (
 )
 from ask_sdk_core.utils import (get_supported_interfaces)
 
-
 def _load_apl_document(file_path):
     """
     Load the apl json document at the path into a dict object
@@ -19,7 +18,7 @@ def _load_apl_document(file_path):
 
 
 APL_DOCS = {
-    'launch': _load_apl_document('./documents/launchRequest.json'),
+    'launch': _load_apl_document('./documents/launchRequest.json')
 }
 
 
