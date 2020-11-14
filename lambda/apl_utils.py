@@ -67,7 +67,7 @@ def generateLaunchRequestIntentScreenDatasource(handler_input):
     
     # Define header title nad hint
     skill_name = data[prompts.SKILL_NAME]
-    header_subtitle = data[prompts.HEADER_TITLE].format(prompts.BANK_NAME)
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
     #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
     # Generate JSON Datasource
