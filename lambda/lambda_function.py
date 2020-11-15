@@ -457,6 +457,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         session_attr = attributes_manager.session_attributes
         
         session_attr["date"] = date
+        session_attr["option"] = option
         
         if (option == "received amount") :
             received_amount = authentication_controller('authorization/howMuchReceived',persisted_cpf,date)
@@ -495,7 +496,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 
                 # Add speak_output variable to session attributes
                 session_attr["previous_speak_output"] = speak_output
-            
+         
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
 
