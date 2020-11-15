@@ -282,7 +282,7 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
             "basicHeaderData": {
                 "headerTitle": skill_name,
                 "headerSubtitle": header_subtitle,
-                "headerAttributionImage": get_image('logo'),
+                "headerAttributionImage": get_image('logo')
             }
         },
         "sources": {}
