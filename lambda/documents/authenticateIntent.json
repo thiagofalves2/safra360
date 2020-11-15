@@ -32,14 +32,13 @@
                         "id": "pagerComponentId",
                         "width": "100vw",
                         "height": "100vh",
-                        "opacity": 1,
                         "alignSelf": "center",
                         "position": "relative",
                         "items": [
                             {
                                 "type": "Text",
-                                "text": "${payload.datasources.basicHeaderData.textToDisplay}",
-                                "style": "${payload.datasources.basicHeaderData.textStyle}",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay}",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle}",
                                 "paddingTop": "@spacing3XLarge",
                                 "paddingLeft": "@marginHorizontal",
                                 "paddingRight": "@marginHorizontal",
@@ -47,8 +46,8 @@
                             },
                             {
                                 "type": "Text",
-                                "text": "${payload.datasources.basicHeaderData.textToDisplay2}",
-                                "style": "${payload.datasources.basicHeaderData.textStyle2}",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay2}",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle2}",
                                 "paddingTop": "@spacing3XLarge",
                                 "paddingLeft": "@marginHorizontal",
                                 "paddingRight": "@marginHorizontal",
