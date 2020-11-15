@@ -155,4 +155,4 @@ def get_image(id):
     if(url):
         return url
     else:
-        return RECIPE_DEFAULT_IMAGE
+        return IMAGES['safraBanking']
