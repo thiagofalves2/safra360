@@ -139,8 +139,8 @@ def has_client_info_intent_screen(handler_input):
                 datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
             )
         )
-        
-    def sold_amount_screen(handler_input):
+
+def sold_amount_screen(handler_input):
     """
     Adds Launch Screen (APL Template) to Response
     """
@@ -153,8 +153,8 @@ def has_client_info_intent_screen(handler_input):
                 datasources=generateSoldAmountScreenDatasource(handler_input)
             )
         )
-    
-    def future_amount_screen(handler_input):
+
+def future_amount_screen(handler_input):
     """
     Adds Launch Screen (APL Template) to Response
     """
@@ -167,8 +167,8 @@ def has_client_info_intent_screen(handler_input):
                 datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
             )
         )
-    
-    def received_amount_screen(handler_input):
+
+def received_amount_screen(handler_input):
     """
     Adds Launch Screen (APL Template) to Response
     """
