@@ -123,7 +123,7 @@ def safrapay_intent_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['safraPay'],
-                datasources=generateAuthenticationIntentScreenDatasource(handler_input)
+                datasources=generateSafraPayIntentScreenDatasource(handler_input)
             )
         )
 
@@ -345,7 +345,7 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
         "sources": {}
     }
 
-def generateAuthenticationIntentScreenDatasource(handler_input):
+def generateSafraPayIntentScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
