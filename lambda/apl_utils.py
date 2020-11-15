@@ -518,24 +518,19 @@ def generateSoldAmountScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
-    data = handler_input.attributes_manager.request_attributes["_"]
+    attributes_manager = handler_input.attributes_manager
+    
+    data = attributes_manager.request_attributes["_"]
     #print(str(data))
     
     # Define header title nad hint
     skill_name = data[prompts.SKILL_NAME]
     header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
-    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
     # Get any existing attributes from the incoming request
     session_attr = attributes_manager.session_attributes
     date = session_attr['date']
     sold_amount = session_attr['sold_amount']
-    
-    # Extract persistent attributes
-    attr = handler_input.attributes_manager.persistent_attributes
-    persisted_cpf = attr['cpf']
-    persisted_celphone = attr['celphone']
-    persisted_account_number = attr['account_number']
 
     # Generate JSON Datasource
     return {
@@ -543,7 +538,7 @@ def generateSoldAmountScreenDatasource(handler_input):
             "basicBackgroundData": {
                 "textToDisplay": "Sold Amount Service",
                 "textStyle": "textStyleDisplay3",
-                "textToDisplay2": "Sold amount on {date}: {}".format(persisted_cpf),
+                "textToDisplay2": "Sold amount on {date}: US$ {sold_amount}".format(date=date,sold_amount=sold_amount),
                 "textStyle2": "textStyleDisplay4",
                 "backgroundImage": get_image('background')
             },
