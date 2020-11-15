@@ -107,7 +107,7 @@ def authentication_intent_screen(handler_input):
                 commands=[
                     AutoPageCommand(
                         component_id="pagerComponentId",
-                        duration=3000)
+                        duration=1500)
                 ]
             )
         )
