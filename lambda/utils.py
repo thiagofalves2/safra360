@@ -13,7 +13,10 @@ IMAGES = {
     'listItemBackground': "https://i.ibb.co/PxxDMM1/oie-transparent.png",
     'safraPay': "https://i.ibb.co/bWSCfGC/download.png",
     'safraBanking': "https://www.hospitalangelinacaron.org.br/wp-content/uploads/2017/07/logo_banco_safra.jpg",
-    'morningCalls': "https://i.ibb.co/kgnXHPM/morning-call.jpg"
+    'morningCalls': "https://i.ibb.co/kgnXHPM/morning-call.jpg",
+    'soldAmount': "https://i.ibb.co/c6W8v4R/sold-amount.png",
+    'futureAmount': "https://i.ibb.co/wSmCMn3/future-amount.png",
+    'receivedAmount': "https://i.ibb.co/1Rktx6g/received-amount.png"
 }
 
 def create_presigned_url(object_name):
