@@ -389,7 +389,7 @@ def generateSafraPayIntentScreenDatasource(handler_input):
                     {
                         "primaryText": "Sold Amount",
                         "imageAlignment": "center",
-                        "imageSource": get_image('safraPay'),
+                        "imageSource": get_image('soldAmount'),
                         "primaryAction": [
                             {
                                 "type": "SetValue",
@@ -402,7 +402,7 @@ def generateSafraPayIntentScreenDatasource(handler_input):
                     {
                         "primaryText": "Received Amount",
                         "imageAlignment": "left",
-                        "imageSource": get_image('safraBanking'),
+                        "imageSource": get_image('receivedAmount'),
                         "primaryAction": [
                             {
                                 "type": "SetValue",
@@ -415,7 +415,7 @@ def generateSafraPayIntentScreenDatasource(handler_input):
                     {
                         "primaryText": "Future Amount",
                         "imageAlignment": "left",
-                        "imageSource": get_image('morningCalls'),
+                        "imageSource": get_image('futureAmount'),
                         "primaryAction": [
                             {
                                 "type": "SetValue",
