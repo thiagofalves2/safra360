@@ -456,6 +456,8 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
         # Get any existing attributes from the incoming request
         session_attr = attributes_manager.session_attributes
         
+        session_attr["date"] = date
+        
         if (option == "received amount") :
             received_amount = authentication_controller('authorization/howMuchReceived',persisted_cpf,date)
             
@@ -463,6 +465,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 logger.error("Empty API response.")
                 return ''
             else :
+                session_attr["received_amount"] = received_amount
                 speak_output = 'Here\'s your received amount on {date}: R$ {received_amount}.'.format(date=date, received_amount=received_amount)
                 
                 # Add speak_output variable to session attributes
@@ -475,6 +478,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 logger.error("Empty API response.")
                 return ''
             else :
+                session_attr["sold_amount"] = sold_amount
                 speak_output = 'Here\'s your sold amount on {date}: R$ {sold_amount}.'.format(date=date, sold_amount=sold_amount)
                 
                 # Add speak_output variable to session attributes
@@ -486,6 +490,7 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 logger.error("Empty API response.")
                 return ''
             else :
+                session_attr["future_amount"] = future_amount
                 speak_output = 'Here\'s your future amount on {date}: R$ {future_amount}.'.format(date=date, future_amount=future_amount)
                 
                 # Add speak_output variable to session attributes
