@@ -22,7 +22,8 @@ def _load_apl_document(file_path):
 
 APL_DOCS = {
     'launchRequestIntent': _load_apl_document('./documents/launchRequestIntent.json'),
-    'authenticateIntent': _load_apl_document('./documents/authenticateIntent.json')
+    'authenticateIntent': _load_apl_document('./documents/authenticateIntent.json'),
+    'safraPay': _load_apl_document('./documents/safraPay.json')
 }
 
 def supports_apl(handler_input):
@@ -109,6 +110,20 @@ def authentication_intent_screen(handler_input):
                         component_id="pagerComponentId",
                         duration=1000)
                 ]
+            )
+        )
+
+def safrapay_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['safraPay'],
+                datasources=generateAuthenticationIntentScreenDatasource(handler_input)
             )
         )
 
@@ -329,6 +344,87 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
         },
         "sources": {}
     }
+
+def generateAuthenticationIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay2": "Please choose service and date.",
+                "textStyle2": "textStyleDisplay4",
+                "backgroundImage": get_image('background'),
+                "listItemBackground": get_image('listItemBackground')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            },
+            "imageListData": {
+                "type": "object",
+                "listItems": [
+                    {
+                        "primaryText": "Sold Amount",
+                        "imageAlignment": "center",
+                        "imageSource": get_image('safraPay'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "soldAmount",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "primaryText": "Received Amount",
+                        "imageAlignment": "left",
+                        "imageSource": get_image('safraBanking'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "receivedAmount",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "primaryText": "Future Amount",
+                        "imageAlignment": "left",
+                        "imageSource": get_image('morningCalls'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "futureAmount",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "sources": {}
+    }
+
+
+
+
+
+
+
+
 
 
 
