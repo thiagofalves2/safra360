@@ -164,7 +164,7 @@ def future_amount_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['hasClientInfo'],
-                datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
+                datasources=generateFutureAmountScreenDatasource(handler_input)
             )
         )
 
@@ -178,7 +178,7 @@ def received_amount_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['hasClientInfo'],
-                datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
+                datasources=generateReceivedAmountScreenDatasource(handler_input)
             )
         )
 
@@ -538,7 +538,81 @@ def generateSoldAmountScreenDatasource(handler_input):
             "basicBackgroundData": {
                 "textToDisplay": "Sold Amount Service",
                 "textStyle": "textStyleDisplay3",
-                "textToDisplay2": "Sold amount on {date}: US$ {sold_amount}".format(date=date,sold_amount=sold_amount),
+                "textToDisplay2": "Sold amount on {date}:<br>US$ {sold_amount}".format(date=date,sold_amount=sold_amount),
+                "textStyle2": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateReceivedAmountScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    attributes_manager = handler_input.attributes_manager
+    
+    data = attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    date = session_attr['date']
+    received_amount = session_attr['received_amount']
+
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "Received Amount Service",
+                "textStyle": "textStyleDisplay3",
+                "textToDisplay2": "Received amount on {date}:<br>US$ {received_amount}".format(date=date,received_amount=received_amount),
+                "textStyle2": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateFutureAmountScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    attributes_manager = handler_input.attributes_manager
+    
+    data = attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    date = session_attr['date']
+    future_amount = session_attr['future_amount']
+
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "Future Amount Service",
+                "textStyle": "textStyleDisplay3",
+                "textToDisplay2": "Future amount on {date}:<br>US$ {future_amount}".format(date=date,future_amount=future_amount),
                 "textStyle2": "textStyleDisplay4",
                 "backgroundImage": get_image('background')
             },
