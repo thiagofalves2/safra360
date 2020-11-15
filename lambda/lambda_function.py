@@ -471,6 +471,9 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 
                 # Add speak_output variable to session attributes
                 session_attr["previous_speak_output"] = speak_output
+                
+                # Add APL Template if device is compatible
+                apl_utils.received_amount_screen(handler_input)
 
         elif (option == "sold amount") :
             sold_amount = authentication_controller('authorization/howMuchSell',persisted_cpf,date)
@@ -499,6 +502,9 @@ class SafraPayAccountIntentHandler(AbstractRequestHandler):
                 
                 # Add speak_output variable to session attributes
                 session_attr["previous_speak_output"] = speak_output
+                
+                # Add APL Template if device is compatible
+                apl_utils.future_amount_screen(handler_input)
          
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
