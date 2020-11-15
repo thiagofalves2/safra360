@@ -103,7 +103,7 @@ def authentication_intent_screen(handler_input):
             )
         ).add_directive(
             ExecuteCommandsDirective(
-                token="pagerToken",
+                token="launchToken",
                 commands=[
                     AutoPageCommand(
                         component_id="pagerComponentId",
