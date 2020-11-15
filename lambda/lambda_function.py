@@ -98,6 +98,9 @@ class HasClientInfoLaunchRequestHandler(AbstractRequestHandler):
                 To access our services, please confirm the token that was sent to your celphone.'.format(persisted_cpf=persisted_cpf, persisted_celphone=persisted_celphone, persisted_account_number=persisted_account_number)
             reprompt_text = 'Please, confirm the token we sent to your celphone.'
             
+            # Add APL Template if device is compatible
+            apl_utils.has_client_info_intent_screen(handler_input)
+            
             return (
                 handler_input.response_builder
                     .speak(speak_output)
