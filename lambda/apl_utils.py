@@ -139,6 +139,48 @@ def has_client_info_intent_screen(handler_input):
                 datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
             )
         )
+        
+    def sold_amount_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=generateSoldAmountScreenDatasource(handler_input)
+            )
+        )
+    
+    def future_amount_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
+            )
+        )
+    
+    def received_amount_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
+            )
+        )
 
 def generateLaunchRequestIntentScreenDatasource(handler_input):
     """
@@ -461,6 +503,48 @@ def generateHasClientInfoIntentScreenDatasource(handler_input):
                 "textStyle3": "textStyleDisplay4",
                 "textToDisplay4": "Account #: {}".format(persisted_account_number),
                 "textStyle4": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateSoldAmountScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    date = session_attr['date']
+    sold_amount = session_attr['sold_amount']
+    
+    # Extract persistent attributes
+    attr = handler_input.attributes_manager.persistent_attributes
+    persisted_cpf = attr['cpf']
+    persisted_celphone = attr['celphone']
+    persisted_account_number = attr['account_number']
+
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "Sold Amount Service",
+                "textStyle": "textStyleDisplay3",
+                "textToDisplay2": "Sold amount on {date}: {}".format(persisted_cpf),
+                "textStyle2": "textStyleDisplay4",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
