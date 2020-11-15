@@ -45,13 +45,16 @@
                                 "textAlign": "center"
                             },
                             {
-                                "type": "Text",
-                                "text": "${payload.datasources.basicBackgroundData.textToDisplay2}",
-                                "style": "${payload.datasources.basicBackgroundData.textStyle2}",
-                                "paddingTop": "@spacing3XLarge",
-                                "paddingLeft": "@marginHorizontal",
-                                "paddingRight": "@marginHorizontal",
-                                "textAlign": "center"
+                                "type": "AlexaImageList",
+                                "header": false,
+                                "backgroundImageSource": "${payload.datasources.basicBackgroundData.listItemBackground}",
+                                "imageAspectRatio": "square",
+                                "imageScale": "best-fill",
+                                "listItems": "${payload.datasources.imageListData.listItems}",
+                                "alignSelf": "center",
+                                "alignItens": "center",
+                                "headerTitle": "${payload.datasources.basicBackgroundData.textToDisplay2}",
+                                "paddingTop": "@spacing3XSmall"
                             }
                         ]
                     }
