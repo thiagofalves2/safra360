@@ -114,6 +114,8 @@ class CaptureAccountIntentHandler(AbstractRequestHandler):
         # Add account_number variable to session attributes
         session_attr["account_number"] = account_number
         
+        logger.info("session atributes: {}".format(session_attr))
+        
         # Adding session variables variables to persisted attributes
         persisted_attributes = {
             "cpf": session_attr["cpf"],
