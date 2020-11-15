@@ -268,6 +268,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                 
                 # Add speak_output variable to session attributes
                 session_attr["previous_speak_output"] = speak_output
+                
+                # Add APL Template if device is compatible
+                apl_utils.data_screen(handler_input)
 
         elif (service == "balance") :
             response_safra = call_safra_api('/balances', persisted_account_number)
@@ -337,6 +340,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                     
                 # Add speak_output variable to session attributes
                 session_attr["previous_speak_output"] = speak_output
+                
+                # Add APL Template if device is compatible
+                apl_utils.balance_screen(handler_input)
 
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
@@ -429,6 +435,9 @@ class AccountIntentHandler(AbstractRequestHandler):
                 
             # Add speak_output variable to session attributes
             session_attr["previous_speak_output"] = speak_output
+            
+            # Add APL Template if device is compatible
+            apl_utils.transactions_screen(handler_input)
         
         # Return to "menu".
         return AuthenticationIntentHandler.handle(self, handler_input)
