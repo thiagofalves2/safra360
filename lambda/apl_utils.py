@@ -301,11 +301,11 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
                     {
                         "primaryText": "Safra Banking",
                         "imageAlignment": "left",
-                        "imageSource": get_image('safraBank'),
+                        "imageSource": get_image('safraBanking'),
                         "primaryAction": [
                             {
                                 "type": "SetValue",
-                                "componentId": "safraBank",
+                                "componentId": "safraBanking",
                                 "property": "headerTitle",
                                 "value": ""
                             }
