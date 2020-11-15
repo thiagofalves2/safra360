@@ -272,14 +272,59 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
             "basicBackgroundData": {
                 "textToDisplay": "* * * *<br>Token succesfully validated",
                 "textStyle": "textStyleDisplay5",
-                "textToDisplay2": "How can I help you today? You can go to Safra Pay or Banking. Which service do you want?",
+                "textToDisplay2": "Which service do you want?",
                 "textStyle2": "textStyleDisplay4",
-                "backgroundImage": get_image('background')
+                "backgroundImage": get_image('background'),
+                "listItemBackground": get_image('listItemBackground')
             },
             "basicHeaderData": {
                 "headerTitle": skill_name,
                 "headerSubtitle": header_subtitle,
                 "headerAttributionImage": get_image('logo')
+            },
+            "imageListData": {
+                "type": "object",
+                "listItems": [
+                    {
+                        "primaryText": "Safra Pay",
+                        "imageAlignment": "center",
+                        "imageSource": get_image('safraPay'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "safraPay",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "primaryText": "Safra Banking",
+                        "imageAlignment": "left",
+                        "imageSource": get_image('safraBank'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "safraBank",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "primaryText": "Morning Calls",
+                        "imageAlignment": "left",
+                        "imageSource": get_image('morningCalls'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "morningCalls",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "sources": {}
