@@ -23,7 +23,8 @@ def _load_apl_document(file_path):
 APL_DOCS = {
     'launchRequestIntent': _load_apl_document('./documents/launchRequestIntent.json'),
     'authenticateIntent': _load_apl_document('./documents/authenticateIntent.json'),
-    'safraPay': _load_apl_document('./documents/safraPay.json')
+    'safraPay': _load_apl_document('./documents/safraPay.json'),
+    'hasClientInfo': _load_apl_document('./documents/hasClientInfo.json')
 }
 
 def supports_apl(handler_input):
@@ -124,6 +125,20 @@ def safrapay_intent_screen(handler_input):
                 token="launchToken",
                 document=APL_DOCS['safraPay'],
                 datasources=generateSafraPayIntentScreenDatasource(handler_input)
+            )
+        )
+
+def has_client_info_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=generateHasClientInfoIntentScreenDatasource(handler_input)
             )
         )
 
@@ -418,8 +433,46 @@ def generateSafraPayIntentScreenDatasource(handler_input):
         "sources": {}
     }
 
+def generateHasClientInfoIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Extract persistent attributes
+    attr = handler_input.attributes_manager.persistent_attributes
+    persisted_cpf = attr['cpf']
+    persisted_celphone = attr['celphone']
+    persisted_account_number = attr['account_number']
 
-
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "Welcome back!",
+                "textStyle": "textStyleDisplay3",
+                "textToDisplay2": "CPF: {}".format(persisted_cpf),
+                "textStyle2": "textStyleDisplay4",
+                "textToDisplay3": "Cell phone: {}".format(persisted_celphone),
+                "textStyle3": "textStyleDisplay4",
+                "textToDisplay4": "Account #: {}".format(persisted_account_number),
+                "textStyle4": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
 
 
 
