@@ -10,7 +10,10 @@ logger.setLevel(logging.DEBUG)
 IMAGES = {
     'logo': "https://logodownload.org/wp-content/uploads/2018/09/banco-safra-logo-2.png",
     'background': "https://s2.glbimg.com/mj2m7ttOzaHYfJqIDWN_SofobuI=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2019/B/A/DaKpMnQrAaB2ZjODB8Vw/sede-do-banco-safra-s-o-paulo-reprodu-o-facebook.png",
-    'listItemBackground': "https://i.ibb.co/PxxDMM1/oie-transparent.png"
+    'listItemBackground': "https://i.ibb.co/PxxDMM1/oie-transparent.png",
+    'safraPay': "https://i.ibb.co/bWSCfGC/download.png",
+    'safraBanking': "https://www.hospitalangelinacaron.org.br/wp-content/uploads/2017/07/logo_banco_safra.jpg",
+    'morningCalls': "https://i.ibb.co/kgnXHPM/morning-call.jpg"
 }
 
 def create_presigned_url(object_name):
