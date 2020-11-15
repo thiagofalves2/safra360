@@ -1,0 +1,75 @@
+{
+    "type": "APL",
+    "version": "1.5",
+    "import": [
+        {
+            "name": "alexa-layouts",
+            "version": "1.2.0"
+        }
+    ],
+    "mainTemplate": {
+        "parameters": [
+            "payload"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "items": [
+                    {
+                        "type": "AlexaBackground",
+                        "backgroundImageSource": "${payload.datasources.basicBackgroundData.backgroundImage}",
+                        "colorOverlay": true
+                    },
+                    {
+                        "type": "Container",
+                        "items": [
+                            {
+                                "type": "AlexaHeader",
+                                "headerTitle": "${payload.datasources.basicHeaderData.headerTitle}",
+                                "headerSubtitle": "${payload.datasources.basicHeaderData.headerSubtitle}",
+                                "headerDivider": true,
+                                "headerAttributionImage": "${payload.datasources.basicHeaderData.headerAttributionImage}"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay}",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle}",
+                                "paddingTop": "@spacing1XLarge",
+                                "paddingLeft": "@marginHorizontal",
+                                "paddingRight": "@marginHorizontal",
+                                "textAlign": "center"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay2}",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle2}",
+                                "paddingTop": "@spacing2XLarge",
+                                "paddingLeft": "@marginHorizontal",
+                                "paddingRight": "@marginHorizontal",
+                                "textAlign": "left"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay3}",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle3}",
+                                "paddingTop": "@spacing1XLarge",
+                                "paddingLeft": "@marginHorizontal",
+                                "paddingRight": "@marginHorizontal",
+                                "textAlign": "left"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${payload.datasources.basicBackgroundData.textToDisplay4}",
+                                "style": "${payload.datasources.basicBackgroundData.textStyle4}",
+                                "paddingTop": "@spacing1XLarge",
+                                "paddingLeft": "@marginHorizontal",
+                                "paddingRight": "@marginHorizontal",
+                                "textAlign": "left"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
