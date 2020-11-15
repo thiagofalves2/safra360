@@ -266,9 +266,6 @@ def generateAuthenticationIntentScreenDatasource(handler_input):
     # Get any existing attributes from the incoming request
     session_attr = attributes_manager.session_attributes
     
-    account_number = session_attr["account_number"]
-    
-    
     # Generate JSON Datasource
     return {
         "datasources": {
