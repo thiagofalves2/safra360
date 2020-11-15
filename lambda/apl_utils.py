@@ -1,8 +1,6 @@
 import json
 import time
-#import recipes
 import prompts
-#import recipe_utils
 import utils
 from utils import get_image
 
