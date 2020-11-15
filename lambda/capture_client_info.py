@@ -1,3 +1,4 @@
+import logging
 import apl_utils
 import utils
 from utils import get_token
@@ -10,6 +11,9 @@ from ask_sdk_core.dispatch_components import (
     AbstractRequestHandler, AbstractExceptionHandler,
     AbstractResponseInterceptor, AbstractRequestInterceptor
 )
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 class CaptureCPFIntentHandler(AbstractRequestHandler):
     """Handler for CPF Intent."""
