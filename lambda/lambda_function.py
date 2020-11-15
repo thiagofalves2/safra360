@@ -198,6 +198,9 @@ class SafraPayIntentHandler(AbstractRequestHandler):
         speak_output = 'Welcome to Safra Pay. Here you can check your Sold Amount, Received Amount and Future Amount on a specific date. Please choose service and date.'
         reprompt_text = 'How can I help you today? You can choose between Sold Amount, Received Amount or Future Amount and a specific date. Please choose service and date.'
         
+        # Add APL Template if device is compatible
+        apl_utils.safrapay_intent_screen(handler_input)
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
