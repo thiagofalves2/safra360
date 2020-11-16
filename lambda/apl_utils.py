@@ -801,17 +801,36 @@ def generateBalanceScreenDatasource(handler_input):
     # Define header title nad hint
     skill_name = data[prompts.SKILL_NAME]
     header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
-    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
     # Get any existing attributes from the incoming request
     session_attr = attributes_manager.session_attributes
     balance_response = session_attr['balance_response']
+    
+    # Get Data dict
+    account_data = balance_response['Data']
+    
+    # Get Account list
+    account = account_data['Account']
+    
+    # Get first account
+    account_record = account[0]
+    
+    # Get first account data
+    account_id = account_record['AccountId']
+    account_currency = account_record['Currency']
+    account_nickname = account_record['Nickname']
+    account_info = account_record['Account']
+    account_identification = account_info['Identification']
+    account_name = account_info['Name']
+    account_sec_id = account_info['SecondaryIdentification']
+    account_link = balance_response['Links']['Self']
 
     # Generate JSON Datasource
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "{}".format(balance_response),
+                "textToDisplay": "Account ID: {account_id}<br>Currency: {account_currency}<br>Nickname: {account_nickname}<br>Identification: {account_identification}<br>Name: {account_name}<br>Secondary ID: {account_sec_id}<br>Link: {account_link}".format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, 
+                    account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_link=account_link),
                 "textStyle": "textStyleDisplay6",
                 "backgroundImage": get_image('background')
             },
