@@ -206,7 +206,7 @@ def data_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['hasClientInfo'],
-                datasources=""
+                datasources=generateDataScreenDatasource(handler_input)
             )
         )
 
@@ -220,7 +220,7 @@ def balance_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['hasClientInfo'],
-                datasources=""
+                datasources=generateBalanceScreenDatasource(handler_input)
             )
         )
 
@@ -234,7 +234,7 @@ def transactions_screen(handler_input):
             RenderDocumentDirective(
                 token="launchToken",
                 document=APL_DOCS['hasClientInfo'],
-                datasources=""
+                datasources=generateTransactionsScreenDatasource(handler_input)
             )
         )
 
@@ -743,6 +743,105 @@ def generateFutureAmountScreenDatasource(handler_input):
                 "textStyle": "textStyleDisplay3",
                 "textToDisplay2": "Future amount on {date}:<br>US$ {future_amount}".format(date=date,future_amount=future_amount),
                 "textStyle2": "textStyleDisplay4",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateDataScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    data_response = session_attr['data_response']
+
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "{}".format(data_response),
+                "textStyle": "textStyleDisplay6",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateBalanceScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    balance_response = session_attr['balance_response']
+
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "{}".format(balance_response),
+                "textStyle": "textStyleDisplay6",
+                "backgroundImage": get_image('background')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            }
+        },
+        "sources": {}
+    }
+
+def generateTransactionsScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    #print(str(data))
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+   # Get any existing attributes from the incoming request
+    session_attr = attributes_manager.session_attributes
+    transactions_response = session_attr['transactions_response']
+
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay": "{}".format(transactions_response),
+                "textStyle": "textStyleDisplay6",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
