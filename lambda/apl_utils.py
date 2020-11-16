@@ -795,9 +795,9 @@ def generateDataScreenDatasource(handler_input):
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "Account ID: {account_id}<br>Currency: {account_currency}<br>Nickname: {account_nickname}<br>Identification: {account_identification}<br>Name: {account_name}<br>Secondary ID: {account_sec_id}<br>Link: {account_link}".format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, 
+                "textToDisplay2": "Account ID: {account_id}<br>Currency: {account_currency}<br>Nickname: {account_nickname}<br>Identification: {account_identification}<br>Name: {account_name}<br>Secondary ID: {account_sec_id}<br>Link: {account_link}".format(account_id=account_id,account_currency=account_currency,account_nickname=account_nickname, 
                     account_identification=account_identification,account_name=account_name,account_sec_id=account_sec_id,account_link=account_link),
-                "textStyle": "textStyleDisplay6",
+                "textStyle2": "textStyleDisplay6",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
@@ -826,12 +826,32 @@ def generateBalanceScreenDatasource(handler_input):
     session_attr = attributes_manager.session_attributes
     balance_response = session_attr['balance_response']
 
+    # Account data
+    account_data = balance_response['Data']
+    balance = account_data['Balance']
+    balance_record = balance[0]
+    account_id = balance_record['AccountId']
+    amount_record = balance_record['Amount']
+    amount = amount_record['Amount']
+    currency = amount_record['Currency']
+    credit_debit = balance_record['CreditDebitIndicator']
+    balance_type = balance_record['Type']
+    balance_date = balance_record['DateTime']
+    balance_credit_line = balance_record['CreditLine']
+    credit_line_record = balance_credit_line[0]
+    credit_line_included = credit_line_record['Included']
+    credit_line_amount = credit_line_record['Amount']['Amount']
+    credit_currency = credit_line_record['Amount']['Currency']
+    credit_line_type = credit_line_record['Type']
+    
+    account_link = balance_response['Links']['Self']
+
     # Generate JSON Datasource
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "{}".format(balance_response),
-                "textStyle": "textStyleDisplay6",
+                "textToDisplay2": "Account ID: {account_id}<br>Balance: US$ {amount} - {currency} - {credit_debit}<br>Balance Type: {balance_type} - {balance_date}<br>Credit Line? {credit_line_included}<br>Credit Line Amount: {credit_line_amount} - {credit_currency}<br>Credit Line Type: {credit_line_type}.".format(account_id=account_id,amount=amount,currency=currency, credit_debit=credit_debit,balance_type=balance_type,balance_date=balance_date,credit_line_included=credit_line_included,credit_line_amount=credit_line_amount, credit_currency=credit_currency, credit_line_type=credit_line_type), 
+                "textStyle2": "textStyleDisplay6",
                 "backgroundImage": get_image('background')
             },
             "basicHeaderData": {
@@ -861,11 +881,39 @@ def generateTransactionsScreenDatasource(handler_input):
     session_attr = attributes_manager.session_attributes
     transactions_response = session_attr['transactions_response']
 
+    # Account data
+    account_data = transactions_response['data']
+    logger.info("Account Data: {}".format(account_data))
+    
+    transaction = account_data['transaction']
+    transaction_record = transaction[0]
+    
+    account_id = transaction_record['accountId']
+    transaction_id = transaction_record['transactionId']
+    transaction_amount = transaction_record['amount']['amount']
+    transaction_currency = transaction_record['amount']['currency']
+    credit_debit = transaction_record['creditDebitIndicator']
+    transaction_status = transaction_record['status']
+    transaction_booking_datetime = transaction_record['bookingDateTime']
+    transaction_value_datetime = transaction_record['valueDateTime']
+    transaction_info = transaction_record['transactionInformation']
+    bank_transaction_code = transaction_record['bankTransactionCode']['code']
+    bank_transaction_subcode = transaction_record['bankTransactionCode']['subCode']
+    proprietary_bank_transaction_code = transaction_record['proprietaryBankTransactionCode']['code']
+    proprietary_bank_transaction_issuer = transaction_record['proprietaryBankTransactionCode']['issuer']
+    transaction_balance_amount_record = transaction_record['balance']['amount']
+    transaction_balance_amount = transaction_balance_amount_record['amount']
+    transaction_balance_currency = transaction_balance_amount_record['currency']
+    transaction_balance_creditdebit = transaction_record['balance']['creditDebitIndicator']
+    transaction_balance_type = transaction_record['balance']['type']
+    
+    account_link = transactions_response['links']['self']
+
     # Generate JSON Datasource
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay": "{}".format(transactions_response),
+                "textToDisplay": "Account ID: {account_id} - Trans. ID: {transaction_id}<br>Transaction Amount: US$ {transaction_amount} - {transaction_currency} - {credit_debit} - {transaction_status}<br>Booking Date: {transaction_booking_datetime} - Value Date: {transaction_value_datetime}<br>Transaction Info: {transaction_info} - Code/Subcode: {bank_transaction_code}/{bank_transaction_subcode}<br>Bank Trans. Code: {proprietary_bank_transaction_code} - {proprietary_bank_transaction_issuer}<br>Transaction Amount: {transaction_balance_amount} - {transaction_balance_currency} - {transaction_balance_creditdebit} - {transaction_balance_type}".format(account_id=account_id, transaction_id=transaction_id, transaction_amount=transaction_amount, transaction_currency=transaction_currency, credit_debit=credit_debit, transaction_status=transaction_status, transaction_booking_datetime=transaction_booking_datetime, transaction_value_datetime=transaction_value_datetime, transaction_info=transaction_info, bank_transaction_code=bank_transaction_code, bank_transaction_subcode=bank_transaction_subcode, proprietary_bank_transaction_code=proprietary_bank_transaction_code, proprietary_bank_transaction_issuer=proprietary_bank_transaction_issuer, transaction_balance_amount=transaction_balance_amount, transaction_balance_currency=transaction_balance_currency, transaction_balance_creditdebit=transaction_balance_creditdebit, transaction_balance_type=transaction_balance_type, account_link=account_link),
                 "textStyle": "textStyleDisplay6",
                 "backgroundImage": get_image('background')
             },
