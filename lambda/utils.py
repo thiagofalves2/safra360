@@ -16,7 +16,10 @@ IMAGES = {
     'morningCalls': "https://i.ibb.co/kgnXHPM/morning-call.jpg",
     'soldAmount': "https://i.ibb.co/c6W8v4R/sold-amount.png",
     'futureAmount': "https://i.ibb.co/wSmCMn3/future-amount.png",
-    'receivedAmount': "https://i.ibb.co/1Rktx6g/received-amount.png"
+    'receivedAmount': "https://i.ibb.co/1Rktx6g/received-amount.png",
+    'accountBalance': "https://i.ibb.co/pWcnf7f/balance.png",
+    'accountTransactions': "https://i.ibb.co/V93dpXc/transactions.png",
+    'accountData': "https://i.ibb.co/HF8QRNR/data.png"
 }
 
 def create_presigned_url(object_name):
