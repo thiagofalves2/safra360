@@ -875,7 +875,6 @@ def generateTransactionsScreenDatasource(handler_input):
     # Define header title nad hint
     skill_name = data[prompts.SKILL_NAME]
     header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
-    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
     
    # Get any existing attributes from the incoming request
     session_attr = attributes_manager.session_attributes
@@ -883,7 +882,6 @@ def generateTransactionsScreenDatasource(handler_input):
 
     # Account data
     account_data = transactions_response['data']
-    logger.info("Account Data: {}".format(account_data))
     
     transaction = account_data['transaction']
     transaction_record = transaction[0]
