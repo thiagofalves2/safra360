@@ -126,6 +126,20 @@ def safrapay_intent_screen(handler_input):
             )
         )
 
+def banking_intent_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['safraPay'],
+                datasources=generateBankingIntentScreenDatasource(handler_input)
+            )
+        )
+
 def has_client_info_intent_screen(handler_input):
     """
     Adds Launch Screen (APL Template) to Response
@@ -179,6 +193,48 @@ def received_amount_screen(handler_input):
                 token="launchToken",
                 document=APL_DOCS['hasClientInfo'],
                 datasources=generateReceivedAmountScreenDatasource(handler_input)
+            )
+        )
+
+def data_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=""
+            )
+        )
+
+def balance_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=""
+            )
+        )
+
+def transactions_screen(handler_input):
+    """
+    Adds Launch Screen (APL Template) to Response
+    """
+    # Only add APL directive if User's device supports APL
+    if(supports_apl(handler_input)):
+        handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                token="launchToken",
+                document=APL_DOCS['hasClientInfo'],
+                datasources=""
             )
         )
 
@@ -415,7 +471,7 @@ def generateSafraPayIntentScreenDatasource(handler_input):
     return {
         "datasources": {
             "basicBackgroundData": {
-                "textToDisplay2": "Please choose service and date.",
+                "textToDisplay2": "Safra Pay. Please choose service and date:",
                 "textStyle2": "textStyleDisplay4",
                 "backgroundImage": get_image('background'),
                 "listItemBackground": get_image('listItemBackground')
@@ -462,6 +518,79 @@ def generateSafraPayIntentScreenDatasource(handler_input):
                             {
                                 "type": "SetValue",
                                 "componentId": "futureAmount",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "sources": {}
+    }
+
+def generateBankingIntentScreenDatasource(handler_input):
+    """
+    Compute the JSON Datasource associated to APL Launch Screen
+    """
+    data = handler_input.attributes_manager.request_attributes["_"]
+    
+    # Define header title nad hint
+    skill_name = data[prompts.SKILL_NAME]
+    header_subtitle = data[prompts.HEADER_TITLE].format(data[prompts.BANK_NAME])
+    #hint_text = data[prompts.HINT_TEMPLATE].format(random_recipe['name'])
+    
+    # Generate JSON Datasource
+    return {
+        "datasources": {
+            "basicBackgroundData": {
+                "textToDisplay2": "Safra Banking. Please choose service:",
+                "textStyle2": "textStyleDisplay4",
+                "backgroundImage": get_image('background'),
+                "listItemBackground": get_image('listItemBackground')
+            },
+            "basicHeaderData": {
+                "headerTitle": skill_name,
+                "headerSubtitle": header_subtitle,
+                "headerAttributionImage": get_image('logo')
+            },
+            "imageListData": {
+                "type": "object",
+                "listItems": [
+                    {
+                        "primaryText": "Account Data",
+                        "imageAlignment": "center",
+                        "imageSource": get_image('accountData'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "accountData",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "primaryText": "Account Balance",
+                        "imageAlignment": "left",
+                        "imageSource": get_image('accountBalance'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "accountBalance",
+                                "property": "headerTitle",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "primaryText": "Account Transactions",
+                        "imageAlignment": "left",
+                        "imageSource": get_image('accountTransactions'),
+                        "primaryAction": [
+                            {
+                                "type": "SetValue",
+                                "componentId": "accountTransactions",
                                 "property": "headerTitle",
                                 "value": ""
                             }
