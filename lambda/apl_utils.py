@@ -789,7 +789,7 @@ def generateDataScreenDatasource(handler_input):
     account_identification = account_info['Identification']
     account_name = account_info['Name']
     account_sec_id = account_info['SecondaryIdentification']
-    account_link = balance_response['Links']['Self']
+    account_link = data_response['Links']['Self']
     
     # Generate JSON Datasource
     return {
