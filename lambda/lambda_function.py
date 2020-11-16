@@ -237,6 +237,7 @@ class AccountIntentHandler(AbstractRequestHandler):
         
         if (service == "data") :
             response_safra = call_safra_api('', persisted_account_number)
+            session_attr["data_response"] = response_safra
             
             if (response_safra == '') :
                 logger.error("Empty API response.")
@@ -277,6 +278,7 @@ class AccountIntentHandler(AbstractRequestHandler):
 
         elif (service == "balance") :
             response_safra = call_safra_api('/balances', persisted_account_number)
+            session_attr["balance_response"] = response_safra
             
             if (response_safra == '') :
                 logger.error("Empty API response.")
@@ -349,6 +351,7 @@ class AccountIntentHandler(AbstractRequestHandler):
 
         else :
             response_safra = call_safra_api('/transactions', persisted_account_number)
+            session_attr["transactions_response"] = response_safra
 
             # Account data
             account_data = response_safra['data']
