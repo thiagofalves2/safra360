@@ -1,0 +1,1685 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "safra bank",
+            "modelConfiguration": {
+                "fallbackIntentSensitivity": {
+                    "level": "LOW"
+                }
+            },
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "CaptureCPFIntent",
+                    "slots": [
+                        {
+                            "name": "cpf_one",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_two",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_three",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_four",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_five",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_six",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_seven",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_eight",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_nine",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_ten",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "cpf_eleven",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "my cpf number is {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "my c. p. f. is {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "{cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven} is my CPF",
+                        "The number is {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "my c. p. f. number is {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "It's {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "Here it is {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "{cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}",
+                        "My CPF is {cpf_one} {cpf_two} {cpf_three} {cpf_four} {cpf_five} {cpf_six} {cpf_seven} {cpf_eight} {cpf_nine} {cpf_ten} {cpf_eleven}"
+                    ]
+                },
+                {
+                    "name": "BankingIntent",
+                    "slots": [],
+                    "samples": [
+                        "Banking service",
+                        "Take me to Safra Banking",
+                        "I want Safra Banking",
+                        "I want banking",
+                        "Banking"
+                    ]
+                },
+                {
+                    "name": "AccountIntent",
+                    "slots": [
+                        {
+                            "name": "service",
+                            "type": "LIST_OF_ACCOUNT_SERVICES"
+                        }
+                    ],
+                    "samples": [
+                        "Show me {service}",
+                        "Take me to {service}",
+                        "I choose {service}",
+                        "{service}",
+                        "Account {service}",
+                        "I choose Account {service}",
+                        "Take me to Account {service}",
+                        "I want Account {service}"
+                    ]
+                },
+                {
+                    "name": "CaptureCelphoneIntent",
+                    "slots": [
+                        {
+                            "name": "celphone_area_one",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_area_two",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_digit",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_one",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_two",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_three",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_four",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_five",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_six",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_seven",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "celphone_number_eight",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "my cellphone number is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "my cellphone is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "my cell phone is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "my number is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "my cell is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "my phone number is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "my cell phone number is {celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}",
+                        "{celphone_area_one} {celphone_area_two} {celphone_digit} {celphone_number_one} {celphone_number_two} {celphone_number_three} {celphone_number_four} {celphone_number_five} {celphone_number_six} {celphone_number_seven} {celphone_number_eight}"
+                    ]
+                },
+                {
+                    "name": "CaptureAccountIntent",
+                    "slots": [
+                        {
+                            "name": "account_number",
+                            "type": "LIST_OF_ACCOUNT_NUMBERS"
+                        }
+                    ],
+                    "samples": [
+                        "My account is  {account_number}",
+                        "The number is {account_number} ",
+                        "{account_number} ",
+                        "My account number is {account_number} "
+                    ]
+                },
+                {
+                    "name": "AuthenticationIntent",
+                    "slots": [
+                        {
+                            "name": "token_one",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "token_two",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "token_three",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "token_four",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "it is {token_one} {token_two} {token_three} {token_four}",
+                        "{token_one} {token_two} {token_three} {token_four}",
+                        "The token is {token_one} {token_two} {token_three} {token_four}"
+                    ]
+                },
+                {
+                    "name": "SafraPayIntent",
+                    "slots": [],
+                    "samples": [
+                        "pay",
+                        "I want pay",
+                        "I want Safra Pay",
+                        "Take me to Safra Pay",
+                        "Safrapay service"
+                    ]
+                },
+                {
+                    "name": "SafraPayAccountIntent",
+                    "slots": [
+                        {
+                            "name": "option",
+                            "type": "LIST_OF_SAFRAPAY_SERVICES"
+                        },
+                        {
+                            "name": "date",
+                            "type": "AMAZON.DATE"
+                        }
+                    ],
+                    "samples": [
+                        "Show me {option} on {date}",
+                        "{option} on {date}",
+                        "Take me to {option} on {date}",
+                        "Show {option} on {date}",
+                        "I want {option} on {date}",
+                        "{option} {date}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.MoreIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateSettingsIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NextIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PageUpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PageDownIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PreviousIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollRightIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollDownIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollLeftIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ScrollUpIntent",
+                    "samples": []
+                }
+            ],
+            "types": [
+                {
+                    "name": "LIST_OF_ACCOUNT_SERVICES",
+                    "values": [
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "Statement"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "Balance"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "Data"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "LIST_OF_ACCOUNT_NUMBERS",
+                    "values": [
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "00711234533"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "00711234522"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "00711234511"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "LIST_OF_SAFRAPAY_SERVICES",
+                    "values": [
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "future amount",
+                                "synonyms": [
+                                    "expected amount"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "received amount",
+                                "synonyms": [
+                                    "earned amount"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "sold amount",
+                                "synonyms": [
+                                    "sell amount"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "CaptureCPFIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "cpf_one",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.983370472387"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.983370472387.698052201521",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_two",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.249985862445"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.249985862445.652224428846",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_three",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.837392247250"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.837392247250.917960010865",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_four",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.1250639560675"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.1250639560675.666320159696",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_five",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.1574120032281"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.1574120032281.1545700749831",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_six",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.173077248349"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.173077248349.226100133546",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_seven",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.281879942080"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.281879942080.1242717312863",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_eight",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.937299573381"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.937299573381.672007301707",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_nine",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.1490567178800"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.1490567178800.146535863485",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_ten",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.1352433223393"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.1352433223393.655937713637",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpf_eleven",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.583622447915.713052231078"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.583622447915.713052231078.1016077477835",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "AccountIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "service",
+                            "type": "LIST_OF_ACCOUNT_SERVICES",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.487456839961.1381125879476"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "CaptureCelphoneIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "celphone_area_one",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.301476227281"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.301476227281.1108174322331",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_area_two",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.944876691058"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.944876691058.862386313538",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_digit",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.1404797345174"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.1404797345174.866347946532",
+                                    "values": [
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_one",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.608191524524"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.608191524524.544796340000",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_two",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.1567959953839"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.1567959953839.1238846369912",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_three",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.75763685980"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.75763685980.1423092910567",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_four",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.1598768942335"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.1598768942335.723973768586",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_five",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.889259255758"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.889259255758.642366773234",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_six",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.1049455462543"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.1049455462543.182989410778",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_seven",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.391395150629"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.391395150629.809620635804",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "celphone_number_eight",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1578953858207.683308321856"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1578953858207.683308321856.147532012068",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "CaptureAccountIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "account_number",
+                            "type": "LIST_OF_ACCOUNT_NUMBERS",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1328630950309.1182064385802"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "AuthenticationIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "token_one",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1022585643236.122653941815"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1022585643236.122653941815.542510984015",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "token_two",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1022585643236.468253033963"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1022585643236.468253033963.691462287616",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "token_three",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1022585643236.1269491600811"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1022585643236.1269491600811.762859552881",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "token_four",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1022585643236.466418736244"
+                            },
+                            "validations": [
+                                {
+                                    "type": "isInSet",
+                                    "prompt": "Slot.Validation.1022585643236.466418736244.354892247668",
+                                    "values": [
+                                        "0",
+                                        "1",
+                                        "2",
+                                        "3",
+                                        "4",
+                                        "5",
+                                        "6",
+                                        "7",
+                                        "8",
+                                        "9"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "SafraPayAccountIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "option",
+                            "type": "LIST_OF_SAFRAPAY_SERVICES",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.779580431212.91439705520"
+                            }
+                        },
+                        {
+                            "name": "date",
+                            "type": "AMAZON.DATE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1243870301876.526428486644"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.667435944675.85925547454",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What month were you born in?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.667435944675.574982862838",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What day were you born in?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.667435944675.73040617572",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What year were you born in?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.983370472387",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the first number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.983370472387.698052201521",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.249985862445",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the second number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.249985862445.652224428846",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.837392247250",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the third number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.1250639560675",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the fourth number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.1250639560675.666320159696",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.1574120032281",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the fifth number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.1574120032281.1545700749831",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.173077248349",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the sixth number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.173077248349.226100133546",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.281879942080",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the seventh number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.281879942080.1242717312863",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.937299573381",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the eighth number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.937299573381.672007301707",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.1490567178800",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the nineth number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.1490567178800.146535863485",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.1352433223393",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the tenth number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.1352433223393.655937713637",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.583622447915.713052231078",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the last number of your CPF?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.713052231078.1016077477835",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.583622447915.837392247250.917960010865",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Try again please."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.487456839961.1381125879476",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What account service do you want, account data, balance or statement?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.301476227281.1108174322331",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.301476227281",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your area code first number?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.944876691058",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your area code second number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.944876691058.862386313538",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.1404797345174",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Please add the celphone number prefix, nine."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.1404797345174.866347946532",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.608191524524",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone first number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.608191524524.544796340000",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.1567959953839",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone second number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.1567959953839.1238846369912",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.75763685980",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone third number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.75763685980.1423092910567",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.1598768942335",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone fourth number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.1598768942335.723973768586",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.889259255758",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone fifth number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.889259255758.642366773234",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.1049455462543",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone sixth number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.1049455462543.182989410778",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.391395150629",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone seventh number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.391395150629.809620635804",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1578953858207.683308321856",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your celphone last number?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1578953858207.683308321856.147532012068",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1328630950309.1182064385802",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's your account number?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1022585643236.122653941815",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's the first digit of your token?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1022585643236.122653941815.542510984015",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1022585643236.468253033963",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's the second digit of your token?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1022585643236.1269491600811",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's the third digit of your token?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1022585643236.466418736244",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What's the fourth digit of your token?"
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1022585643236.466418736244.354892247668",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1022585643236.1269491600811.762859552881",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Slot.Validation.1022585643236.468253033963.691462287616",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Not a valid number. Please try again."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.779580431212.91439705520",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What SafraPay service do you want, Sold Amount, Received Amount or Future Amount?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1243870301876.526428486644",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "From what date?"
+                    }
+                ]
+            }
+        ]
+    }
+}
