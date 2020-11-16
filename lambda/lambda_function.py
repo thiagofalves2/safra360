@@ -181,6 +181,9 @@ class BankingIntentHandler(AbstractRequestHandler):
         speak_output = 'Welcome to Safra Banking. You can choose between Account Data, Account Statement or Account Balance. Which service do you want?'
         reprompt_text = 'How can I help you today? You can choose between Account Data, Account Statement or Account Balance. Which service do you want?'
         
+        # Add APL Template if device is compatible
+        apl_utils.banking_intent_screen(handler_input)
+        
         return (
             handler_input.response_builder
                 .speak(speak_output)
