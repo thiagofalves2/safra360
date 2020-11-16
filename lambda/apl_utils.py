@@ -758,7 +758,9 @@ def generateDataScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
-    data = handler_input.attributes_manager.request_attributes["_"]
+    attributes_manager = handler_input.attributes_manager
+    
+    data = attributes_manager.request_attributes["_"]
     #print(str(data))
     
     # Define header title nad hint
@@ -791,7 +793,9 @@ def generateBalanceScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
-    data = handler_input.attributes_manager.request_attributes["_"]
+    attributes_manager = handler_input.attributes_manager
+    
+    data = attributes_manager.request_attributes["_"]
     #print(str(data))
     
     # Define header title nad hint
@@ -824,7 +828,9 @@ def generateTransactionsScreenDatasource(handler_input):
     """
     Compute the JSON Datasource associated to APL Launch Screen
     """
-    data = handler_input.attributes_manager.request_attributes["_"]
+    attributes_manager = handler_input.attributes_manager
+    
+    data = attributes_manager.request_attributes["_"]
     #print(str(data))
     
     # Define header title nad hint
